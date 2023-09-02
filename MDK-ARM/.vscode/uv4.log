@@ -1,0 +1,51 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin'
+Build target 'STM32F407ZGT6'
+compiling act_motor.c...
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+  unsigned char PID_JudgeStatus(); 
+..\my\act_motor.c(64): error:  #20: identifier "Accum_GO_straight" is undefined
+      if (action <= Accum_GO_straight)
+..\my\act_motor.c(89): warning:  #174-D: expression has no effect
+              pid_angle
+..\my\act_motor.c(90): error:  #65: expected a ";"
+              pid_location.target_val = 0;
+..\my\act_motor.c(95): warning:  #111-D: statement is unreachable
+              break;
+..\my\act_motor.c(99): error:  #165: too few arguments in function call
+      MotorDrive(StableSpeed,tarL1,StableSpeed,tarL2);
+..\my\act_motor.c: 3 warnings, 3 errors
+compiling encoder.c...
+compiling motor.c...
+compiling control.c...
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+  unsigned char PID_JudgeStatus(); 
+..\my\control.c: 1 warning, 0 errors
+compiling PID.c...
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+  unsigned char PID_JudgeStatus(); 
+..\my\PID.c(178): warning:  #111-D: statement is unreachable
+  			}break;
+..\my\PID.c(211): warning:  #111-D: statement is unreachable
+  		break;
+..\my\PID.c(223): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		float speed= distance*0.1;
+..\my\PID.c(224): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		Lout = 0.01*Lout;
+..\my\PID.c(271): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  						+ 0.6 * (pid->err)										   /* 积分环节 */
+..\my\PID.c(322): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		pid->out =   0.01*pid->err
+..\my\PID.c(323): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  						+0.002*pid->integral
+..\my\PID.c: 8 warnings, 0 errors
+compiling ano.c...
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+  unsigned char PID_JudgeStatus(); 
+..\my\ano.c: 1 warning, 0 errors
+compiling main.c...
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+  unsigned char PID_JudgeStatus(); 
+../Core/Src/main.c: 1 warning, 0 errors
+"STM32F407ZGT6\STM32F407ZGT6.axf" - 3 Error(s), 14 Warning(s).
+Target not created.
+Build Time Elapsed:  00:00:06

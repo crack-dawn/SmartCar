@@ -1,0 +1,27 @@
+{
+    "files.associations": {
+        "usart.h": "c",
+        "main.h": "c",
+        "control.h": "c",
+        "i2c.h": "c",
+        "tim.h": "c",
+        "motor.h": "c",
+        "encoder.h": "c",
+        "dma.h": "c",
+        "pid.h": "c",
+        "act_motor.h": "c",
+        "logic.h": "c",
+        "gpio.h": "c",
+        "cmath": "cpp",
+        "stepmotor.h": "c",
+        "oled_font.h": "c",
+        "ssd1309_oled.h": "c",
+        "servo.h": "c",
+        "key.h": "c",
+        "math.h": "c",
+        "robtask.h": "c",
+        "my_uart.h": "c",
+        "oled.h": "c",
+        "string.h": "c"
+    }
+}

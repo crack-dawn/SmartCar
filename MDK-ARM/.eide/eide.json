@@ -1,0 +1,412 @@
+{
+  "name": "STM32F407ZGT6",
+  "type": "ARM",
+  "dependenceList": [],
+  "srcDirs": [
+    ".eide/deps"
+  ],
+  "virtualFolder": {
+    "name": "<virtual_root>",
+    "files": [],
+    "folders": [
+      {
+        "name": "::CMSIS",
+        "files": [],
+        "folders": []
+      },
+      {
+        "name": "Application",
+        "files": [],
+        "folders": [
+          {
+            "name": "MDK-ARM",
+            "files": [
+              {
+                "path": "armlib_lock_glue.c"
+              },
+              {
+                "path": "startup_stm32f407xx.s"
+              }
+            ],
+            "folders": []
+          },
+          {
+            "name": "User",
+            "files": [],
+            "folders": [
+              {
+                "name": "Core",
+                "files": [
+                  {
+                    "path": "../Core/Src/dma.c"
+                  },
+                  {
+                    "path": "../Core/Src/gpio.c"
+                  },
+                  {
+                    "path": "../Core/Src/i2c.c"
+                  },
+                  {
+                    "path": "../Core/Src/main.c"
+                  },
+                  {
+                    "path": "../Core/Src/stm32f4xx_hal_msp.c"
+                  },
+                  {
+                    "path": "../Core/Src/stm32f4xx_it.c"
+                  },
+                  {
+                    "path": "../Core/Src/tim.c"
+                  },
+                  {
+                    "path": "../Core/Src/usart.c"
+                  }
+                ],
+                "folders": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Drivers",
+        "files": [],
+        "folders": [
+          {
+            "name": "CMSIS",
+            "files": [
+              {
+                "path": "../Core/Src/system_stm32f4xx.c"
+              }
+            ],
+            "folders": []
+          },
+          {
+            "name": "STM32F4xx_HAL_Driver",
+            "files": [
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c"
+              },
+              {
+                "path": "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c"
+              }
+            ],
+            "folders": []
+          }
+        ]
+      },
+      {
+        "name": "New Group",
+        "files": [
+          {
+            "path": "../my/act_motor.c"
+          },
+          {
+            "path": "../my/act_motor.h"
+          },
+          {
+            "path": "../my/ano.c"
+          },
+          {
+            "path": "../my/ano.h"
+          },
+          {
+            "path": "../my/control.c"
+          },
+          {
+            "path": "../my/control.h"
+          },
+          {
+            "path": "../my/key.c"
+          },
+          {
+            "path": "../my/key.h"
+          },
+          {
+            "path": "../my/logic.h"
+          },
+          {
+            "path": "../my/motor.c"
+          },
+          {
+            "path": "../my/motor.h"
+          },
+          {
+            "path": "../my/my_uart.c"
+          },
+          {
+            "path": "../my/my_uart.h"
+          },
+          {
+            "path": "../my/PID.c"
+          },
+          {
+            "path": "../my/PID.h"
+          },
+          {
+            "path": "../my/printf_.c"
+          },
+          {
+            "path": "../my/RobTask.c"
+          },
+          {
+            "path": "../my/RobTask.h"
+          },
+          {
+            "path": "../my/Servo.c"
+          },
+          {
+            "path": "../my/Servo.h"
+          },
+          {
+            "path": "../my/StepMotor.c"
+          },
+          {
+            "path": "../my/StepMotor.h"
+          }
+        ],
+        "folders": []
+      }
+    ]
+  },
+  "outDir": "build",
+  "deviceName": null,
+  "packDir": null,
+  "miscInfo": {
+    "uid": "8d09da0cb99138dd02ac7304055e6679"
+  },
+  "targets": {
+    "STM32F407ZGT6": {
+      "excludeList": [
+        "<virtual_root>/New Group/oled.c",
+        "<virtual_root>/New Group/encoder.c"
+      ],
+      "toolchain": "AC5",
+      "compileConfig": {
+        "cpuType": "Cortex-M4",
+        "floatingPointHardware": "single",
+        "scatterFilePath": "",
+        "useCustomScatterFile": false,
+        "storageLayout": {
+          "RAM": [
+            {
+              "tag": "RAM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "noInit": false
+            },
+            {
+              "tag": "RAM",
+              "id": 2,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "noInit": false
+            },
+            {
+              "tag": "RAM",
+              "id": 3,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "noInit": false
+            },
+            {
+              "tag": "IRAM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x20000000",
+                "size": "0x1c000"
+              },
+              "isChecked": true,
+              "noInit": false
+            },
+            {
+              "tag": "IRAM",
+              "id": 2,
+              "mem": {
+                "startAddr": "0x2001c000",
+                "size": "0x4000"
+              },
+              "isChecked": true,
+              "noInit": false
+            }
+          ],
+          "ROM": [
+            {
+              "tag": "ROM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "isStartup": false
+            },
+            {
+              "tag": "ROM",
+              "id": 2,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "isStartup": false
+            },
+            {
+              "tag": "ROM",
+              "id": 3,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "isStartup": false
+            },
+            {
+              "tag": "IROM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x8000000",
+                "size": "0x100000"
+              },
+              "isChecked": true,
+              "isStartup": true
+            },
+            {
+              "tag": "IROM",
+              "id": 2,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "isStartup": false
+            }
+          ]
+        },
+        "options": "null"
+      },
+      "uploader": "STLink",
+      "uploadConfig": {
+        "bin": "",
+        "proType": "SWD",
+        "resetMode": "default",
+        "runAfterProgram": true,
+        "speed": 4000,
+        "address": "0x8000000",
+        "elFile": "None",
+        "optionBytes": ".eide/stm32f407zgt6.st.option.bytes.ini",
+        "otherCmds": ""
+      },
+      "uploadConfigMap": {
+        "JLink": {
+          "bin": "",
+          "baseAddr": "",
+          "cpuInfo": {
+            "vendor": "null",
+            "cpuName": "null"
+          },
+          "proType": 1,
+          "speed": 8000,
+          "otherCmds": ""
+        },
+        "STLink": {
+          "bin": "",
+          "proType": "SWD",
+          "resetMode": "default",
+          "runAfterProgram": true,
+          "speed": 4000,
+          "address": "0x8000000",
+          "elFile": "None",
+          "optionBytes": ".eide/stm32f407zgt6.st.option.bytes.ini",
+          "otherCmds": ""
+        },
+        "OpenOCD": {
+          "bin": "",
+          "target": "stm32f1x",
+          "interface": "stlink",
+          "baseAddr": "0x08000000"
+        }
+      },
+      "custom_dep": {
+        "name": "default",
+        "incList": [
+          "../Core/Inc",
+          "../Drivers/STM32F4xx_HAL_Driver/Inc",
+          "../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy",
+          "../Drivers/CMSIS/Device/ST/STM32F4xx/Include",
+          "../Drivers/CMSIS/Include",
+          "../my",
+          ".cmsis/include",
+          "RTE/_STM32F407ZGT6",
+          ".eide/deps"
+        ],
+        "libList": [],
+        "sourceDirList": [],
+        "defineList": [
+          "USE_HAL_DRIVER",
+          "STM32F407xx",
+          "STM32_THREAD_SAFE_STRATEGY=2"
+        ]
+      }
+    }
+  },
+  "version": "3.3"
+}
