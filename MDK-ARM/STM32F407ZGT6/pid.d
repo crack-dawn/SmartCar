@@ -35,7 +35,9 @@ stm32f407zgt6\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 stm32f407zgt6\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 stm32f407zgt6\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 stm32f407zgt6\pid.o: ..\my\motor.h
-stm32f407zgt6\pid.o: ..\my\encoder.h
+stm32f407zgt6\pid.o: ..\my\motor.h
+stm32f407zgt6\pid.o: ../Core/Inc/tim.h
+stm32f407zgt6\pid.o: ..\my\PID.h
 stm32f407zgt6\pid.o: ..\my\control.h
 stm32f407zgt6\pid.o: ..\my\ano.h
 stm32f407zgt6\pid.o: ..\my\control.h
@@ -46,7 +48,6 @@ stm32f407zgt6\pid.o: ../Core/Inc/usart.h
 stm32f407zgt6\pid.o: ..\my\act_motor.h
 stm32f407zgt6\pid.o: ..\my\logic.h
 stm32f407zgt6\pid.o: ..\my\StepMotor.h
-stm32f407zgt6\pid.o: ../Core/Inc/tim.h
 stm32f407zgt6\pid.o: ..\my\key.h
 stm32f407zgt6\pid.o: ..\my\StepMotor.h
 stm32f407zgt6\pid.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\math.h

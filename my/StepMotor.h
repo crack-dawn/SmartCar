@@ -16,11 +16,14 @@
 #define StepMotorTIM            TIM5
 #define StepMotorTIMHandle      (htim5)
 
-///         方向角                           方向角            通道角
-#define StepDirGPIO     GPIOC            
-#define StepDirPin_1    GPIO_PIN_1      //C1                    PA 0    CH1
-#define StepDirPin_2    GPIO_PIN_2      //C2                    PA 1    CH2
-#define StepDirPin_3    GPIO_PIN_3      //C3                    PA 2    CH3
+
+/*方向pin 较之前稳定版本有改动*/
+///         方向pin                      方向pin             ||    通道pin
+#define StepDirGPIO     GPIOC           // 									 ||
+#define StepDirPin_1    GPIO_PIN_1      //C0                 ||   PA 0    CH1
+#define StepDirPin_2    GPIO_PIN_2      //C1                 ||   PA 1    CH2
+#define StepDirPin_3    GPIO_PIN_3      //C2                 ||   PA 2    CH3
+#define StepDirPin_4    GPIO_PIN_4      //C3                 ||   PA 2    CH3
 
 
 #define Factor                (0.0174533) //acos(-1)/180                            //角度转弧度

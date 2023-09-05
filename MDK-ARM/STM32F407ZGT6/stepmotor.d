@@ -38,16 +38,18 @@ stm32f407zgt6\stepmotor.o: ../Core/Inc/tim.h
 stm32f407zgt6\stepmotor.o: ..\my\key.h
 stm32f407zgt6\stepmotor.o: ..\my\PID.h
 stm32f407zgt6\stepmotor.o: ..\my\motor.h
-stm32f407zgt6\stepmotor.o: ..\my\encoder.h
+stm32f407zgt6\stepmotor.o: ..\my\motor.h
+stm32f407zgt6\stepmotor.o: ..\my\PID.h
 stm32f407zgt6\stepmotor.o: ..\my\my_uart.h
-stm32f407zgt6\stepmotor.o: ../Core/Inc/usart.h
 stm32f407zgt6\stepmotor.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\stdio.h
-stm32f407zgt6\stepmotor.o: ..\my\control.h
+stm32f407zgt6\stepmotor.o: ../Core/Inc/usart.h
 stm32f407zgt6\stepmotor.o: ..\my\ano.h
 stm32f407zgt6\stepmotor.o: ..\my\control.h
-stm32f407zgt6\stepmotor.o: ../Core/Inc/usart.h
+stm32f407zgt6\stepmotor.o: ..\my\ano.h
+stm32f407zgt6\stepmotor.o: ..\my\my_uart.h
 stm32f407zgt6\stepmotor.o: ..\my\act_motor.h
 stm32f407zgt6\stepmotor.o: ..\my\logic.h
 stm32f407zgt6\stepmotor.o: ..\my\StepMotor.h
 stm32f407zgt6\stepmotor.o: ..\my\Servo.h
+stm32f407zgt6\stepmotor.o: ../Core/Inc/usart.h
 stm32f407zgt6\stepmotor.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\math.h

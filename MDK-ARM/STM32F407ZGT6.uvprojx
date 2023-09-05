@@ -138,7 +138,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2V8M.DLL</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -579,16 +579,6 @@
               <FilePath>..\my\control.h</FilePath>
             </File>
             <File>
-              <FileName>encoder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\my\encoder.c</FilePath>
-            </File>
-            <File>
-              <FileName>encoder.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\my\encoder.h</FilePath>
-            </File>
-            <File>
               <FileName>key.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\my\key.c</FilePath>
@@ -597,11 +587,6 @@
               <FileName>key.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\my\key.h</FilePath>
-            </File>
-            <File>
-              <FileName>logic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\my\logic.c</FilePath>
             </File>
             <File>
               <FileName>logic.h</FileName>
@@ -619,16 +604,6 @@
               <FilePath>..\my\motor.h</FilePath>
             </File>
             <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\my\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\my\mpu6050.h</FilePath>
-            </File>
-            <File>
               <FileName>my_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\my\my_uart.c</FilePath>
@@ -637,21 +612,6 @@
               <FileName>my_uart.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\my\my_uart.h</FilePath>
-            </File>
-            <File>
-              <FileName>oled.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\my\oled.c</FilePath>
-            </File>
-            <File>
-              <FileName>oled.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\my\oled.h</FilePath>
-            </File>
-            <File>
-              <FileName>oledfont.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\my\oledfont.h</FilePath>
             </File>
             <File>
               <FileName>PID.c</FileName>

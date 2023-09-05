@@ -34,10 +34,24 @@ stm32f407zgt6\my_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_e
 stm32f407zgt6\my_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 stm32f407zgt6\my_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 stm32f407zgt6\my_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-stm32f407zgt6\my_uart.o: ../Core/Inc/usart.h
 stm32f407zgt6\my_uart.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\stdio.h
-stm32f407zgt6\my_uart.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\string.h
+stm32f407zgt6\my_uart.o: ../Core/Inc/usart.h
+stm32f407zgt6\my_uart.o: ..\my\ano.h
+stm32f407zgt6\my_uart.o: ..\my\control.h
+stm32f407zgt6\my_uart.o: ..\my\ano.h
+stm32f407zgt6\my_uart.o: ..\my\my_uart.h
 stm32f407zgt6\my_uart.o: ..\my\PID.h
 stm32f407zgt6\my_uart.o: ..\my\motor.h
-stm32f407zgt6\my_uart.o: ..\my\encoder.h
-stm32f407zgt6\my_uart.o: ..\my\oled.h
+stm32f407zgt6\my_uart.o: ..\my\motor.h
+stm32f407zgt6\my_uart.o: ../Core/Inc/tim.h
+stm32f407zgt6\my_uart.o: ..\my\PID.h
+stm32f407zgt6\my_uart.o: ..\my\act_motor.h
+stm32f407zgt6\my_uart.o: ..\my\logic.h
+stm32f407zgt6\my_uart.o: ..\my\StepMotor.h
+stm32f407zgt6\my_uart.o: ..\my\key.h
+stm32f407zgt6\my_uart.o: ..\my\control.h
+stm32f407zgt6\my_uart.o: ..\my\StepMotor.h
+stm32f407zgt6\my_uart.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\math.h
+stm32f407zgt6\my_uart.o: ..\my\Servo.h
+stm32f407zgt6\my_uart.o: ../Core/Inc/usart.h
+stm32f407zgt6\my_uart.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\string.h

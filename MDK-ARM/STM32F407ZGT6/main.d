@@ -39,15 +39,16 @@ stm32f407zgt6\main.o: ../Core/Inc/tim.h
 stm32f407zgt6\main.o: ../Core/Inc/usart.h
 stm32f407zgt6\main.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\stdio.h
 stm32f407zgt6\main.o: ../Core/Inc/gpio.h
-stm32f407zgt6\main.o: ../Core/Inc/usart.h
 stm32f407zgt6\main.o: ..\my\my_uart.h
 stm32f407zgt6\main.o: ../Core/Inc/usart.h
 stm32f407zgt6\main.o: ..\my\ano.h
 stm32f407zgt6\main.o: ..\my\control.h
 stm32f407zgt6\main.o: ..\my\ano.h
+stm32f407zgt6\main.o: ..\my\my_uart.h
 stm32f407zgt6\main.o: ..\my\PID.h
 stm32f407zgt6\main.o: ..\my\motor.h
-stm32f407zgt6\main.o: ..\my\encoder.h
+stm32f407zgt6\main.o: ..\my\motor.h
+stm32f407zgt6\main.o: ..\my\PID.h
 stm32f407zgt6\main.o: ..\my\act_motor.h
 stm32f407zgt6\main.o: ..\my\logic.h
 stm32f407zgt6\main.o: ..\my\StepMotor.h
@@ -58,4 +59,3 @@ stm32f407zgt6\main.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..
 stm32f407zgt6\main.o: ..\my\Servo.h
 stm32f407zgt6\main.o: ../Core/Inc/usart.h
 stm32f407zgt6\main.o: ..\my\RobTask.h
-stm32f407zgt6\main.o: ..\my\oled.h

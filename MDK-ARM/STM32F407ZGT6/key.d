@@ -36,19 +36,21 @@ stm32f407zgt6\key.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 stm32f407zgt6\key.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 stm32f407zgt6\key.o: ..\my\PID.h
 stm32f407zgt6\key.o: ..\my\motor.h
-stm32f407zgt6\key.o: ..\my\encoder.h
+stm32f407zgt6\key.o: ..\my\motor.h
+stm32f407zgt6\key.o: ../Core/Inc/tim.h
+stm32f407zgt6\key.o: ..\my\PID.h
 stm32f407zgt6\key.o: ..\my\my_uart.h
-stm32f407zgt6\key.o: ../Core/Inc/usart.h
 stm32f407zgt6\key.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\stdio.h
-stm32f407zgt6\key.o: ..\my\control.h
+stm32f407zgt6\key.o: ../Core/Inc/usart.h
 stm32f407zgt6\key.o: ..\my\ano.h
 stm32f407zgt6\key.o: ..\my\control.h
-stm32f407zgt6\key.o: ../Core/Inc/usart.h
+stm32f407zgt6\key.o: ..\my\ano.h
+stm32f407zgt6\key.o: ..\my\my_uart.h
 stm32f407zgt6\key.o: ..\my\act_motor.h
 stm32f407zgt6\key.o: ..\my\logic.h
 stm32f407zgt6\key.o: ..\my\StepMotor.h
-stm32f407zgt6\key.o: ../Core/Inc/tim.h
 stm32f407zgt6\key.o: ..\my\key.h
 stm32f407zgt6\key.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\math.h
 stm32f407zgt6\key.o: ..\my\Servo.h
+stm32f407zgt6\key.o: ../Core/Inc/usart.h
 stm32f407zgt6\key.o: ../Core/Inc/gpio.h

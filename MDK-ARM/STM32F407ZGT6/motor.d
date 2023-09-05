@@ -1,6 +1,7 @@
 stm32f407zgt6\motor.o: ..\my\motor.c
 stm32f407zgt6\motor.o: ..\my\motor.h
-stm32f407zgt6\motor.o: ..\my\encoder.h
+stm32f407zgt6\motor.o: ..\my\motor.h
+stm32f407zgt6\motor.o: ../Core/Inc/tim.h
 stm32f407zgt6\motor.o: ../Core/Inc/main.h
 stm32f407zgt6\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 stm32f407zgt6\motor.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -35,3 +36,4 @@ stm32f407zgt6\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.
 stm32f407zgt6\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 stm32f407zgt6\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 stm32f407zgt6\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+stm32f407zgt6\motor.o: ..\my\PID.h

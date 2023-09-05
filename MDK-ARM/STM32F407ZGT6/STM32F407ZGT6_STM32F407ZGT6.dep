@@ -1,14 +1,14 @@
 Dependencies for Project 'STM32F407ZGT6', Target 'STM32F407ZGT6': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (startup_stm32f407xx.s)(0x64E947FD)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f407xx.lst --xref -o stm32f407zgt6\startup_stm32f407xx.o --depend stm32f407zgt6\startup_stm32f407xx.d)
-F (armlib_lock_glue.c)(0x64E947FD)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\armlib_lock_glue.o --omf_browse stm32f407zgt6\armlib_lock_glue.crf --depend stm32f407zgt6\armlib_lock_glue.d)
+F (startup_stm32f407xx.s)(0x64F6F7D6)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f407xx.lst --xref -o stm32f407zgt6\startup_stm32f407xx.o --depend stm32f407zgt6\startup_stm32f407xx.d)
+F (armlib_lock_glue.c)(0x64F6F7D6)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\armlib_lock_glue.o --omf_browse stm32f407zgt6\armlib_lock_glue.crf --depend stm32f407zgt6\armlib_lock_glue.d)
 I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x63A6DB70)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdint.h)(0x6320881F)
 I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x63A6DB70)
-I (stm32_lock.h)(0x64E947FD)
+I (stm32_lock.h)(0x64F6F7D6)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stddef.h)(0x6025237E)
-F (../Core/Src/main.c)(0x64EC1A24)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\main.o --omf_browse stm32f407zgt6\main.crf --depend stm32f407zgt6\main.d)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (../Core/Src/main.c)(0x64F6F7D2)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\main.o --omf_browse stm32f407zgt6\main.crf --depend stm32f407zgt6\main.d)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -43,27 +43,25 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
 I (../Core/Inc/dma.h)(0x64BF5874)
 I (../Core/Inc/i2c.h)(0x64BF5874)
-I (../Core/Inc/tim.h)(0x64E4C54E)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
 I (../Core/Inc/usart.h)(0x64E59E5A)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
 I (../Core/Inc/gpio.h)(0x64AEB77F)
-I (..\my\my_uart.h)(0x64EB357B)
-I (..\my\ano.h)(0x64D19EE4)
-I (..\my\control.h)(0x64EB79CC)
-I (..\my\PID.h)(0x64EB6702)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (..\my\act_motor.h)(0x64E08950)
-I (..\my\logic.h)(0x64EB66DE)
-I (..\my\StepMotor.h)(0x64EC191F)
+I (..\my\my_uart.h)(0x64F30047)
+I (..\my\ano.h)(0x64F3018C)
+I (..\my\control.h)(0x64F2F91D)
+I (..\my\PID.h)(0x64F2FB00)
+I (..\my\motor.h)(0x64F30131)
+I (..\my\act_motor.h)(0x64ECAB1C)
+I (..\my\logic.h)(0x64F30DBE)
+I (..\my\StepMotor.h)(0x64F6F9D6)
 I (..\my\key.h)(0x64EADF29)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
 I (..\my\Servo.h)(0x64EB5262)
-I (..\my\RobTask.h)(0x64EC1924)
-I (..\my\oled.h)(0x64E94C86)
-F (../Core/Src/gpio.c)(0x64E4C548)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\gpio.o --omf_browse stm32f407zgt6\gpio.crf --depend stm32f407zgt6\gpio.d)
-I (../Core/Inc/tim.h)(0x64E4C54E)
-I (../Core/Inc/main.h)(0x64E4C550)
+I (..\my\RobTask.h)(0x64F2FF2F)
+F (../Core/Src/gpio.c)(0x64F6F7CB)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\gpio.o --omf_browse stm32f407zgt6\gpio.crf --depend stm32f407zgt6\gpio.d)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -99,7 +97,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
 I (../Core/Inc/gpio.h)(0x64AEB77F)
 F (../Core/Src/dma.c)(0x64C63E92)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\dma.o --omf_browse stm32f407zgt6\dma.crf --depend stm32f407zgt6\dma.d)
 I (../Core/Inc/dma.h)(0x64BF5874)
-I (../Core/Inc/main.h)(0x64E4C550)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -132,9 +130,9 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-F (../Core/Src/i2c.c)(0x64E947F5)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\i2c.o --omf_browse stm32f407zgt6\i2c.crf --depend stm32f407zgt6\i2c.d)
+F (../Core/Src/i2c.c)(0x64F6F7D0)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\i2c.o --omf_browse stm32f407zgt6\i2c.crf --depend stm32f407zgt6\i2c.d)
 I (../Core/Inc/i2c.h)(0x64BF5874)
-I (../Core/Inc/main.h)(0x64E4C550)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -167,9 +165,9 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-F (../Core/Src/tim.c)(0x64E4C54E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\tim.o --omf_browse stm32f407zgt6\tim.crf --depend stm32f407zgt6\tim.d)
-I (../Core/Inc/tim.h)(0x64E4C54E)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (../Core/Src/tim.c)(0x64F6F7D0)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\tim.o --omf_browse stm32f407zgt6\tim.crf --depend stm32f407zgt6\tim.d)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -202,10 +200,10 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-F (../Core/Src/usart.c)(0x64E8D867)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\usart.o --omf_browse stm32f407zgt6\usart.crf --depend stm32f407zgt6\usart.d)
+F (../Core/Src/usart.c)(0x64F6F7D1)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\usart.o --omf_browse stm32f407zgt6\usart.crf --depend stm32f407zgt6\usart.d)
 I (../Core/Inc/usart.h)(0x64E59E5A)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
-I (../Core/Inc/main.h)(0x64E4C550)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -238,8 +236,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-F (../Core/Src/stm32f4xx_it.c)(0x64E947F6)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\stm32f4xx_it.o --omf_browse stm32f407zgt6\stm32f4xx_it.crf --depend stm32f407zgt6\stm32f4xx_it.d)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (../Core/Src/stm32f4xx_it.c)(0x64F6F7D1)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\stm32f4xx_it.o --omf_browse stm32f407zgt6\stm32f4xx_it.crf --depend stm32f407zgt6\stm32f4xx_it.d)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -272,9 +270,9 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (../Core/Inc/stm32f4xx_it.h)(0x64E947F6)
+I (../Core/Inc/stm32f4xx_it.h)(0x64F6F7D1)
 F (../Core/Src/stm32f4xx_hal_msp.c)(0x64D23DAD)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\stm32f4xx_hal_msp.o --omf_browse stm32f407zgt6\stm32f4xx_hal_msp.crf --depend stm32f407zgt6\stm32f4xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x64E4C550)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -934,9 +932,9 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-F (..\my\act_motor.c)(0x64E1C471)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\act_motor.o --omf_browse stm32f407zgt6\act_motor.crf --depend stm32f407zgt6\act_motor.d)
-I (..\my\PID.h)(0x64EB6702)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (..\my\act_motor.c)(0x64F30C2C)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\act_motor.o --omf_browse stm32f407zgt6\act_motor.crf --depend stm32f407zgt6\act_motor.d)
+I (..\my\PID.h)(0x64F2FB00)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -969,23 +967,22 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (..\my\act_motor.h)(0x64E08950)
-I (..\my\control.h)(0x64EB79CC)
-I (..\my\ano.h)(0x64D19EE4)
+I (..\my\motor.h)(0x64F30131)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (..\my\act_motor.h)(0x64ECAB1C)
+I (..\my\control.h)(0x64F2F91D)
+I (..\my\ano.h)(0x64F3018C)
 I (../Core/Inc/usart.h)(0x64E59E5A)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
-I (..\my\my_uart.h)(0x64EB357B)
-I (..\my\logic.h)(0x64EB66DE)
-I (..\my\StepMotor.h)(0x64EC191F)
-I (../Core/Inc/tim.h)(0x64E4C54E)
+I (..\my\my_uart.h)(0x64F30047)
+I (..\my\logic.h)(0x64F30DBE)
+I (..\my\StepMotor.h)(0x64F6F9D6)
 I (..\my\key.h)(0x64EADF29)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
 I (..\my\Servo.h)(0x64EB5262)
-F (..\my\act_motor.h)(0x64E08950)()
+F (..\my\act_motor.h)(0x64ECAB1C)()
 F (..\my\ano.c)(0x64E5F68F)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\ano.o --omf_browse stm32f407zgt6\ano.crf --depend stm32f407zgt6\ano.d)
-I (../Core/Inc/main.h)(0x64E4C550)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1018,25 +1015,24 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (..\my\ano.h)(0x64D19EE4)
-I (..\my\control.h)(0x64EB79CC)
-I (..\my\my_uart.h)(0x64EB357B)
-I (../Core/Inc/usart.h)(0x64E59E5A)
+I (..\my\ano.h)(0x64F3018C)
+I (..\my\control.h)(0x64F2F91D)
+I (..\my\my_uart.h)(0x64F30047)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
-I (..\my\PID.h)(0x64EB6702)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (..\my\act_motor.h)(0x64E08950)
-I (..\my\logic.h)(0x64EB66DE)
-I (..\my\StepMotor.h)(0x64EC191F)
-I (../Core/Inc/tim.h)(0x64E4C54E)
+I (../Core/Inc/usart.h)(0x64E59E5A)
+I (..\my\PID.h)(0x64F2FB00)
+I (..\my\motor.h)(0x64F30131)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (..\my\act_motor.h)(0x64ECAB1C)
+I (..\my\logic.h)(0x64F30DBE)
+I (..\my\StepMotor.h)(0x64F6F9D6)
 I (..\my\key.h)(0x64EADF29)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
 I (..\my\Servo.h)(0x64EB5262)
-F (..\my\ano.h)(0x64D19EE4)()
-F (..\my\control.c)(0x64EC1CD5)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\control.o --omf_browse stm32f407zgt6\control.crf --depend stm32f407zgt6\control.d)
-I (..\my\control.h)(0x64EB79CC)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (..\my\ano.h)(0x64F3018C)()
+F (..\my\control.c)(0x64F30C2E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\control.o --omf_browse stm32f407zgt6\control.crf --depend stm32f407zgt6\control.d)
+I (..\my\control.h)(0x64F2F91D)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1069,62 +1065,24 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (..\my\ano.h)(0x64D19EE4)
-I (..\my\encoder.h)(0x64DE0CE8)
+I (..\my\ano.h)(0x64F3018C)
 I (../Core/Inc/usart.h)(0x64E59E5A)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
-I (..\my\my_uart.h)(0x64EB357B)
-I (..\my\PID.h)(0x64EB6702)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\act_motor.h)(0x64E08950)
-I (..\my\logic.h)(0x64EB66DE)
-I (..\my\StepMotor.h)(0x64EC191F)
-I (../Core/Inc/tim.h)(0x64E4C54E)
+I (..\my\my_uart.h)(0x64F30047)
+I (..\my\PID.h)(0x64F2FB00)
+I (..\my\motor.h)(0x64F30131)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (..\my\act_motor.h)(0x64ECAB1C)
+I (..\my\logic.h)(0x64F30DBE)
+I (..\my\StepMotor.h)(0x64F6F9D6)
 I (..\my\key.h)(0x64EADF29)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
 I (..\my\Servo.h)(0x64EB5262)
-I (..\my\RobTask.h)(0x64EC1924)
-I (..\my\OLED.h)(0x64E94C86)
-F (..\my\control.h)(0x64EB79CC)()
-F (..\my\encoder.c)(0x64D1C5CA)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\encoder.o --omf_browse stm32f407zgt6\encoder.crf --depend stm32f407zgt6\encoder.d)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (../Core/Inc/main.h)(0x64E4C550)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x63A6DBAB)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x63A6DB6A)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x63A6DB6A)
-I (../Drivers/CMSIS/Include/core_cm4.h)(0x63A6DB70)
-I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdint.h)(0x6320881F)
-I (../Drivers/CMSIS/Include/cmsis_version.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x63A6DB6A)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x63A6DBAB)
-I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stddef.h)(0x6025237E)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-F (..\my\encoder.h)(0x64DE0CE8)()
-F (..\my\key.c)(0x64EB1BE1)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\key.o --omf_browse stm32f407zgt6\key.crf --depend stm32f407zgt6\key.d)
+I (..\my\RobTask.h)(0x64F2FF2F)
+F (..\my\control.h)(0x64F2F91D)()
+F (..\my\key.c)(0x64F30843)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\key.o --omf_browse stm32f407zgt6\key.crf --depend stm32f407zgt6\key.d)
 I (..\my\key.h)(0x64EADF29)
-I (../Core/Inc/main.h)(0x64E4C550)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1157,29 +1115,26 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (..\my\PID.h)(0x64EB6702)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (..\my\my_uart.h)(0x64EB357B)
-I (../Core/Inc/usart.h)(0x64E59E5A)
+I (..\my\PID.h)(0x64F2FB00)
+I (..\my\motor.h)(0x64F30131)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (..\my\my_uart.h)(0x64F30047)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
-I (..\my\control.h)(0x64EB79CC)
-I (..\my\ano.h)(0x64D19EE4)
-I (..\my\act_motor.h)(0x64E08950)
-I (..\my\logic.h)(0x64EB66DE)
-I (..\my\StepMotor.h)(0x64EC191F)
-I (../Core/Inc/tim.h)(0x64E4C54E)
+I (../Core/Inc/usart.h)(0x64E59E5A)
+I (..\my\ano.h)(0x64F3018C)
+I (..\my\control.h)(0x64F2F91D)
+I (..\my\act_motor.h)(0x64ECAB1C)
+I (..\my\logic.h)(0x64F30DBE)
+I (..\my\StepMotor.h)(0x64F6F9D6)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
 I (..\my\Servo.h)(0x64EB5262)
 I (../Core/Inc/gpio.h)(0x64AEB77F)
 F (..\my\key.h)(0x64EADF29)()
-F (..\my\logic.c)(0x64CE41B7)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\logic.o --omf_browse stm32f407zgt6\logic.crf --depend stm32f407zgt6\logic.d)
-I (..\my\logic.h)(0x64EB66DE)
-F (..\my\logic.h)(0x64EB66DE)()
-F (..\my\motor.c)(0x64E0648F)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\motor.o --omf_browse stm32f407zgt6\motor.crf --depend stm32f407zgt6\motor.d)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (..\my\logic.h)(0x64F30DBE)()
+F (..\my\motor.c)(0x64F2FB38)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\motor.o --omf_browse stm32f407zgt6\motor.crf --depend stm32f407zgt6\motor.d)
+I (..\my\motor.h)(0x64F30131)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1212,48 +1167,11 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-F (..\my\motor.h)(0x64EC1365)()
-F (..\my\mpu6050.c)(0x64C3675E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\mpu6050.o --omf_browse stm32f407zgt6\mpu6050.crf --depend stm32f407zgt6\mpu6050.d)
-I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
-I (..\my\mpu6050.h)(0x64C0D8B6)
-I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdint.h)(0x6320881F)
-I (../Core/Inc/i2c.h)(0x64BF5874)
-I (../Core/Inc/main.h)(0x64E4C550)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x63A6DBAB)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x63A6DB6A)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x63A6DB6A)
-I (../Drivers/CMSIS/Include/core_cm4.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/cmsis_version.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x63A6DB6A)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x63A6DBAB)
-I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stddef.h)(0x6025237E)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-F (..\my\mpu6050.h)(0x64C0D8B6)()
-F (..\my\my_uart.c)(0x64EC2C18)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\my_uart.o --omf_browse stm32f407zgt6\my_uart.crf --depend stm32f407zgt6\my_uart.d)
-I (..\my\my_uart.h)(0x64EB357B)
-I (../Core/Inc/main.h)(0x64E4C550)
+I (..\my\PID.h)(0x64F2FB00)
+F (..\my\motor.h)(0x64F30131)()
+F (..\my\my_uart.c)(0x64F2FEF4)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\my_uart.o --omf_browse stm32f407zgt6\my_uart.crf --depend stm32f407zgt6\my_uart.d)
+I (..\my\my_uart.h)(0x64F30047)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1286,17 +1204,24 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (../Core/Inc/usart.h)(0x64E59E5A)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
+I (../Core/Inc/usart.h)(0x64E59E5A)
+I (..\my\ano.h)(0x64F3018C)
+I (..\my\control.h)(0x64F2F91D)
+I (..\my\PID.h)(0x64F2FB00)
+I (..\my\motor.h)(0x64F30131)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (..\my\act_motor.h)(0x64ECAB1C)
+I (..\my\logic.h)(0x64F30DBE)
+I (..\my\StepMotor.h)(0x64F6F9D6)
+I (..\my\key.h)(0x64EADF29)
+I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
+I (..\my\Servo.h)(0x64EB5262)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\my\PID.h)(0x64EB6702)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (..\my\oled.h)(0x64E94C86)
-F (..\my\my_uart.h)(0x64EB357B)()
-F (..\my\oled.c)(0x64EB2677)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\oled.o --omf_browse stm32f407zgt6\oled.crf --depend stm32f407zgt6\oled.d)
-I (..\my\oled.h)(0x64E94C86)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (..\my\my_uart.h)(0x64F30047)()
+F (..\my\PID.c)(0x64F2FB02)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\pid.o --omf_browse stm32f407zgt6\pid.crf --depend stm32f407zgt6\pid.d)
+I (..\my\PID.h)(0x64F2FB00)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1329,63 +1254,23 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (../Core/Inc/i2c.h)(0x64BF5874)
-I (..\my\oledfont.h)(0x64E6C472)
-F (..\my\oled.h)(0x64E94C86)()
-F (..\my\oledfont.h)(0x64E6C472)()
-F (..\my\PID.c)(0x64EBA162)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\pid.o --omf_browse stm32f407zgt6\pid.crf --depend stm32f407zgt6\pid.d)
-I (..\my\PID.h)(0x64EB6702)
-I (../Core/Inc/main.h)(0x64E4C550)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x63A6DBAB)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x63A6DB6A)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x63A6DB6A)
-I (../Drivers/CMSIS/Include/core_cm4.h)(0x63A6DB70)
-I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdint.h)(0x6320881F)
-I (../Drivers/CMSIS/Include/cmsis_version.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x63A6DB70)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x63A6DB6A)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x63A6DBAB)
-I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stddef.h)(0x6025237E)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (..\my\control.h)(0x64EB79CC)
-I (..\my\ano.h)(0x64D19EE4)
+I (..\my\motor.h)(0x64F30131)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (..\my\control.h)(0x64F2F91D)
+I (..\my\ano.h)(0x64F3018C)
 I (../Core/Inc/usart.h)(0x64E59E5A)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
-I (..\my\my_uart.h)(0x64EB357B)
-I (..\my\act_motor.h)(0x64E08950)
-I (..\my\logic.h)(0x64EB66DE)
-I (..\my\StepMotor.h)(0x64EC191F)
-I (../Core/Inc/tim.h)(0x64E4C54E)
+I (..\my\my_uart.h)(0x64F30047)
+I (..\my\act_motor.h)(0x64ECAB1C)
+I (..\my\logic.h)(0x64F30DBE)
+I (..\my\StepMotor.h)(0x64F6F9D6)
 I (..\my\key.h)(0x64EADF29)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
 I (..\my\Servo.h)(0x64EB5262)
-F (..\my\PID.h)(0x64EB6702)()
-F (..\my\printf_.c)(0x64DEE387)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\printf_.o --omf_browse stm32f407zgt6\printf_.crf --depend stm32f407zgt6\printf_.d)
+F (..\my\PID.h)(0x64F2FB00)()
+F (..\my\printf_.c)(0x64EC8B65)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\printf_.o --omf_browse stm32f407zgt6\printf_.crf --depend stm32f407zgt6\printf_.d)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
-I (../Core/Inc/main.h)(0x64E4C550)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1418,9 +1303,9 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-F (..\my\RobTask.c)(0x64EC2BE0)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\robtask.o --omf_browse stm32f407zgt6\robtask.crf --depend stm32f407zgt6\robtask.d)
-I (..\my\RobTask.h)(0x64EC1924)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (..\my\RobTask.c)(0x64F30E62)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\robtask.o --omf_browse stm32f407zgt6\robtask.crf --depend stm32f407zgt6\robtask.d)
+I (..\my\RobTask.h)(0x64F2FF2F)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1453,25 +1338,24 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (..\my\my_uart.h)(0x64EB357B)
+I (..\my\my_uart.h)(0x64F30047)
+I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
 I (../Core/Inc/usart.h)(0x64E59E5A)
-I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
-I (..\my\StepMotor.h)(0x64EC191F)
-I (../Core/Inc/tim.h)(0x64E4C54E)
+I (..\my\ano.h)(0x64F3018C)
+I (..\my\control.h)(0x64F2F91D)
+I (..\my\PID.h)(0x64F2FB00)
+I (..\my\motor.h)(0x64F30131)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
+I (..\my\act_motor.h)(0x64ECAB1C)
+I (..\my\logic.h)(0x64F30DBE)
+I (..\my\StepMotor.h)(0x64F6F9D6)
 I (..\my\key.h)(0x64EADF29)
-I (..\my\PID.h)(0x64EB6702)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (..\my\control.h)(0x64EB79CC)
-I (..\my\ano.h)(0x64D19EE4)
-I (..\my\act_motor.h)(0x64E08950)
-I (..\my\logic.h)(0x64EB66DE)
-I (..\my\Servo.h)(0x64EB5262)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
-F (..\my\RobTask.h)(0x64EC1924)()
-F (..\my\Servo.c)(0x64EC0F86)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\servo.o --omf_browse stm32f407zgt6\servo.crf --depend stm32f407zgt6\servo.d)
 I (..\my\Servo.h)(0x64EB5262)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (..\my\RobTask.h)(0x64F2FF2F)()
+F (..\my\Servo.c)(0x64EC8B63)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\servo.o --omf_browse stm32f407zgt6\servo.crf --depend stm32f407zgt6\servo.d)
+I (..\my\Servo.h)(0x64EB5262)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1504,11 +1388,11 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (../Core/Inc/tim.h)(0x64E4C54E)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
 F (..\my\Servo.h)(0x64EB5262)()
-F (..\my\StepMotor.c)(0x64EAE391)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\stepmotor.o --omf_browse stm32f407zgt6\stepmotor.crf --depend stm32f407zgt6\stepmotor.d)
-I (..\my\StepMotor.h)(0x64EC191F)
-I (../Core/Inc/main.h)(0x64E4C550)
+F (..\my\StepMotor.c)(0x64F30E65)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\my-I.\RTE\_STM32F407ZGT6-I"D:\Daily Application\MDK_keil5\ARM\CMSIS\5.8.0\CMSIS\Core\Include"-I"D:\Daily Application\MDK_keil5\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DSTM32_THREAD_SAFE_STRATEGY="2"-o stm32f407zgt6\stepmotor.o --omf_browse stm32f407zgt6\stepmotor.crf --depend stm32f407zgt6\stepmotor.d)
+I (..\my\StepMotor.h)(0x64F6F9D6)
+I (../Core/Inc/main.h)(0x64F6F7D2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x63A6DBAB)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x64C646D1)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x63A6DBAB)
@@ -1541,18 +1425,17 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x63A6DBAB)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x63A6DBAB)
-I (../Core/Inc/tim.h)(0x64E4C54E)
+I (../Core/Inc/tim.h)(0x64F6F7D0)
 I (..\my\key.h)(0x64EADF29)
-I (..\my\PID.h)(0x64EB6702)
-I (..\my\motor.h)(0x64EC1365)
-I (..\my\encoder.h)(0x64DE0CE8)
-I (..\my\my_uart.h)(0x64EB357B)
-I (../Core/Inc/usart.h)(0x64E59E5A)
+I (..\my\PID.h)(0x64F2FB00)
+I (..\my\motor.h)(0x64F30131)
+I (..\my\my_uart.h)(0x64F30047)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\stdio.h)(0x64EC2C1D)
-I (..\my\control.h)(0x64EB79CC)
-I (..\my\ano.h)(0x64D19EE4)
-I (..\my\act_motor.h)(0x64E08950)
-I (..\my\logic.h)(0x64EB66DE)
+I (../Core/Inc/usart.h)(0x64E59E5A)
+I (..\my\ano.h)(0x64F3018C)
+I (..\my\control.h)(0x64F2F91D)
+I (..\my\act_motor.h)(0x64ECAB1C)
+I (..\my\logic.h)(0x64F30DBE)
 I (..\my\Servo.h)(0x64EB5262)
 I (D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\include\math.h)(0x60252378)
-F (..\my\StepMotor.h)(0x64EC191F)()
+F (..\my\StepMotor.h)(0x64F6F9D6)()

@@ -108,10 +108,11 @@ int main(void)
   MX_UART5_Init();
   MX_TIM9_Init();
   MX_TIM8_Init();
+  MX_TIM12_Init();
   /* USER CODE BEGIN 2 */
 
 
-  /*-- 外设初始化开始========================================== --*/
+  /*-- 外设初始化开�?========================================== --*/
     LED1_OFF;
     LED0_OFF;
 
@@ -133,7 +134,7 @@ int main(void)
     
 
     Correspond_Init();/*串口通信*/
-    // SendCmdB; //切换摄像头模式 通信测试
+    // SendCmdB; //切换摄像头模�? 通信测试
     // while(1)
     // {
     //   SendCmdA;
@@ -145,14 +146,14 @@ int main(void)
     // }
 
     Car_Drive_Init();/*编码电机*/
-  /*---========================================== 外设初始化结束 --*/
+  /*---========================================== 外设初始化结�? --*/
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-/*开机停止*/
+/*�?机停�?*/
   task = Stop; //车子不动
   do_cnt = do_00;
 /*------------------------------------*/
@@ -162,29 +163,30 @@ int main(void)
   ClearRxData;//清除信息
   StepMotorTask = 1;
 
-  RxData.Task1[0] = 2;//第一轮颜色码编号 认为编造
+  RxData.Task1[0] = 2;//第一轮颜色码编号 认为编�??
   RxData.Task1[1] = 1;
   RxData.Task1[2] = 3;
 
   SendCmdB; //识别色块模式
-  HAL_Delay(1800); //启动前延时 1800ms
+  HAL_Delay(1800); //启动前延�? 1800ms
 
   while (1)
   {
     if(StepMotorTask) /* debug for Arm */
     {
-        StepArm_TaskTest(Base);  //验证机械臂
+        StepArm_TaskTest(Base);  //验证机械�?
         StepMotorTask=0;
     }
  
-    // Other_Actions();//扫码，机械臂等 动作跳转，执行入口！  阻塞式
-    /* 显示正常跑动， 巡线状态闪烁指示灯||  机械臂状态，指示灯停止闪动*/
+    // Other_Actions();//扫码，机械臂�? 动作跳转，执行入口！  阻塞�?
+    /* 显示正常跑动�? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�?*/
       LED1_OFF; //LED闪烁 表示主循环正常循环中 
     HAL_Delay(15);
      LED1_ON;
     HAL_Delay(15);
    
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
 
@@ -275,11 +277,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-
-
-
-          /*debug  ni ming v7 for PID control  */  /*debug car run*/         
-            // Data_send2(pid_location.target_val, pid_location.actual_val, pid_location2.target_val,pid_location2.actual_val,    RxData.angle*100, RxData.turn , task, do_cnt);
-            // Data_send2(pid_speed.target_val, pid_location.actual_val, pid_speed2.target_val,pid_location2.actual_val,    err_angle*100, turn , task, do_cnt);
-          /*end of debug**/
