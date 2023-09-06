@@ -23,43 +23,24 @@ extern unsigned short do_cnt  ;//单个任务下 动作标识序号
 void Other_Actions();
 
 
-/*PID调控参数 与 调控函数
-	系统统一转换为脉冲数进行处理，脉冲数分辨率高，控制精度高 */
+/*PID调控参数 与 调控函数   
+
+debug PID 用下面参数
+
+系统统一转换为脉冲数进行处理，脉冲数分辨率高，控制精度高 */
 extern int rpm;   //速度   5~15~35~45左右完全可以
 extern float num; //编码数  9000
 
 
-	/**TIM1 GPIO Configuration
-    PE9      ------> TIM1_CH1
-    PE11     ------> TIM1_CH2
-    PE13     ------> TIM1_CH3
-    PE14     ------> TIM1_CH4
-    */
-		
-	/**TIM3 GPIO Configuration
-    PC6     ------> TIM3_CH1
-    PC7     ------> TIM3_CH2
-    */
-		
-	/**TIM4 GPIO Configuration
-    PD12     ------> TIM4_CH1
-    PD13     ------> TIM4_CH2
-    */
-	/**TIM6 
-		10ms一次的刷新，回调更新
-	*/
-		
-   /**USART2 GPIO Configuration
-    PD5     ------> USART2_TX
-    PD6     ------> USART2_RX
-    */
-		
-	/**USART1 GPIO Configuration
-    PA9     ------> USART1_TX
-    PA10     ------> USART1_RX
-    */
-
 #endif
+
+
+
+
+
+
+
+
 // extern int Target_Velocity,Reality_Velocity;   /* 目标速度，实际速度 */
 // extern int Target_Position,Reality_Position;   /* 目标位置，实际位置 */
 /*---------------------------------------------------------------*/

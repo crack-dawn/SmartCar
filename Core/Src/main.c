@@ -112,14 +112,14 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
-  /*-- 外设初始化开�?========================================== --*/
+  /*-- 外设初始化开�?========================================== --*/
     LED1_OFF;
     LED0_OFF;
 
     StepMotor_Init( ); /*步进电机*/
 
 
-    Servo_Init();  /**舵机*/
+    // Servo_Init();  /**舵机*/
     // TIM9->CCR1 = 1200; //舵机位置测试
     // while (1)
     // {
@@ -134,7 +134,7 @@ int main(void)
     
 
     Correspond_Init();/*串口通信*/
-    // SendCmdB; //切换摄像头模�? 通信测试
+    // SendCmdB; //切换摄像头模�? 通信测试
     // while(1)
     // {
     //   SendCmdA;
@@ -145,17 +145,14 @@ int main(void)
     //   HAL_Delay(1000);
     // }
 
-    Car_Drive_Init();/*编码电机*/
-  /*---========================================== 外设初始化结�? --*/
+    Car_Drive_Init();/*编码电机*/      task = Stop;     do_cnt = 0;
+  /*---========================================== 外设初始化结�? --*/
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-/*�?机停�?*/
-  task = Stop; //车子不动
-  do_cnt = do_00;
 /*------------------------------------*/
 
 
@@ -163,23 +160,39 @@ int main(void)
   ClearRxData;//清除信息
   StepMotorTask = 1;
 
-  RxData.Task1[0] = 2;//第一轮颜色码编号 认为编�??
+  RxData.Task1[0] = 2;//第一轮颜色码编号 认为编�??
   RxData.Task1[1] = 1;
   RxData.Task1[2] = 3;
 
   SendCmdB; //识别色块模式
-  HAL_Delay(1800); //启动前延�? 1800ms
+  HAL_Delay(1800); //启动前延�? 1800ms
 
   while (1)
   {
     if(StepMotorTask) /* debug for Arm */
     {
-        StepArm_TaskTest(Base);  //验证机械�?
-        StepMotorTask=0;
+        // StepArm_TaskTest(Base);  //验证机械�?
+
+      while (1)
+      {
+            
+            StepMotor_Set_TarPulses(3000,0,0);
+            StepMotor_Drive(1,750);
+            while (OVER != Flag_finish);
+            HAL_Delay(1000);
+
+            StepMotor_Set_TarPulses(3000,0,0);
+            StepMotor_Drive(1,750);
+            while (OVER != Flag_finish);
+            HAL_Delay(1000);
+
+            break;
+      }
+      StepMotorTask=0;
     }
  
-    // Other_Actions();//扫码，机械臂�? 动作跳转，执行入口！  阻塞�?
-    /* 显示正常跑动�? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�?*/
+    // Other_Actions();//扫码，机械臂�? 动作跳转，执行入口！  阻塞�?
+    /* 显示正常跑动�? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�?*/
       LED1_OFF; //LED闪烁 表示主循环正常循环中 
     HAL_Delay(15);
      LED1_ON;

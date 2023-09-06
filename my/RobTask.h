@@ -11,7 +11,6 @@
 #define DebugB printf("B R|%5f G|%5f B|%5f\r\n",RxData.B_ang[1], RxData.B_ang[2],RxData.B_ang[3]) //色块
 #define DebugC printf("C R|%5f G|%5f B|%5f\r\n",RxData.C_ang[1], RxData.C_ang[2],RxData.C_ang[3]) //色环
 #define DebugT printf("task:%d, do_cnt:%d, Rx_Flag:%d\r\n",task,do_cnt,RxData.codeFlag)         //任务
-   
 #define DebugCode printf("Rx_Flag:%d,code:%s\r\n",RxData.codeFlag, RxData.code)
  
 /**color 颜色编号 确认无误 RGB 123!*/

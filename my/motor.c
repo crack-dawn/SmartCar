@@ -38,9 +38,6 @@ void Car_Drive_Init()
       HAL_TIM_Base_Start_IT(&htim7);             
        /*  TIM7 update action status to control car to run */
       TIM3 -> CNT=0;  TIM4 -> CNT=0;             
-
-    //   task = Stop;
-    //   do_cnt = 0;
 }
 
 

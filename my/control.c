@@ -93,7 +93,10 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM7)  //TIM7 40ms kernel
 	{	   
-		//DebugB;
+		DebugF;
+		DebugFF;
+		DebugCNT;
+
 		unsigned char status =PID_JudgeStatus();
 		switch (task)
 		{// 8.2->9.8
@@ -368,7 +371,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	Top_PID_Control_CallBack_TIM6( htim);//20ms
 	Top_Action_Select_CallBack_TIM7( htim); //20ms
-	StepMotor_CallBack_TIM5( htim); // 2ms   TIM5
+	// StepMotor_CallBack_TIM5( htim); // 2ms   TIM5
 }
 
 
