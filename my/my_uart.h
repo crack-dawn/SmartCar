@@ -73,7 +73,7 @@ void RxDataClear(char mode_data); //A 巡线； B物块|| C巡线；一起清除
 
 #define uart1_RxBuffLen  64
 extern unsigned char uart1_Rx[1] ;
-extern unsigned char uart1_DataBuff[uart1_RxBuffLen];
+extern unsigned char uart1_RxBuff[uart1_RxBuffLen];
 
 #define uart2_RxBuffLen 20
 extern unsigned char uart2_Rx[1] ;

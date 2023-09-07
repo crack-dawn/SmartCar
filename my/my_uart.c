@@ -12,7 +12,7 @@ UartDataMCU_RX RxData={0};
  
 
  unsigned char uart1_Rx[1]={0} ;
- unsigned char uart1_DataBuff[uart1_RxBuffLen]={0};
+ unsigned char uart1_RxBuff[uart1_RxBuffLen]={0};
 
 /*串口二 变量信息*/
  //给树莓派发送指令，改变运行模式
@@ -46,7 +46,7 @@ UartDataMCU_RX RxData={0};
 	HAL_UART_Transmit_DMA( &huart3, ScanCmd  , 9);
 }
 
-void Raspberry_ChangeMode(char cmd)//uart2
+void Raspberry_ChangeMode(char cmd)//uart2 sendata
 {
 	while ((HAL_DMA_GetState(&hdma_usart2_tx) != HAL_DMA_STATE_READY));
 
@@ -73,18 +73,64 @@ void Raspberry_ChangeMode(char cmd)//uart2
 	}	
 }
 
-void  my_USART2_GetBuffer(char Rx, char *Data_Get){
-
+void  my_USART1_GetBuffer(char Rx, char *Data_Get)//uart2 receive data
+{
+	static int ServoConLen  = 11;
+	static int ServoNum = 0, ServoCCR=0;
 	static unsigned char sta=0;      /* 帧长度，接收到长度 */ 
 	
-	if(sta==0)
+	if(sta==0 && Rx=='#'  ) /* 帧头 */
 	{
-		
-		if(Rx=='#')       /* 帧头 */
-		{   
+		Data_Get[sta]=Rx;
+		sta=1; 
+		//#S,2000,1,$
+		//01234567890
+	}
+	else if(sta >=1 &&  sta <= ServoConLen-2)           
+	{
+		Data_Get[sta]=Rx;
+		++sta;
+	}
+	else if(sta==ServoConLen-1 && Rx == '$')         /* 尾部 */
+	{
+		Data_Get[sta]=Rx;
+		++sta;
+	}
+	else{
+		sta = 0; //校验错误 重新接收下一次信息
+		printf("wrong\r\n");
+	}
+	if (sta == ServoConLen )
+	{
+		printf("right\r\n");
+		sta = 0;
+		if ( (Data_Get[0]== '#' &&  Data_Get[ServoConLen-1] == '$' ) )
+		{
+			// HAL_UART_Transmit_DMA(&huart1, uart2_RxBuff,  uart2_RxBuffLen); /*debug*/
+			if (  Data_Get[1] == 'S')//巡线
+			{
+				sscanf(Data_Get, "#S,%d,%d,$",  &ServoCCR,  &ServoNum);	
+				Servo_Pwm_Duty(ServoNum,ServoCCR);
+			}
+			else
+			{
+				Servo_Pwm_Duty(ServoNum,0);
+			}
+			printf("num:%d CCR:%d\r\n",ServoNum,ServoCCR);
+		}
+	}
+}
+
+
+
+void  my_USART2_GetBuffer(char Rx, char *Data_Get)//uart2 receive data
+{
+	static unsigned char sta=0;      /* 帧长度，接收到长度 */ 
+	
+	if(sta==0 && (Rx=='#')     ) /* 帧头 */
+	{
 			Data_Get[sta]=Rx;
 			sta=1;
-		}
 	}
 	else if(sta >=1 &&  sta <= uart2_RxBuffLen-1-1)           
 	{
@@ -96,9 +142,11 @@ void  my_USART2_GetBuffer(char Rx, char *Data_Get){
 		Data_Get[sta]=Rx;
 		++sta;
 	}
+	else{
+		sta = 0; //校验错误 重新接收下一次信息
+	}
 	if (sta == uart2_RxBuffLen )
 	{
-		
 		sta = 0;
 		if ( (Data_Get[0]== '#' &&  Data_Get[uart2_RxBuffLen-1] == '$' ) )
 		{
@@ -146,7 +194,6 @@ void  my_USART2_GetBuffer(char Rx, char *Data_Get){
 			 
 		}
 	}
-
 }
 
 
@@ -220,22 +267,26 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     if (huart->Instance == USART1)                   /*debug*/
     {
-        HAL_UART_Receive_IT(&huart1,( u8*)uart1_Rx, sizeof(u8)*1 );
-		my_USART2_GetBuffer(uart1_Rx[0],uart2_RxBuff);
-
+		
+        HAL_UART_Receive_IT(&huart1,( u8*)uart1_Rx, 1 );
+		my_USART1_GetBuffer(uart1_Rx[0],uart1_RxBuff);
         // USART1 ->DR = uart1_Rx[0];  //回传数据  匿名上位机需要
-        Ano_GetByte(uart1_Rx[0]);
+        // Ano_GetByte(uart1_Rx[0]);
     }
     if (huart->Instance == USART2)                   /*carmera for oneside distance*/
     {
-			HAL_UART_Receive_IT(&huart2, (u8 *)uart2_Rx, sizeof(u8)*1);
-        	my_USART2_GetBuffer(uart2_Rx[0],uart2_RxBuff);
-		
+		HAL_UART_Receive_IT(&huart2, (u8 *)uart2_Rx, sizeof(u8)*1);
+		my_USART2_GetBuffer(uart2_Rx[0],uart2_RxBuff);
 	}
-    if (huart->Instance == USART3)                  /*carmera for color and position*/
+    if (huart->Instance == USART3)                  /*for scan QRcode*/
     {
-				HAL_UART_Receive_IT(&huart3,( u8*)uart3_Rx, sizeof(u8)*1 ); 
-				my_USART3_GetBuffer(uart3_Rx[0], uart3_RxBuff);                
+		HAL_UART_Receive_IT(&huart3,( u8*)uart3_Rx, sizeof(u8)*1 ); 
+		my_USART3_GetBuffer(uart3_Rx[0], uart3_RxBuff);                
+    }
+	if (huart->Instance == UART4)                  /*for display tft uart*/
+    {
+		HAL_UART_Receive_IT(&huart4,( u8*)uart4_Rx, sizeof(u8)*1 ); 
+		my_USART3_GetBuffer(uart4_Rx[0], uart4_RxBuff);                
     }
 }
 
@@ -302,14 +353,16 @@ void RxDataClear(char mode_data)
 void Correspond_Init()
 {
   HAL_Delay(2);
-  HAL_UART_Receive_IT(&huart1,(uint8_t *)uart1_Rx, 1);  /*debug*/
+  HAL_UART_Receive_IT(&huart1,( uint8_t*)uart1_Rx, sizeof(u8)*1 );
   // HAL_UART_Receive_DMA(&huart1,uart1_DataBuff, uart1_RxBuffLen);
-  HAL_Delay(2);
+  
   // __HAL_UART_DISABLE_IT(&huart2, UART_IT_RXNE);//close rx   single    interrupt
   // __HAL_UART_DISABLE_IT(&huart2, UART_IT_TC); //close  tx   finished  interrupt
   // HAL_UARTEx_ReceiveToIdle_DMA(&huart2, uart2_RxBuff, 64);/*raspberry*/
   // __HAL_DMA_DISABLE_IT(&hdma_usart2_rx,DMA_IT_HT);//close DMA half finished  interrupt
-  HAL_UART_Receive_IT(&huart2,(uint8_t *)uart2_Rx, 1);  
+  HAL_Delay(2);
+  HAL_UART_Receive_IT(&huart2,(uint8_t *)uart2_Rx, 1);
+
   HAL_Delay(2);
   HAL_UART_Receive_IT(&huart3,(uint8_t *)uart3_Rx, 1);  
 

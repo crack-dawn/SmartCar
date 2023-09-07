@@ -93,9 +93,9 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM7)  //TIM7 40ms kernel
 	{	   
-		DebugF;
-		DebugFF;
-		DebugCNT;
+		// DebugF;
+		// DebugFF;
+		// DebugCNT;
 
 		unsigned char status =PID_JudgeStatus();
 		switch (task)

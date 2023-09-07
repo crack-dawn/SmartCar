@@ -24,13 +24,13 @@
 #define ENCODER_MODE  GPIO_MODE_INPUT
 #define ENCODER_PULL  GPIO_PULLDOWN
 
-//¶¨Ê±Æ÷3  ºÍ  ¶¨Ê±Æ÷4  
-short GetLeftEncoder(TIM_HandleTypeDef* tim_baseHandle)//»ñÈ¡¶¨Ê±Æ÷¶Á³öÀ´µÄ±àÂëÆ÷Âö³å
+//ï¿½ï¿½Ê±ï¿½ï¿½3  ï¿½ï¿½  ï¿½ï¿½Ê±ï¿½ï¿½4  
+short GetLeftEncoder(TIM_HandleTypeDef* tim_baseHandle)//ï¿½ï¿½È¡ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
     short LEFT_ENC_COUNTER ;
-	  LEFT_ENC_COUNTER=(short)(__HAL_TIM_GET_COUNTER (tim_baseHandle));//tim?µÄÂö³å
-    //__HAL_TIM_SET_COUNTER(tim_baseHandle,0);//¼ÆÊýÆ÷ÇåÁã
-    return LEFT_ENC_COUNTER;//·µ»ØÂö³åÊý
+	  LEFT_ENC_COUNTER=(short)(__HAL_TIM_GET_COUNTER (tim_baseHandle));//tim?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //__HAL_TIM_SET_COUNTER(tim_baseHandle,0);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    return LEFT_ENC_COUNTER;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 /* USER CODE END 0 */

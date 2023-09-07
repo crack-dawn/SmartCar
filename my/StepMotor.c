@@ -14,17 +14,34 @@ Step_Motor Motor_1, Motor_2, Motor_3,  Motor_4;//第四通道没有用到 驱动
 /*===============       算法函数     =================*/
 /*===================================================*/
 
-float Calculate_DisHorizon() // 计算水平距离
+
+void Angle_vertical(float set_H,float set_S)           //垂直下落
 {
-    return (L1 * sin((Motor_2.Pulse) * Bu * Factor) + L2 * sin(((Motor_3.Pulse) * Bu / +OriginalAngle3) * Factor));
+    float HP = sqrt(set_H * set_H + set_S * set_S);
+    float a = acos((L2 * L2 + L1 * L1 - HP * HP) / (2 * L1 * L2)) / (Factor);         //大臂和小臂的夹角
+    Angle2 = a - (asin(set_S / HP) / (Factor)-acos((L2 * L2 + HP * HP - L1 * L1) / (2 * L2 * HP)) / (Factor));
+    float two_Point = sqrt(L2_1 * L2_1 + L1 * L1 - (2 * cos((180 - a)*Factor) * L2_1 * L1));
+    float b = acos((L1 * L1 + two_Point * two_Point - L2_1 * L2_1) / (2 * L1 * two_Point)) / (Factor);       //四边形靠近大臂的夹角
+    float c = acos((L3 * L3 + two_Point * two_Point - L1_1 * L1_1) / (2 * L3 * two_Point))/(Factor);              //四边形靠近小滑轮的夹角
+    Angle3 = 90 + Angle2 - b - c;
+
+    StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Angle2,Angle3);
+    StepMotor_Drive(StepALL_START, 300);
+     while (OVER == Flag_doing); 
 }
 
-
-
+float Calculate_DisHorizon()//计算水平距离
+{
+    float a=90-(Motor_3.Pulse*Bu+OriginalAngle3)+Motor_2.Pulse*Bu;
+    float xie=sqrt(L1*L1+L3*L3-2*cos(a*Factor)*L1*L3);
+    float a1=acos((L1*L1+xie*xie-L3*L3)/(2*L1*xie))/(Factor);
+    float a2=acos((xie*xie+L2_1*L2_1-L1_1*L1_1)/(2*L2_1*xie))/(Factor);
+    float b=180-a1-a2-Motor_2.Pulse*Bu;
+    return (L1*sin(Motor_2.Pulse*Bu*Factor)+L2*sin(b*Factor));
+}
 /*=======================================================*/
 /*===============       底层驱动如下     =================*/
 /*=======================================================*/
-
 void StepMotor_Set_AbsPulse(int tar1, int tar2, int tar3)
 {
     // 假设
@@ -69,23 +86,20 @@ void StepMotor_Drive(int Con, int speedPeriod)
 {
 
     if (Con == StepALL_START){
-         StepMotor_Set_Speeds(1000,1000,1000);
-         DebugTar;
-         DebugTar;
-         DebugTar;
-         DebugCNT;
-         DebugCNT;
-         DebugCNT;
-         
-         Motor_1.start();
-         Motor_2.start();
-         Motor_3.start();
 
-HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_1);
-HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_2);
-HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_3);
-HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_4);
-TIM5->CNT = 0;
+         StepMotor_Set_Speeds(speedPeriod,speedPeriod,speedPeriod);
+         if (Motor_1.tarPulse != 0)
+         {
+            Motor_1.start();
+         }
+         if (Motor_2.tarPulse != 0)
+         {
+           Motor_2.start();
+         }
+         if (Motor_3.tarPulse != 0)
+         {
+           Motor_3.start();
+         }
     }
     else if (Con == StepALL_STOP){
          Motor_1.stop();
@@ -111,14 +125,7 @@ void StepMotor_Init(void)
 
     // 失能motor
     STEP1234_ALLSTOP; 
-    StepPulseEN(0);//先失能
-    // HAL_GPIO_WritePin(StepPulsePinGPIO, StepPulsePin_1, GPIO_PIN_RESET);
-    // HAL_GPIO_WritePin(StepPulsePinGPIO, StepPulsePin_2, GPIO_PIN_RESET);
-    // HAL_GPIO_WritePin(StepPulsePinGPIO, StepPulsePin_3, GPIO_PIN_RESET);
-    // HAL_GPIO_WritePin(StepPulsePinGPIO, StepPulsePin_4, GPIO_PIN_RESET);
- 
-
-    StepMotor_Set_Speeds(800, 800, 800); // stepspeed  900   600     450  400   300 is suitable //默认速度 StepSpeed =600;
+    StepPulseEN(DISABLE);//先失能
 
     Motor_1.pwmPulse = 0;
     Motor_1.Pulse = 0;
@@ -156,7 +163,7 @@ void StepMotor_Init(void)
     Motor_3.start = Step3_Start;
     Motor_3.stop =  Step3_Stop;
 
-    StepPulseEN(1);//后使能 之后全程使能
+    StepPulseEN(ENABLE);//后使能 之后全程使能
     STEP1234_ALLSTART;
     // HAL_TIM_Base_Start_IT(&StepMotorTIMHandle);
 }
@@ -165,16 +172,17 @@ void StepMotor_UpdataPulse(Step_Motor* g_Motor)
     if (g_Motor->Flag == Flag_doing)
     {
         if (g_Motor->Dir == Dir_CW)         { ++(g_Motor->Pulse);   }
-        else if (Motor_1.Dir == Dir_CCW)    { --(g_Motor->Pulse);   }
+        else if (g_Motor->Dir == Dir_CCW)    { --(g_Motor->Pulse);   }
 
         ++(g_Motor->pwmPulse);
 
         if (g_Motor->pwmPulse  >=   Abs( g_Motor->tarPulse) ){
-            g_Motor->pwmPulse = 0;
-            g_Motor->tarPulse = 0;
-            g_Motor->Flag = Flag_finish;
             g_Motor->stop();
         }            
+    }
+    else
+    {
+        g_Motor->stop();
     }
 }
 
@@ -243,7 +251,6 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
     
     if (htim->Instance == StepMotorTIMHandle.Instance)
     {
-        printf("! %d\r\n", __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle));
         if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
         {
             if (HAL_GPIO_ReadPin(StepPulsePinGPIO, StepPulsePin_1) == GPIO_PIN_RESET)
