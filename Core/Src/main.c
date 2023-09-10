@@ -119,7 +119,7 @@ int main(void)
     StepMotor_Init( ); /*步进电机*/
 
 
-    Servo_Init();  /**舵机*/
+    Servo_Init();  /**舵机*/ 
     // TIM9->CCR1 = 1200; //舵机位置测试
     // while (1)
     // {
@@ -155,7 +155,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
 /*------------------------------------*/
-
+ 
 
 /*--------------*/
   ClearRxData;//清除信息
@@ -175,7 +175,9 @@ int main(void)
     {
       StepArm_TaskTest(Base);  //验证机械�??
       // StepArm_Task_ScanCode();
- 
+      Load(1);
+      Load(2);
+      Load(3);
         StepMotorTask=0;
     }
  

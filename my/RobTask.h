@@ -21,6 +21,9 @@
 
 #define Angle3_Ready      0
 
+void Load(int number) ;
+
+
 void StepArm_TaskTest(int Task_num);        //测试函数
  
 void StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码

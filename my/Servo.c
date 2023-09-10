@@ -51,43 +51,54 @@ void ServoClaw(int open_cmd)
 {
     //越小越闭合
     if (open_cmd == OpenSide)
-    { // 抓取侧边物料开口        1320 1250
-         TIM9->CCR1 = 1350;
+    { // 抓取侧边物料开口    750~900
+         TIM9->CCR1 = 800;
     }
     else if (open_cmd == OpenCar)
-    {// 车上放置后 松开     1150~1200
-         TIM9->CCR1 = 1200;
+    {// 车上放置后 松开     600~700
+         TIM9->CCR1 = 650;
     }
+// 0700 下面抓放
+// 0900 下面抓取
+// 1200 平口开合
     else if(open_cmd == Close)
-    { //越小越闭合  1000刚好 不小于 900比较紧张
-         TIM9->CCR1 = 1000;
+    { //越小越闭合   400~450
+         TIM9->CCR1 = 440;
     }
     else if (open_cmd == OpenPan)
-    {
-        TIM9->CCR1 = 1900;
+    { //圆盘 850~1000
+        TIM9->CCR1 =  900;
     }
 }
  
 
 void ServoTurn(int angle)
 {
-    /*
-    0   - 2260
-    90  - 1300 
-    180 - 410
-    */
-//    2260-410  /180
-    switch (angle)
+// 转向舵机
+// 0430     正向  90读位置
+// 1395     正向 0度位置
+// 1500     放置物块到圆环时物块应偏转的位置
+// 2360     反向  -90度位置
+// 10.7222
+
+    if (angle > -91  && angle < 91)
     {
-        case  90:
-            TIM9->CCR2 = 1300; break;
-        case  180:
-            TIM9->CCR2 = 400; break;
-        case 0:
-            TIM9->CCR2 = 2340; break;
-        default:
-            TIM9->CCR2 = 1300;
-            break;
+        TIM9->CCR2 = 2360 - (angle + 90 )*10.722;
+
+        switch (angle)
+        {
+            case  90:
+                TIM9->CCR2 =  430; break;
+
+            case 0: //比零度更靠后一些，兼容之前的写法，  放置物块到圆环时物块应偏转的角度
+                TIM9->CCR2 = 1500; break;
+            
+            case  -90:
+                TIM9->CCR2 = 2360; break;
+
+            default:
+                break;
+        }
     }
 }
 
