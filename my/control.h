@@ -15,9 +15,9 @@
 
  
 
-extern unsigned short task  ; //总任务表示序号
-extern unsigned short do_cnt  ;//单个任务下 动作标识序号
-
+extern int task  ; //总任务表示序号
+extern int do_cnt  ;//单个任务下 动作标识序号
+extern unsigned char B_updataFlag;
 #define ReturnToCarRun    do{ SendCmdA;  HAL_Delay(15); ClearRxData; do_cnt=finish_Arm;    }while(0) //从机械臂动作回到巡线模式
 
 void Other_Actions();

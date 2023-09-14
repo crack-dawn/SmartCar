@@ -12,7 +12,7 @@
 typedef struct uart_data__rx
 {
     /*扫码需要*/  //  扫码信息 123+321 之类的
-    char  code[8];
+    char  code[32];
     unsigned char codeFlag;
     char  mode;
     unsigned char Task1[3]; //第一圈任务编号顺序
@@ -28,6 +28,14 @@ typedef struct uart_data__rx
     float B_dis[4];  
     float B_ang[4];
     char  B_col[4];    
+   
+    /*检测目标物块运动状态*/  //主要思路 定时器一定 350 ms 判定
+    int   B_cnt[4];
+    int   B_cntMax;
+    int     B_Accume[4];//本次累计位移
+    int     B_Vector[4];//历史累计位移
+    float   B_dis_H[4];  
+    float   B_ang_H[4]; 
 
 
     /*色环识别需要*/
@@ -38,13 +46,13 @@ typedef struct uart_data__rx
 }UartDataMCU_RX;
 
  
-#define turnDo          ('%')
-#define turnNotDo	    ('2')
-
-#define codeOK          (100)
+#define turnDo          ('%')  //巡线转弯标志
+#define turnNotDo	    ('2')  //巡线不转弯
+ 
+#define codeOK          (100)  //扫码发回正常
 
 extern UartDataMCU_RX RxData;
-
+ 
 
 void Raspberry_ChangeMode(char cmd);// A就巡线 B就物块 C就色环 树莓派切换延迟1.5s~3s左右
 #define SendCmdA Raspberry_ChangeMode('A')  //A 巡线
@@ -87,6 +95,8 @@ extern unsigned char uart3_RxBuff[uart3_RxBuffLen];
 #define uart4_RxBuffLen 64
 extern unsigned char uart4_Rx[1] ;
 extern unsigned char uart4_RxBuff[uart4_RxBuffLen];
+void UART4_LCD_UpdataDisplay( );
+
 
 
 #define uart5_RxBuffLen 64

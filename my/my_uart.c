@@ -43,6 +43,10 @@ UartDataMCU_RX RxData={0};
 
  void ScanCode()//uart3
 {
+  while (HAL_DMA_GetState(huart3.hdmatx) != HAL_DMA_STATE_READY)
+  {
+    // 等待发送完成
+  }
 	HAL_UART_Transmit_DMA( &huart3, ScanCmd  , 9);
 }
 
@@ -73,7 +77,7 @@ void Raspberry_ChangeMode(char cmd)//uart2 sendata
 	}	
 }
 
-void  my_USART1_GetBuffer(char Rx, char *Data_Get)//uart2 receive data
+void  my_USART1_GetBuffer(char Rx, char *Data_Get)//uart1 receive data
 {
 	static int ServoConLen  = 11;
 	static int ServoNum = 0, ServoCCR=0;
@@ -121,10 +125,9 @@ void  my_USART1_GetBuffer(char Rx, char *Data_Get)//uart2 receive data
 	}
 }
 
-
-
 void  my_USART2_GetBuffer(char Rx, char *Data_Get)//uart2 receive data
 {
+	static unsigned char number =0;
 	static unsigned char sta=0;      /* 帧长度，接收到长度 */ 
 	
 	if(sta==0 && (Rx=='#')     ) /* 帧头 */
@@ -158,20 +161,56 @@ void  my_USART2_GetBuffer(char Rx, char *Data_Get)//uart2 receive data
 
 			else if( Data_Get[1] == 'B')//物块
 			{
-				switch (Data_Get[uart2_RxBuffLen-3])
+				number = Data_Get[uart2_RxBuffLen-3] - '0';
+				if (number > 0 && number < 4)
 				{
-					case '1':sscanf(Data_Get, "#B,%f,%f,%c,$", &RxData.B_dis[1] , &RxData.B_ang[1],   &RxData.B_col[1]);	
-						break;
+					RxData.B_dis_H[number] = RxData.B_dis[number];//更新历史
+					sscanf(Data_Get, "#B,%f,%f,%c,$", &RxData.B_dis[number] , &RxData.B_ang[number],   &RxData.B_col[number]);//更新数据
+					++ RxData.B_cnt[number];//更新累计帧数
+					RxData.B_Accume[number] += RxData.B_dis_H[number]-RxData.B_dis[number]; //累计位移  历史-当前  靠近为+  远离为-
 
-					case '2':sscanf(Data_Get, "#B,%f,%f,%c,$", &RxData.B_dis[2] , &RxData.B_ang[2],   &RxData.B_col[2]);	
-						break;
+					if (RxData.B_cnt[number] == RxData.B_cntMax) //记满 B_cntMax 次，计算位移 //树莓派一帧数据连发三次
+					{
+						RxData.B_Vector[number] = RxData.B_Accume[number];
 
-					case '3':sscanf(Data_Get, "#B,%f,%f,%c,$", &RxData.B_dis[3] , &RxData.B_ang[3],   &RxData.B_col[3]);	
-						break;
+						RxData.B_Accume[number] = 0;//累计数清零
 
-					default:
-						break;
+						RxData.B_cnt[number] = 0 ;//帧数还愿 重新计算向量
+
+						
+					}
+
+					// if (RxData.B_cnt[number] == 0)//第一帧 记录为历史
+					// {
+					// 	RxData.B_dis_H[number] = RxData.B_dis[number];
+					// }
+					// sscanf(Data_Get, "#B,%f,%f,%c,$", &RxData.B_dis[number] , &RxData.B_ang[number],   &RxData.B_col[number]);	
+					// ++ RxData.B_cnt[number];//串口接收到一次 帧数+1
+					// if (RxData.B_cnt[number] == RxData.B_cntMax+RxData.B_cntMax ) //记满 B_cntMax 次，计算位移 //树莓派一帧数据连发三次
+					// {
+					// 	RxData.B_Vector[number] =  RxData.B_dis[number] - RxData.B_dis_H[number];
+					// 	RxData.B_cnt[number] = 0 ;//帧数还愿 重新计算向量
+					// }
 				}
+				
+				
+				// switch (Data_Get[uart2_RxBuffLen-3])
+				// {
+				// 	case '1':sscanf(Data_Get, "#B,%f,%f,%c,$", &RxData.B_dis[1] , &RxData.B_ang[1],   &RxData.B_col[1]);	
+						
+				// 		break;
+
+				// 	case '2':sscanf(Data_Get, "#B,%f,%f,%c,$", &RxData.B_dis[2] , &RxData.B_ang[2],   &RxData.B_col[2]);	
+						
+				// 		break;
+
+				// 	case '3':sscanf(Data_Get, "#B,%f,%f,%c,$", &RxData.B_dis[3] , &RxData.B_ang[3],   &RxData.B_col[3]);	
+						
+				// 		break;
+
+				// 	default:
+				// 		break;
+				// }
 			}
 
 			else if (Data_Get[1] == 'C')//色环
@@ -196,9 +235,15 @@ void  my_USART2_GetBuffer(char Rx, char *Data_Get)//uart2 receive data
 	}
 }
 
+ 
 
+
+
+
+#define CODE_LENGTH 7
 //处理接受到的 扫码模块数据
-void  my_USART3_GetBuffer(char Rx,unsigned char *Data_Get){
+void  my_USART3_GetBuffer(char Rx,unsigned char *Data_Get)//uart3 scan code
+{
   
 /**
  * 
@@ -234,20 +279,20 @@ void  my_USART3_GetBuffer(char Rx,unsigned char *Data_Get){
 	}
 	else if (rx_Flag)
 	{
-		if ( sta >=0 && sta < 7 )
+		if ( sta >=0 && sta < CODE_LENGTH )
 		{
 			Data_Get[datacnt] = Rx;
 			++sta;  ++datacnt;
 		}
-		else if ( sta == 7 ) //接受到的 123+321 进行处理
+		else if ( sta == CODE_LENGTH ) //接受到的 123+321 进行处理
 		{
 			for (sta = 0; sta < datacnt;  ++sta)
 			{
 				 RxData.code[sta] = Data_Get[sta];
 			}
-			sta  = 0;		datacnt = 0;
-			
-			// RxData.code[7]  = ' ';
+			RxData.code[sta+1] = '\0';
+			sta  = 0;		datacnt = 0;   
+
 			RxData.Task1[0] = RxData.code[0]-'0';
 			RxData.Task1[1] = RxData.code[1]-'0';
 			RxData.Task1[2] = RxData.code[2]-'0';
@@ -257,12 +302,27 @@ void  my_USART3_GetBuffer(char Rx,unsigned char *Data_Get){
 			RxData.Task2[2] = RxData.code[6]-'0';
 			
 			RxData.codeFlag = codeOK;
-			RxData.codeFlag = codeOK;
-			RxData.codeFlag = codeOK;
 		}
 	}
 }
  
+
+void UART4_LCD_UpdataDisplay( )
+{
+	static char senddata[64]={0};
+	sprintf(senddata, "#Z,%s,%d,%d,$",RxData.code, task, do_cnt);
+	if (HAL_DMA_GetState(huart4.hdmatx) == HAL_DMA_STATE_READY)
+	{
+ 
+		printf("%s\r\n", senddata);
+		printf("ccc: %s\r\n", RxData.code);
+		// HAL_UART_Transmit(&huart4, senddata, strlen(senddata),20);
+		HAL_UART_Transmit_DMA(&huart4, senddata, strlen(senddata));
+	}
+	
+}
+
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     if (huart->Instance == USART1)                   /*debug*/
@@ -289,6 +349,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		my_USART3_GetBuffer(uart4_Rx[0], uart4_RxBuff);                
     }
 }
+
+
+
+
+
 
 // void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) //DMA
 //{
@@ -352,6 +417,16 @@ void RxDataClear(char mode_data)
 
 void Correspond_Init()
 {
+  RxData.code[0] = 'C';
+  RxData.code[1] = 'h';
+  RxData.code[2] = 'i';
+  RxData.code[3] = 'n';
+  RxData.code[4] = 'a';
+  RxData.code[5] = '!';
+  RxData.code[6] = '_';
+  
+  RxData.B_cntMax = 26;
+
   HAL_Delay(2);
   HAL_UART_Receive_IT(&huart1,( uint8_t*)uart1_Rx, sizeof(u8)*1 );
   // HAL_UART_Receive_DMA(&huart1,uart1_DataBuff, uart1_RxBuffLen);

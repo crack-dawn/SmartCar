@@ -1,14 +1,14 @@
 #include "PID.h"
 #include "control.h"
 
-//pid ¾ø¶ÔÖµº¯Êý
-#define  Abs(x)   ((x) < 0 ? -(x) : (x))  //Çó¾ø¶ÔÖµ 
+//pid ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
+#define  Abs(x)   ((x) < 0 ? -(x) : (x))  //ï¿½ï¿½ï¿½ï¿½ï¿½Öµ 
 
 
-//¶¨ÒåÈ«¾Ö±äÁ¿
+//ï¿½ï¿½ï¿½ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½
 /**
- * @brief pid_speed  pid_location ¶ÔÓ¦ µç»ú1
- * @brief pid_speed2 pid_location2     µç»ú2
+ * @brief pid_speed  pid_location ï¿½ï¿½Ó¦ ï¿½ï¿½ï¿½1
+ * @brief pid_speed2 pid_location2     ï¿½ï¿½ï¿½2
  */
 _pid pid_speed={0};  
 _pid pid_location={0};
@@ -18,34 +18,34 @@ _pid pid_location2={0};
 
 _pid pid_angle={0};
 
-/*PIDÔ­Ê¼²ÎÊýÊýÖµ*/
+/*PIDÔ­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ*/
 // 0.9-0.0016 5000 0.6    1.8-2.2
 // 												8.5~7.5
-float Position_KP= 2.6,Position_KI=0.00,Position_KD=9.7;          /* Î»ÖÃÊ½PIDÏµÊý position for location*/
+float Position_KP= 2.6,Position_KI=0.00,Position_KD=9.7;          /* Î»ï¿½ï¿½Ê½PIDÏµï¿½ï¿½ position for location*/
 //2.6  5.2  1.3 
-float Incremental_KP=2.6,Incremental_KI=5.2,Incremental_KD=1.3;    /* ÔöÁ¿Ê½PIDÏµÊý increase for speed*/   
-float Incremental_KP2=2.6,Incremental_KI2=5.2,Incremental_KD2=1.3;    /* ÔöÁ¿Ê½PIDÏµÊý increase for speed*/   
-// float Incremental_KP=2.6,Incremental_KI=7.2,Incremental_KD=0.6;    /* ÔöÁ¿Ê½PIDÏµÊý increase for speed*/   
-float Incremental_KP_A=2.3, Incremental_KI_A=0.02, Incremental_KD_A=2.0;		  /* ÔöÁ¿Ê½PIDÏµÊý increase for angle*/
-/**------------------------------×´Ì¬¸üÐÂ-------------------------------------------**/
-/*Ã»ÓÐÓÃµ½¼õËÙ´ø£¬ ¶øÊÇ²ÉÈ¡·Ö¶ÎÊ½pid£¬ ÔÚÄ¿±êÎ»ÖÃ¸½½ü£¬½«Î»ÖÃ»·pÖµµ÷Ð¡£¬ËÙ¶È»·iÖµµ÷Ð¡*/
+float Incremental_KP=2.6,Incremental_KI=5.2,Incremental_KD=1.3;    /* ï¿½ï¿½ï¿½ï¿½Ê½PIDÏµï¿½ï¿½ increase for speed*/   
+float Incremental_KP2=2.6,Incremental_KI2=5.2,Incremental_KD2=1.3;    /* ï¿½ï¿½ï¿½ï¿½Ê½PIDÏµï¿½ï¿½ increase for speed*/   
+// float Incremental_KP=2.6,Incremental_KI=7.2,Incremental_KD=0.6;    /* ï¿½ï¿½ï¿½ï¿½Ê½PIDÏµï¿½ï¿½ increase for speed*/   
+float Incremental_KP_A=2.3, Incremental_KI_A=0.02, Incremental_KD_A=2.0;		  /* ï¿½ï¿½ï¿½ï¿½Ê½PIDÏµï¿½ï¿½ increase for angle*/
+/**------------------------------×´Ì¬ï¿½ï¿½ï¿½ï¿½-------------------------------------------**/
+/*Ã»ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ù´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç²ï¿½È¡ï¿½Ö¶ï¿½Ê½pidï¿½ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½Î»ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã»ï¿½pÖµï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ù¶È»ï¿½iÖµï¿½ï¿½Ð¡*/
 
 
-// /*PIDÔ­Ê¼²ÎÊýÊýÖµ*/
-// float Position_KP=2.0,Position_KI=0.001,Position_KD=0.6;          /* Î»ÖÃÊ½PIDÏµÊý position for location*/
-// float Incremental_KP=1.6,Incremental_KI=5.00,Incremental_KD=0.6;    /* ÔöÁ¿Ê½PIDÏµÊý increase for speed*/   
-// float Incremental_KP_A=2.3, Incremental_KI_A=0.02, Incremental_KD_A=2.;		  /* ÔöÁ¿Ê½PIDÏµÊý increase for angle*/
-// /**------------------------------×´Ì¬¸üÐÂ-------------------------------------------**/
-// /*Ã»ÓÐÓÃµ½¼õËÙ´ø£¬ ¶øÊÇ²ÉÈ¡·Ö¶ÎÊ½pid£¬ ÔÚÄ¿±êÎ»ÖÃ¸½½ü£¬½«Î»ÖÃ»·pÖµµ÷Ð¡£¬ËÙ¶È»·iÖµµ÷Ð¡*/
+// /*PIDÔ­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ*/
+// float Position_KP=2.0,Position_KI=0.001,Position_KD=0.6;          /* Î»ï¿½ï¿½Ê½PIDÏµï¿½ï¿½ position for location*/
+// float Incremental_KP=1.6,Incremental_KI=5.00,Incremental_KD=0.6;    /* ï¿½ï¿½ï¿½ï¿½Ê½PIDÏµï¿½ï¿½ increase for speed*/   
+// float Incremental_KP_A=2.3, Incremental_KI_A=0.02, Incremental_KD_A=2.;		  /* ï¿½ï¿½ï¿½ï¿½Ê½PIDÏµï¿½ï¿½ increase for angle*/
+// /**------------------------------×´Ì¬ï¿½ï¿½ï¿½ï¿½-------------------------------------------**/
+// /*Ã»ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ù´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç²ï¿½È¡ï¿½Ö¶ï¿½Ê½pidï¿½ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½Î»ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã»ï¿½pÖµï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ù¶È»ï¿½iÖµï¿½ï¿½Ð¡*/
 
 
 /**
  * @brief 
  * 
- * @param Lout Î»ÖÃ»·Êä³ö
- * @param Lerr Î»ÖÃÎó²î
- * @param minV ×îÐ¡Öµspeed
- * @param maxV ×î´óÖµspeed
+ * @param Lout Î»ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
+ * @param Lerr Î»ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param minV ï¿½ï¿½Ð¡Öµspeed
+ * @param maxV ï¿½ï¿½ï¿½Öµspeed
  * @return float 
  */
 float Limit_Amplitude(float Lout, float Lerr,float minV, float maxV)
@@ -75,13 +75,13 @@ void Top_PID_Control_CallBack_TIM6(TIM_HandleTypeDef *htim)
 	if (htim->Instance == TIM6)  //TIM6 20 ms kernel
 	{
 		#if(Motor_REDUCE== 30)
-			pid_speed2.actual_val   =  +(short)TIM3 -> CNT;   	//TIM3   PC6  PC7  E1 ÓÒÂÖ×Ó| PE9   pwm1 | AN1 AN2| pid_speed2  ÓÒ±ß   M1 
-			pid_speed.actual_val  	=  -(short)TIM4 -> CNT;   	//TIM4   PD12 PD13 E2 ×óÂÖ×Ó| PE11  pwm2 | BN1 BN2| pid_speed	×ó±ß   M2
+			pid_speed2.actual_val   =  +(short)TIM3 -> CNT;   	//TIM3   PC6  PC7  E1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| PE9   pwm1 | AN1 AN2| pid_speed2  ï¿½Ò±ï¿½   M1 
+			pid_speed.actual_val  	=  -(short)TIM4 -> CNT;   	//TIM4   PD12 PD13 E2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| PE11  pwm2 | BN1 BN2| pid_speed	ï¿½ï¿½ï¿½   M2
 		#endif // 0
 
 		#if(Motor_REDUCE== 49)
-			pid_speed.actual_val  	=  +(short)(TIM4 -> CNT);   	//TIM4   PD12 PD13 E2 ×óÂÖ×Ó| PE11  pwm2 | BN1 BN2| pid_speed	×ó±ß   M2
-			pid_speed2.actual_val   =  -(short)(TIM3 -> CNT);   	//TIM3   PC6  PC7  E1 ÓÒÂÖ×Ó| PE9   pwm1 | AN1 AN2| pid_speed2  ÓÒ±ß   M1 
+			pid_speed.actual_val  	=  +(short)(TIM4 -> CNT);   	//TIM4   PD12 PD13 E2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| PE11  pwm2 | BN1 BN2| pid_speed	ï¿½ï¿½ï¿½   M2
+			pid_speed2.actual_val   =  -(short)(TIM3 -> CNT);   	//TIM3   PC6  PC7  E1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½| PE9   pwm1 | AN1 AN2| pid_speed2  ï¿½Ò±ï¿½   M1 
 		#endif // 0
 
 		// printf("pwm mode|| cnt of TIM4:  %d TIM3:  %d \r\n",TIM4 -> CNT, TIM3->CNT);
@@ -96,12 +96,12 @@ void Top_PID_Control_CallBack_TIM6(TIM_HandleTypeDef *htim)
 		{  
 			if ((Abs(pid_location2.err) < Err_disance+Err_disance || Abs(pid_location.err) < Err_disance+Err_disance ) )
 			{
-				pid_speed.out = pid_speed2.out;//ÒÔÓÒÂÖÎª±ê×¼ Ö±ÏßÐÐÊ»ÓÒÂÖÍ£Ö¹¶¼Í£Ö¹
+				pid_speed.out = pid_speed2.out;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½×¼ Ö±ï¿½ï¿½ï¿½ï¿½Ê»ï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½Í£Ö¹
 			}
 			// if (((Abs(pid_location2.err) < 700 ) || (Abs(pid_location.err) <700 )) \
 			//      &&((Abs(pid_location2.err) >Err_disance   ) || (Abs(pid_location.err) >Err_disance))  \
 			// 	 && pid_location2.param5 == 1 &&  pid_location.param5== 1)
-			// {//Ã¿´ÎÖ´ÐÐ¶¯×÷µÄ ½Ó½ü½áÊøÎ»ÖÃ ¼õËÙÂýÐÔ
+			// {//Ã¿ï¿½ï¿½Ö´ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			// 	 pid_location2.param5 = 0;
 			// 	 pid_location.param5= 0;
 			// 	pid_speed.pre_target_val = LowSpeed;
@@ -111,14 +111,14 @@ void Top_PID_Control_CallBack_TIM6(TIM_HandleTypeDef *htim)
 		PID_Calculate_Updata(&pid_location,  &pid_speed, &pid_angle);
 		PID_Calculate_Updata(&pid_location2, &pid_speed2, &pid_angle);
 		
-		Set_Pwm(pid_speed2.out,pid_speed.out);	 // ÓÒ2Îªpwm1  ×ó1Îªpwm2
+		Set_Pwm(pid_speed2.out,pid_speed.out);	 // ï¿½ï¿½2Îªpwm1  ï¿½ï¿½1Îªpwm2
 	}
 }
 
 
 float Angle_adjust(float angle)
 {
-		// ½Ç¶ÈÖµ ×óÆ«Îª+ //ÓÒÆ«Îª-  // ËÙ¶ÈÎó²îÖµ ÊÇÔ­±¾µÄ10±¶Êý
+		// ï¿½Ç¶ï¿½Öµ ï¿½ï¿½Æ«Îª+ //ï¿½ï¿½Æ«Îª-  // ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½Öµ ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½
 	float AbsAngle = Abs(angle)*100;
 	if ( AbsAngle > 45 && AbsAngle < 80 )
 	{
@@ -152,30 +152,30 @@ float Angle_adjust(float angle)
 }
 
 /**
- * @brief ´Ëº¯ÊýÖ»¸ù¾ÝPID²ÎÊý Ë¢ÐÂ×´Ì¬£¬Ë¢ÐÂÊä³öÖµ£¬||»òÕßËµ£¬Ö»Ë¢ÐÂÊý¾Ý²»×öÊä³ö¿ØÖÆ
+ * @brief ï¿½Ëºï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½PIDï¿½ï¿½ï¿½ï¿½ Ë¢ï¿½ï¿½×´Ì¬ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½||ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ö»Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * 
  * @param pid_L 
  * @param pid_V 
- * @param speed //×î´óËÙ¶ÈÏÞÖÆ·ù¶È
+ * @param speed //ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
  */
 void PID_Calculate_Updata(_pid *pid_L, _pid *pid_V, _pid *pid_A)
 {
 	static float adjust=0;
-	//¿ªÊ¼¿ØÖÆÇ°ÏÈÉè¶¨ºÃ Ä¿±êÎ»ÖÃ ºÍ Ä¿±êËÙ¶È
-    /*Î»ÖÃ»·¼ÆËã¿ªÊ¼-----------------------*/	
-	location_pid_realize( pid_L ); //µÃµ½µ±Ç° ÆÚÍûËÙ¶ÈÖµ
-    /*Î»ÖÃ»·¼ÆËã½áÊø*/
+	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½è¶¨ï¿½ï¿½ Ä¿ï¿½ï¿½Î»ï¿½ï¿½ ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½Ù¶ï¿½
+    /*Î»ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ã¿ªÊ¼-----------------------*/	
+	location_pid_realize( pid_L ); //ï¿½Ãµï¿½ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½Öµ
+    /*Î»ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-	//¶ÔÎ»ÖÃ»·Êä³ö½øÐÐ ºÏÊÊµÄµ÷½Ú£¬ ±ÈÀýËõ¼õ£¬ÏÞÖÆ·ù¶ÈµÈµÈ£¬ÊäÈë¸øËÙ¶È»·µ±×öÄ¿±êËÙ¶È
+	//ï¿½ï¿½Î»ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÊµÄµï¿½ï¿½Ú£ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ÈµÈµÈ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È»ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ù¶ï¿½
 	pid_V->target_val= Limit_Amplitude(  pid_L->out,  pid_L->err , MinSpeed, pid_V->pre_target_val );
 	
 
 
-	/*½Ç¶È»·¼ÆËã¿ªÊ¼ Ôö¼ÓÁ½ÂÖ²îËÙ*/  // 
+	/*ï¿½Ç¶È»ï¿½ï¿½ï¿½ï¿½ã¿ªÊ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½*/  // 
 	if (pid_angle.param5 == PIDparam5_Angle_Control)
 	{	
 		adjust = Angle_adjust(pid_angle.actual_val);
-		// ½Ç¶ÈÖµ ×óÆ«Îª+ //ÓÒÆ«Îª-  // ËÙ¶ÈÎó²îÖµ ÊÇÔ­±¾µÄ10±¶Êý
+		// ï¿½Ç¶ï¿½Öµ ï¿½ï¿½Æ«Îª+ //ï¿½ï¿½Æ«Îª-  // ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½Öµ ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½
 		if (pid_V->param1 == PIDparam1_M2_Left)
 		{
 			pid_V->target_val += adjust;
@@ -190,17 +190,17 @@ void PID_Calculate_Updata(_pid *pid_L, _pid *pid_V, _pid *pid_A)
 		}
 	}
 
-	/*½Ç¶È»»µ÷Õû½áÊø*/
+	/*ï¿½Ç¶È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	else if (pid_angle.param5 == PIDparam5_Speed_Control)
 	{
 		pid_V->target_val = pid_V->pre_target_val; 
 	}
 	
-    /*ËÙ¶È»·¼ÆËã¿ªÊ¼-----------------------*/
+    /*ï¿½Ù¶È»ï¿½ï¿½ï¿½ï¿½ã¿ªÊ¼-----------------------*/
     Increase_pid_realize(pid_V);
-    /*ËÙ¶È»·¼ÆËã½áÊø*/			
+    /*ï¿½Ù¶È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/			
 
-	/*×´Ì¬²ÎÊýµ÷Õû*/
+	/*×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	PID_Param_Updata(    pid_L,  pid_V  ) ;
 }
 
@@ -210,18 +210,18 @@ void PID_Param_Updata(_pid *pid_L, _pid *pid_V)
 	{
 		case PIDparam5_Angle_Control:
 		case PIDparam5_Local_Control:
-			if (Abs(pid_L->err) < Err_disance) /* ÂË³ý²¿·Ö¸ÉÈÅ,Î»ÖÃÏà²îErr¸ö±àÂëÖµÍ£Ö¹pidµ÷½Ú */
+			if (Abs(pid_L->err) < Err_disance) /* ï¿½Ë³ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½,Î»ï¿½ï¿½ï¿½ï¿½ï¿½Errï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÍ£Ö¹pidï¿½ï¿½ï¿½ï¿½ */
 			{
 				pid_L->param4 += 1;
 				if (pid_L->param4 > PIDparam4_ready_quick) // buffer time after action over
 				{
 					pid_L->param4 = 0;
 					pid_L->pre_target_val = pid_L->target_val; // updata previous location, storage it for run to next position
-					pid_L->param3 = PIDparam3_finish;		   // ±¾´Î¶¯×÷Íê³ÉÁË ±êÖ¾Î»ÖÃÁã   Í³Ò»Ö»¹ÜÎ»ÖÃ»·Õâ¸ö²ÎÊý×÷ÎªÅÐ¶Ï±êÖ¾
+					pid_L->param3 = PIDparam3_finish;		   // ï¿½ï¿½ï¿½Î¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö¾Î»ï¿½ï¿½ï¿½ï¿½   Í³Ò»Ö»ï¿½ï¿½Î»ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ð¶Ï±ï¿½Ö¾
 				}
 				if (Abs(pid_L->err) < _1mm_to_Encoder_)
 				{
-					pid_V->out = 0; // µç»úÊä³öÖÃÁã 	ok
+					pid_V->out = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 	ok
 				}
 				return;
 			}break;
@@ -254,7 +254,7 @@ unsigned char PID_JudgeStatus()
 			return PIDparam3_finish;
 		}
 		else if (pid_speed.pre_target_val ==pid_speed2.pre_target_val)
-		{ //¶¨Î»ÖÃ×ßÖ±Ïß  ½Ó½üÄ¿±êÎ»ÖÃ  ×óÂÖºÍÓÒÂÖËÙ¶È±£³ÖÒ»ÖÂ£¬ÒÔÓÒÂÖ½áÊøÎª±êÖ¾
+		{ //ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½  ï¿½Ó½ï¿½Ä¿ï¿½ï¿½Î»ï¿½ï¿½  ï¿½ï¿½ï¿½Öºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È±ï¿½ï¿½ï¿½Ò»ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ö¾
 			if(pid_location2.param3 == PIDparam3_finish)
 				return PIDparam3_finish;
 		}
@@ -272,110 +272,110 @@ unsigned char PID_JudgeStatus()
 
 
 /**************************************************************************
-º¯Êý¹¦ÄÜ£ºÔöÁ¿PID¿ØÖÆÆ÷  ½Ç¶È»· ½Ç¶È²îËÙ¿ØÖÆ
-Èë¿Ú²ÎÊý£ºÊµ¼ÊÖµ£¬Ä¿±êÖµ
-·µ»Ø  Öµ£ºµç»ú²îËÙÊýÖµ
-¸ù¾ÝÔöÁ¿Ê½ÀëÉ¢PID¹«Ê½ 
-out+=Kp[e£¨k£©-e(k-1)]+Ki*e(k)+Kd[e(k)-2e(k-1)+e(k-2)]
-e(k)´ú±í±¾´ÎÆ«²î 
-e(k-1)´ú±íÉÏÒ»´ÎµÄÆ«²î  ÒÔ´ËÀàÍÆ 
-out´ú±íÔöÁ¿Êä³ö
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½PIDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½Ç¶È»ï¿½ ï¿½Ç¶È²ï¿½ï¿½Ù¿ï¿½ï¿½ï¿½
+ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Öµï¿½ï¿½Ä¿ï¿½ï¿½Öµ
+ï¿½ï¿½ï¿½ï¿½  Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½É¢PIDï¿½ï¿½Ê½ 
+out+=Kp[eï¿½ï¿½kï¿½ï¿½-e(k-1)]+Ki*e(k)+Kd[e(k)-2e(k-1)+e(k-2)]
+e(k)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½ 
+e(k-1)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Îµï¿½Æ«ï¿½ï¿½  ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ 
+outï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 **************************************************************************/
 float Increase_pid_realize_angle(_pid *pid)
 {
-//	pid->actual_val =actual_val;//Êµ¼ÊÖµ  
-//  pid->target_val =target_val;//ÆÚÍûÖµ  
+//	pid->actual_val =actual_val;//Êµï¿½ï¿½Öµ  
+//  pid->target_val =target_val;//ï¿½ï¿½ï¿½ï¿½Öµ  
 
-  pid->err=pid->target_val - pid->actual_val; /*µ±Ç°Îó²î*/ /*¼ÆËãÄ¿±êÖµÓëÊµ¼ÊÖµµÄÎó²î*/
+  pid->err=pid->target_val - pid->actual_val; /*ï¿½ï¿½Ç°ï¿½ï¿½ï¿½*/ /*ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Öµï¿½ï¿½Êµï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-  /*PIDËã·¨ÊµÏÖ*/
-  if (Abs(pid->err) < Err_angle)//·ÀÖ¹ PÏîÊ¹ËÙ¶È¹ýµ÷
+  /*PIDï¿½ã·¨Êµï¿½ï¿½*/
+  if (Abs(pid->err) < Err_angle)//ï¿½ï¿½Ö¹ Pï¿½ï¿½Ê¹ï¿½Ù¶È¹ï¿½ï¿½ï¿½
   {
-			pid->out += pid->Kp * (pid->err - pid->err_last)					   /* ±ÈÀý»·½Ú */
-						+ 0.002 * (pid->err)										   /* »ý·Ö»·½Ú */
-						+ pid->Kd * (pid->err - 2 * pid->err_last + pid->err_pre); /* Î¢·Ö»·½Ú */
+			pid->out += pid->Kp * (pid->err - pid->err_last)					   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+						+ 0.002 * (pid->err)										   /* ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ */
+						+ pid->Kd * (pid->err - 2 * pid->err_last + pid->err_pre); /* Î¢ï¿½Ö»ï¿½ï¿½ï¿½ */
   }
  
   else
   {
-			pid->out += pid->Kp * (pid->err - pid->err_last)					   /* ±ÈÀý»·½Ú */
-						+ pid->Ki * (pid->err)									   /* »ý·Ö»·½Ú */
-						+ pid->Kd * (pid->err - 2 * pid->err_last + pid->err_pre); /* Î¢·Ö»·½Ú */
+			pid->out += pid->Kp * (pid->err - pid->err_last)					   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+						+ pid->Ki * (pid->err)									   /* ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ */
+						+ pid->Kd * (pid->err - 2 * pid->err_last + pid->err_pre); /* Î¢ï¿½Ö»ï¿½ï¿½ï¿½ */
   }
 
-  /*Îó²î´«µÝ*/
-  pid->err_pre = pid->err_last; // ¸üÐÂÉÏÉÏ´ÎÎó²î
-  pid->err_last = pid->err;		// ¸üÐÂÉÏ´ÎÎó²î
+  /*ï¿½ï¿½î´«ï¿½ï¿½*/
+  pid->err_pre = pid->err_last; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½
+  pid->err_last = pid->err;		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½
 
-  /*·µ»Øµ±Ç°Êµ¼ÊÖµ PIDµ÷½ÚºóµÄÊä³öÖµ ÎªËÙ¶ÈÕ¼¿Õ±È*/
+  /*ï¿½ï¿½ï¿½Øµï¿½Ç°Êµï¿½ï¿½Öµ PIDï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½Öµ Îªï¿½Ù¶ï¿½Õ¼ï¿½Õ±ï¿½*/
   return pid->out;
 }
 
 /**************************************************************************
-º¯Êý¹¦ÄÜ£ºÔöÁ¿PID¿ØÖÆÆ÷  ËÙ¶È»·
-Èë¿Ú²ÎÊý£ºÊµ¼ÊÖµ£¬Ä¿±êÖµ
-·µ»Ø  Öµ£ºµç»úPWM
-¸ù¾ÝÔöÁ¿Ê½ÀëÉ¢PID¹«Ê½ 
-out+=Kp[e£¨k£©-e(k-1)]+Ki*e(k)+Kd[e(k)-2e(k-1)+e(k-2)]
-e(k)´ú±í±¾´ÎÆ«²î 
-e(k-1)´ú±íÉÏÒ»´ÎµÄÆ«²î  ÒÔ´ËÀàÍÆ 
-out´ú±íÔöÁ¿Êä³ö
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½PIDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½Ù¶È»ï¿½
+ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Öµï¿½ï¿½Ä¿ï¿½ï¿½Öµ
+ï¿½ï¿½ï¿½ï¿½  Öµï¿½ï¿½ï¿½ï¿½ï¿½PWM
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½É¢PIDï¿½ï¿½Ê½ 
+out+=Kp[eï¿½ï¿½kï¿½ï¿½-e(k-1)]+Ki*e(k)+Kd[e(k)-2e(k-1)+e(k-2)]
+e(k)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½ 
+e(k-1)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Îµï¿½Æ«ï¿½ï¿½  ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ 
+outï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 **************************************************************************/
 float Increase_pid_realize(_pid *pid)
 {
-//	pid->actual_val =actual_val;//Êµ¼ÊÖµ  
-//  pid->target_val =target_val;//ÆÚÍûÖµ  
+//	pid->actual_val =actual_val;//Êµï¿½ï¿½Öµ  
+//  pid->target_val =target_val;//ï¿½ï¿½ï¿½ï¿½Öµ  
 
-  pid->err=pid->target_val - pid->actual_val; /*µ±Ç°Îó²î*/ /*¼ÆËãÄ¿±êÖµÓëÊµ¼ÊÖµµÄÎó²î*/
+  pid->err=pid->target_val - pid->actual_val; /*ï¿½ï¿½Ç°ï¿½ï¿½ï¿½*/ /*ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Öµï¿½ï¿½Êµï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-  /*PIDËã·¨ÊµÏÖ*/
-  if (Abs(pid->err) < Err_speed)//·ÀÖ¹ PÏîÊ¹ËÙ¶È¹ýµ÷
+  /*PIDï¿½ã·¨Êµï¿½ï¿½*/
+  if (Abs(pid->err) < Err_speed)//ï¿½ï¿½Ö¹ Pï¿½ï¿½Ê¹ï¿½Ù¶È¹ï¿½ï¿½ï¿½
   {
-			pid->out += pid->Kp * (pid->err - pid->err_last)					   /* ±ÈÀý»·½Ú */
-						+ 2.2 * (pid->err)										   /* »ý·Ö»·½Ú */
-						+ pid->Kd * (pid->err - 2 * pid->err_last + pid->err_pre); /* Î¢·Ö»·½Ú */
+			pid->out += pid->Kp * (pid->err - pid->err_last)					   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+						+ 2.2 * (pid->err)										   /* ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ */
+						+ pid->Kd * (pid->err - 2 * pid->err_last + pid->err_pre); /* Î¢ï¿½Ö»ï¿½ï¿½ï¿½ */
   }
  
   else
   {
-			pid->out += pid->Kp * (pid->err - pid->err_last)					   /* ±ÈÀý»·½Ú */
-						+ pid->Ki * (pid->err)									   /* »ý·Ö»·½Ú */
-						+ pid->Kd * (pid->err - 2 * pid->err_last + pid->err_pre); /* Î¢·Ö»·½Ú */
+			pid->out += pid->Kp * (pid->err - pid->err_last)					   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+						+ pid->Ki * (pid->err)									   /* ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ */
+						+ pid->Kd * (pid->err - 2 * pid->err_last + pid->err_pre); /* Î¢ï¿½Ö»ï¿½ï¿½ï¿½ */
   }
 
-  /*Îó²î´«µÝ*/
-  pid->err_pre = pid->err_last; // ¸üÐÂÉÏÉÏ´ÎÎó²î
-  pid->err_last = pid->err;		// ¸üÐÂÉÏ´ÎÎó²î
+  /*ï¿½ï¿½î´«ï¿½ï¿½*/
+  pid->err_pre = pid->err_last; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½
+  pid->err_last = pid->err;		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½
 
-  /*·µ»Øµ±Ç°Êµ¼ÊÖµ PIDµ÷½ÚºóµÄÊä³öÖµ ÎªËÙ¶ÈÕ¼¿Õ±È*/
+  /*ï¿½ï¿½ï¿½Øµï¿½Ç°Êµï¿½ï¿½Öµ PIDï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½Öµ Îªï¿½Ù¶ï¿½Õ¼ï¿½Õ±ï¿½*/
   return pid->out;
 }
 
 /**************************************************************************
-º¯Êý¹¦ÄÜ£ºÎ»ÖÃÊ½PID¿ØÖÆÆ÷
-Èë¿Ú²ÎÊý£ºÊµ¼ÊÎ»ÖÃ£¬Ä¿±êÎ»ÖÃ
-·µ»Ø  Öµ£ºÆÚÍûËÙ¶È
-¸ù¾ÝÎ»ÖÃÊ½ÀëÉ¢PID¹«Ê½ 
-pwm=Kp*e(k)+Ki*¡Æe(k)+Kd[e£¨k£©-e(k-1)]
-e(k)´ú±í±¾´ÎÆ«²î 
-e(k-1)´ú±íÉÏÒ»´ÎµÄÆ«²î  
-¡Æe(k)´ú±íe(k)ÒÔ¼°Ö®Ç°µÄÆ«²îµÄÀÛ»ýºÍ;ÆäÖÐkÎª1,2,...,k;
-pwm´ú±íÊä³ö
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½Î»ï¿½ï¿½Ê½PIDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Î»ï¿½Ã£ï¿½Ä¿ï¿½ï¿½Î»ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½  Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ê½ï¿½ï¿½É¢PIDï¿½ï¿½Ê½ 
+pwm=Kp*e(k)+Ki*ï¿½ï¿½e(k)+Kd[eï¿½ï¿½kï¿½ï¿½-e(k-1)]
+e(k)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½ 
+e(k-1)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Îµï¿½Æ«ï¿½ï¿½  
+ï¿½ï¿½e(k)ï¿½ï¿½ï¿½ï¿½e(k)ï¿½Ô¼ï¿½Ö®Ç°ï¿½ï¿½Æ«ï¿½ï¿½ï¿½ï¿½Û»ï¿½ï¿½ï¿½;ï¿½ï¿½ï¿½ï¿½kÎª1,2,...,k;
+pwmï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 **************************************************************************/
 float location_pid_realize(_pid *pid)   
 {
-//    pid->actual_val =actual_val;//Êµ¼ÊÖµ Êµ¼ÊµÄÎ»ÖÃ
-//    pid->target_val =target_val;//ÆÚÍûÖµ ÆÚÍûµÄÎ»ÖÃ
+//    pid->actual_val =actual_val;//Êµï¿½ï¿½Öµ Êµï¿½Êµï¿½Î»ï¿½ï¿½
+//    pid->target_val =target_val;//ï¿½ï¿½ï¿½ï¿½Öµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 
-		/*¼ÆËãÄ¿±êÖµÓëÊµ¼ÊÖµµÄÎó²î*/
-    pid->err= pid->target_val  -  pid->actual_val; //µ±Ç°Îó²î P  ±ÈÀýÏî
+		/*ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Öµï¿½ï¿½Êµï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½*/
+    pid->err= pid->target_val  -  pid->actual_val; //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ P  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   
-    pid->integral += pid->err;          //  ÀúÊ·ÀÛ¼ÓÎó²î I »ý·ÖÏî
+    pid->integral += pid->err;          //  ï¿½ï¿½Ê·ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ I ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    if(pid->integral> 500) pid->integral = 500;   /* »ý·ÖÏÞ·ù */
+    if(pid->integral> 500) pid->integral = 500;   /* ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ */
     if(pid->integral<-500) pid->integral =-500;
 
-		/*PIDËã·¨ÊµÏÖ*/
+		/*PIDï¿½ã·¨Êµï¿½ï¿½*/
 	// if( Abs(pid->err) < Err_disance*4 )
 	// {
 	// 	pid->out =      1.6*pid->err
@@ -388,14 +388,14 @@ float location_pid_realize(_pid *pid)
 			+pid->Ki*pid->integral
 			+pid->Kd*(pid->err-pid->err_last);
 	}
-		/*Îó²î´«µÝ*/
+		/*ï¿½ï¿½î´«ï¿½ï¿½*/
     pid->err_last=pid->err;
     
-		/*·µ»Ø¿ØÖÆÁ¿*/
+		/*ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½*/
     return pid->out;
 }
 
-/*--------------------------------------²ÎÊý³õÊ¼»¯----------------------------------------------------------------*/
+/*--------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½----------------------------------------------------------------*/
 void PID_Struct_Init(_pid *pid,float p, float i, float d,unsigned char param1,unsigned char param2,unsigned char param3)
 {
     pid->target_val=0;				
@@ -406,46 +406,46 @@ void PID_Struct_Init(_pid *pid,float p, float i, float d,unsigned char param1,un
     pid->integral=0;
 		pid->out = 0;
 
-    pid->Kp = p;    // ÉèÖÃ±ÈÀýÏµÊý P
-		pid->Ki = i;    // ÉèÖÃ»ý·ÖÏµÊý I
-		pid->Kd = d;    // ÉèÖÃÎ¢·ÖÏµÊý D
-    pid->param1 = param1; // µç»úÐòºÅ
-    pid->param2 = param2; // Î»ÖÃ»· or ËÙ¶È»·£¿
-    pid->param3 = param3; // µ±Ç°Ö´ÐÐÍê³É×´Ì¬  
+    pid->Kp = p;    // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Ïµï¿½ï¿½ P
+		pid->Ki = i;    // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ïµï¿½ï¿½ I
+		pid->Kd = d;    // ï¿½ï¿½ï¿½ï¿½Î¢ï¿½ï¿½Ïµï¿½ï¿½ D
+    pid->param1 = param1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pid->param2 = param2; // Î»ï¿½Ã»ï¿½ or ï¿½Ù¶È»ï¿½ï¿½ï¿½
+    pid->param3 = param3; // ï¿½ï¿½Ç°Ö´ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬  
 }
 
 void PID_param_init()
 {
 	PID_Struct_Init(&pid_angle,Incremental_KP_A,Incremental_KI_A,Incremental_KD_A,PIDparam1_An,PIDparam2_I,PIDparam3_finish);
 	pid_angle.param5 = PIDparam5_Local_Control;
-   /***********µç»ú1 PID½á¹¹Ìå**********************/
-	/* Î»ÖÃÏà¹Ø³õÊ¼»¯²ÎÊý */
+   /***********ï¿½ï¿½ï¿½1 PIDï¿½á¹¹ï¿½ï¿½**********************/
+	/* Î»ï¿½ï¿½ï¿½ï¿½Ø³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	PID_Struct_Init(&pid_location,Position_KP,Position_KI,Position_KD,PIDparam1_M2_Left,PIDparam2_L,PIDparam3_finish);
-	/* ËÙ¶ÈÏà¹Ø³õÊ¼»¯²ÎÊý */
+	/* ï¿½Ù¶ï¿½ï¿½ï¿½Ø³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	PID_Struct_Init(&pid_speed,Incremental_KP,Incremental_KI,Incremental_KD,PIDparam1_M2_Left,PIDparam2_I,PIDparam3_finish);
 
-	/***********µç»ú2 PID½á¹¹Ìå**********************/
-	/* Î»ÖÃÏà¹Ø³õÊ¼»¯²ÎÊý */
+	/***********ï¿½ï¿½ï¿½2 PIDï¿½á¹¹ï¿½ï¿½**********************/
+	/* Î»ï¿½ï¿½ï¿½ï¿½Ø³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	PID_Struct_Init(&pid_location2,Position_KP,Position_KI,Position_KD,PIDparam1_M1_Right,PIDparam2_L,PIDparam3_finish);
-	/* ËÙ¶ÈÏà¹Ø³õÊ¼»¯²ÎÊý */
+	/* ï¿½Ù¶ï¿½ï¿½ï¿½Ø³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	PID_Struct_Init(&pid_speed2,Incremental_KP2,Incremental_KI2,Incremental_KD2,PIDparam1_M1_Right,PIDparam2_I,PIDparam3_finish);
 }
 
 // void set_pid_target(_pid *pid, float temp_val)
 // {
-//   pid->target_val = temp_val;    // ÉèÖÃµ±Ç°µÄÄ¿±êÖµ
+//   pid->target_val = temp_val;    // ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½Ä¿ï¿½ï¿½Öµ
 // }
 
 // float get_pid_target(_pid *pid)
 // {
-//   return pid->target_val;    // ÉèÖÃµ±Ç°µÄÄ¿±êÖµ
+//   return pid->target_val;    // ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½Ä¿ï¿½ï¿½Öµ
 // }
 
 // void set_p_i_d(_pid *pid, float p, float i, float d)
 // {
-//   	pid->Kp = p;    // ÉèÖÃ±ÈÀýÏµÊý P
-// 		pid->Ki = i;    // ÉèÖÃ»ý·ÖÏµÊý I
-// 		pid->Kd = d;    // ÉèÖÃÎ¢·ÖÏµÊý D
+//   	pid->Kp = p;    // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Ïµï¿½ï¿½ P
+// 		pid->Ki = i;    // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ïµï¿½ï¿½ I
+// 		pid->Kd = d;    // ï¿½ï¿½ï¿½ï¿½Î¢ï¿½ï¿½Ïµï¿½ï¿½ D
 // }
 
 

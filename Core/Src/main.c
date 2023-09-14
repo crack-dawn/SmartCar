@@ -111,7 +111,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
-  /*-- 外设初始化开�???========================================== --*/
+  /*-- 外设初始化开�????========================================== --*/
     LED1_OFF;
     LED0_OFF;
 
@@ -123,8 +123,8 @@ int main(void)
 
     Car_Drive_Init();/*编码电机*/      task = Stop;     do_cnt = 0;
 
-    StepArm_Task_InitPosition();/*初始化机械臂位置*/
-  /*---========================================== 外设初始化结�??? --*/
+    // StepArm_Task_InitPosition();/*初始化机械臂位置*/
+  /*---========================================== 外设初始化结�???? --*/
 
   /* USER CODE END 2 */
 
@@ -146,13 +146,11 @@ int main(void)
 
   SendCmdB; //识别色块模式
 
+  HAL_Delay(200); //启动前延�???? 1800ms
 
-
-  HAL_Delay(200); //启动前延�??? 1800ms
-  printf("start\r\n");
   while (1)
   {
-    // printf("%7s \r\n", RxData.code);
+
     if(StepMotorTask) /* debug for Arm */
     {///oc输出比较模式
       // StepArm_Task_ScanCode();
@@ -160,19 +158,20 @@ int main(void)
       Load(1);
       Load(2);
       Load(3);
-        StepMotorTask=0;
+      StepMotorTask=0;
     }
 //  printf("Encoder1:%7.0f Encoder2:%7.0f \r\n",pid_location.actual_val, pid_location2.actual_val);
 //  HAL_UART_Transmit(&huart1,"11\r\n",3,15);
 //  HAL_UART_Transmit(&huart2,"22\r\n",3,15);
 //  HAL_UART_Transmit(&huart3,"33\r\n",3,15);
 //  HAL_UART_Transmit(&huart4,"44\r\n",3,15);
-    Other_Actions();//扫码，机械臂�??? 动作跳转，执行入口！  阻塞�???
-    /* 显示正常跑动�??? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�???*/
-      LED1_OFF; //LED闪烁 表示主循环正常循环中 
-    HAL_Delay(150);
-     LED1_ON;
-    HAL_Delay(150);
+
+    // Other_Actions();//扫码，机械臂�???? 动作跳转，执行入口！  阻塞�????
+    // /* 显示正常跑动�???? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�????*/
+    //   LED1_OFF; //LED闪烁 表示主循环正常循环中 
+    // HAL_Delay(150);
+    //  LED1_ON;
+    // HAL_Delay(150);
    
     /* USER CODE END WHILE */
 

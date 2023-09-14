@@ -3,8 +3,9 @@
 #include "StepMotor.h"
 #include "RobTask.h"
 
-unsigned short task = 0;  /*小车的任务动作*/
-unsigned short do_cnt = 0;
+int task = 0;  /*小车的任务动作*/
+int do_cnt = 0;
+unsigned char B_updataFlag = 0;
 
 short 	 clawTask=0;      /*机械臂的任务动作*/
 short 	 clawDo_cnt=0;
@@ -91,11 +92,20 @@ float num=0;
 
 void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 {
+	static  unsigned char status;
+	static  unsigned char cnt=0;
 	if(htim->Instance == TIM7)  //TIM7 40ms kernel
-	{	   
-		
-		
-		unsigned char status =PID_JudgeStatus();
+	{	
+		/*------- LCD刷屏 ------------*/
+		++cnt;
+		if (cnt == 25){
+			cnt = 0;
+			UART4_LCD_UpdataDisplay();
+		}
+		/*------- LCD刷屏 ------------*/
+
+		/*------- 任务调配 -----------*/
+		status =PID_JudgeStatus();
 		switch (task)
 		{// 8.2->9.8
 			case Stop:{
@@ -361,7 +371,9 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 			// 		CAR_RUN(speed_debug,runSpeed,0,runSpeed,0,				0);
 			// }break;
 		}
-	}
+	
+		  
+	}	
 }
 
 

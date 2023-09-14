@@ -122,7 +122,7 @@ void StepMotor_Drive(int Con, int speedPeriod)
 /*------------------------*/
 void StepMotor_Init(void)
 {
-
+    
     // 失能motor
     STEP1234_ALLSTOP; 
     StepPulseEN(DISABLE);//先失能

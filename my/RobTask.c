@@ -224,7 +224,7 @@ void StepArm_Task_Pan(unsigned char* arr1)      //从圆盘上抓取物块至放
      {
           StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
           StepMotor_Drive(1,600);
-          while (OVER == Flag_doing);//
+          while (OVER == Flag_doing);//小臂抬起到90度
 
           ServoClaw(OpenPan);
           HAL_Delay(100);
@@ -233,12 +233,14 @@ void StepArm_Task_Pan(unsigned char* arr1)      //从圆盘上抓取物块至放
           // StepMotor_Set_AnglePulse(90,0,74.5);
           StepMotor_Set_AnglePulse(90,0,Angle3_Ready);
           StepMotor_Drive(1,400);
-          while (OVER == Flag_doing);//到固定抓取位置
+          while (OVER == Flag_doing);//转轴转向90度
 
           //清除数据
           ClearRxData;                         
           RxData.B_dis[arr1[i]]+=255;
           RxData.B_ang[arr1[i]]=179;
+          
+          // RxData.B_statusUpdataFlag[i] = 1;
           
           while(1)// 物料颜色判断
           {
