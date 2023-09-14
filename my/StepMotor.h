@@ -65,7 +65,7 @@ typedef void (*function)(void);
 typedef struct  
 {
     char ID;
-    char Flag;       //完成状态标志位
+    char Flag;       //动作完成状态标志位
 
     char Dir;        //方向量
     int Pulse;      //绝对位置 向量
@@ -104,10 +104,10 @@ extern float Angle1,Angle2,Angle3;
 /*方向pin 较之前稳定版本有改动*/
 //         方向pin                      方向pin       原本pin    应该pin     ||    通道pin
 #define StepDirGPIO             GPIOC           // 									 ||
-#define StepDirPin_1            GPIO_PIN_1      //C0    1         0        ||   PA 0    CH1
-#define StepDirPin_2            GPIO_PIN_2      //C1    2         1        ||   PA 1    CH2
-#define StepDirPin_3            GPIO_PIN_3      //C2    3         2        ||   PA 2    CH3
-#define StepDirPin_4            GPIO_PIN_4      //C3    4         3        ||   PA 2    CH3
+#define StepDirPin_1            GPIO_PIN_0      //C0    1         0        ||   PA 0    CH1
+#define StepDirPin_2            GPIO_PIN_1      //C1    2         1        ||   PA 1    CH2
+#define StepDirPin_3            GPIO_PIN_2      //C2    3         2        ||   PA 2    CH3
+#define StepDirPin_4            GPIO_PIN_3      //C3    4         3        ||   PA 3    CH4
 
 
 

@@ -14,18 +14,61 @@ void StepArm_TaskTest(int Task_num)
      }
 }
 
+void Limit_Arm_InitPosition_EXIT(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin == Limit_1_Pin && HAL_GPIO_ReadPin(Limit_1_GPIO_Port, Limit_1_Pin)== RESET)
+    {
+        Motor_2.stop(); Motor_2.Pulse = 0; //大臂接  PE12
+        
+    }
+    else if (GPIO_Pin == Limit_2_Pin && HAL_GPIO_ReadPin(Limit_2_GPIO_Port, Limit_2_Pin)== RESET)
+    {
+        Motor_3.stop(); Motor_3.Pulse = 0; //小臂接  PE13
+    }
+    else if (GPIO_Pin == Limit_light_1_Pin && HAL_GPIO_ReadPin(Limit_light_1_GPIO_Port, Limit_light_1_Pin)== RESET)
+    {
+        Motor_1.stop(); Motor_1.Pulse = 0; //底座接  PB11
+    }
+}
+void Limit_Arm_InitPosition_INPUT()
+{
+    if (HAL_GPIO_ReadPin(Limit_1_GPIO_Port, Limit_1_Pin)== RESET)
+    {
+        Motor_2.stop(); Motor_2.Pulse = 0;
+    }
+    else if (HAL_GPIO_ReadPin(Limit_2_GPIO_Port, Limit_2_Pin)== RESET)
+    {
+        Motor_3.stop(); Motor_3.Pulse = 0;
+    }
+    else if (HAL_GPIO_ReadPin(Limit_light_1_GPIO_Port, Limit_light_1_Pin)== RESET)
+    {
+        Motor_1.stop(); Motor_1.Pulse = 0;
+    }
+}
+void StepArm_Task_InitPosition()
+{
+    StepPulseEN(ENABLE);//后使能 之后全程使能
+    StepMotor_Set_TarPulses(5000, -5000, 000);
+    StepMotor_Drive(1, 1000);
+    while ( OVER != Flag_finish){
+     Limit_Arm_InitPosition_INPUT();
+     }
+    HAL_NVIC_DisableIRQ(Limit_1_EXTI_IRQn);
+    HAL_NVIC_DisableIRQ(Limit_2_EXTI_IRQn);
+    HAL_NVIC_DisableIRQ(Limit_light_1_EXTI_IRQn);
+}
 
 void StepArm_Task_ScanCode() //扫码时调整机械臂方便扫码
 {
      
      StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-     StepMotor_Drive(1,250);
+     StepMotor_Drive(1,800);
      while (OVER==Flag_doing);
      
      while (1)
      {
           StepMotor_Set_AnglePulse(20,0,Angle3_Ready);
-          StepMotor_Drive(1,750);
+          StepMotor_Drive(1,850);
           while (OVER==Flag_doing)
           {
                if(RxData.codeFlag == codeOK)
@@ -36,7 +79,7 @@ void StepArm_Task_ScanCode() //扫码时调整机械臂方便扫码
 
 
           StepMotor_Set_AnglePulse(-20,0,Angle3_Ready);
-          StepMotor_Drive(1,750);
+          StepMotor_Drive(1,850);
           while (OVER==Flag_doing);
           {
                if(RxData.codeFlag == codeOK)
@@ -70,12 +113,12 @@ void Load(int number)         //从初始位置的小臂90放物块
           //StepMotor_Set_TarPulse(-1450,950,200); 
      //     StepMotor_Set_AbsPulse(-1450,950,200);//将物块从车上放下，
          StepMotor_Set_AnglePulse(-16.5,9.5,OriginalAngle3+ 8);
-         StepMotor_Drive(1,750);
+         StepMotor_Drive(1,850);
          while (OVER==Flag_doing);
          ServoClaw(OpenCar);
          HAL_Delay(200);
          StepMotor_Set_AnglePulse(-16.5,0,Angle3_Ready);
-         StepMotor_Drive(1,750);
+         StepMotor_Drive(1,850);
          while (OVER==Flag_doing);
      }
 
@@ -83,12 +126,12 @@ void Load(int number)         //从初始位置的小臂90放物块
      {
      //     StepMotor_Set_AbsPulse(0,900,200); 
          StepMotor_Set_AnglePulse(0,7.5,OriginalAngle3+6);
-         StepMotor_Drive(1,750);
+         StepMotor_Drive(1,850);
          while (OVER==Flag_doing);
          ServoClaw(OpenCar);
          HAL_Delay(200);
          StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-         StepMotor_Drive(1,750);
+         StepMotor_Drive(1,850);
 
          while (OVER==Flag_doing);
      }
@@ -97,12 +140,12 @@ void Load(int number)         //从初始位置的小臂90放物块
      {
      //     StepMotor_Set_AbsPulse(1450,900,200); 
           StepMotor_Set_AnglePulse(16.5,9.5,OriginalAngle3+ 8);
-         StepMotor_Drive(1,750);
+         StepMotor_Drive(1,850);
          while (OVER==Flag_doing);
          ServoClaw(OpenCar);
          HAL_Delay(200);
          StepMotor_Set_AnglePulse(16.5,0,Angle3_Ready);
-         StepMotor_Drive(1,750);
+         StepMotor_Drive(1,850);
          while (OVER==Flag_doing);
      }
 
@@ -620,7 +663,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
      //        StepMotor_Set_AnglePulse(90,0,74.5);
      //        StepMotor_Drive(1,600);
      //        while (OVER == Flag_doing);
-     //        HAL_Delay(750);
+     //        HAL_Delay(850);
 
      //        while (1)
      //        {
@@ -691,7 +734,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
 
      //-------------转180找物块,后距离强停--------------
           // StepMotor_Set_AnglePulse(0,0,74.5);
-          // StepMotor_Drive(1,750);
+          // StepMotor_Drive(1,850);
           // while (OVER == Flag_doing);
           // RxData.B_dis[1]+=700;
           // RxData.B_ang[1]=179;
@@ -708,7 +751,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
                
           // }
           // StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,OriginalAngle3);
-          // StepMotor_Drive(1,750);
+          // StepMotor_Drive(1,850);
           // while (OVER == Flag_doing);
           
           // StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,OriginalAngle3);
@@ -910,7 +953,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
 //                }
 //           }     
 //           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,OriginalAngle3);
-//           StepMotor_Drive(1,750);
+//           StepMotor_Drive(1,850);
 //           while (OVER == Flag_doing);
           
 //           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,OriginalAngle3);
@@ -931,7 +974,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
           
 //           //垂直下降
 //           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+28.5,OriginalAngle3-18.5);
-//           StepMotor_Drive(1,750);
+//           StepMotor_Drive(1,850);
 //           while (OVER == Flag_doing);
 
 //           ServoClaw(OpenSide);
@@ -973,7 +1016,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
 //                }
 //           }     
 //           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,OriginalAngle3+10);
-//           StepMotor_Drive(1,750);
+//           StepMotor_Drive(1,850);
 //           while (OVER == Flag_doing);
           
 //           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,OriginalAngle3);
@@ -990,7 +1033,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
 
 //           //垂直下降
 //           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+27.5,OriginalAngle3-17.5);
-//           StepMotor_Drive(1,750);
+//           StepMotor_Drive(1,850);
 //           while (OVER == Flag_doing);
 
 //           //抓取
@@ -1027,7 +1070,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
 //                }
 //           }     
 //           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,OriginalAngle3);
-//           StepMotor_Drive(1,750);
+//           StepMotor_Drive(1,850);
 //           while (OVER == Flag_doing);
           
 //           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,OriginalAngle3);
@@ -1048,7 +1091,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
           
 //           //垂直下降
 //           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+28.5,OriginalAngle3-18.5);
-//           StepMotor_Drive(1,750);
+//           StepMotor_Drive(1,850);
 //           while (OVER == Flag_doing);
 
 //           ServoClaw(OpenSide);

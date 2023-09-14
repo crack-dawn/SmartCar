@@ -369,6 +369,23 @@ void USART3_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles EXTI line[15:10] interrupts.
+  */
+void EXTI15_10_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+
+  /* USER CODE END EXTI15_10_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(Limit_light_1_Pin);
+  HAL_GPIO_EXTI_IRQHandler(Limit_1_Pin);
+  HAL_GPIO_EXTI_IRQHandler(Limit_2_Pin);
+  HAL_GPIO_EXTI_IRQHandler(Limit_4_Pin);
+  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+
+  /* USER CODE END EXTI15_10_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM5 global interrupt.
   */
 void TIM5_IRQHandler(void)

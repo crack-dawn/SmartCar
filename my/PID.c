@@ -74,21 +74,21 @@ void Top_PID_Control_CallBack_TIM6(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM6)  //TIM6 20 ms kernel
 	{
-		#if(Motor== 1)
+		#if(Motor_REDUCE== 30)
 			pid_speed2.actual_val   =  +(short)TIM3 -> CNT;   	//TIM3   PC6  PC7  E1 ÓÒÂÖ×Ó| PE9   pwm1 | AN1 AN2| pid_speed2  ÓÒ±ß   M1 
 			pid_speed.actual_val  	=  -(short)TIM4 -> CNT;   	//TIM4   PD12 PD13 E2 ×óÂÖ×Ó| PE11  pwm2 | BN1 BN2| pid_speed	×ó±ß   M2
 		#endif // 0
 
-		#if(Motor== 3)
-			pid_speed.actual_val  	=  -(short)TIM4 -> CNT;   	//TIM4   PD12 PD13 E2 ×óÂÖ×Ó| PE11  pwm2 | BN1 BN2| pid_speed	×ó±ß   M2
-			pid_speed2.actual_val   =  +(short)TIM3 -> CNT;   	//TIM3   PC6  PC7  E1 ÓÒÂÖ×Ó| PE9   pwm1 | AN1 AN2| pid_speed2  ÓÒ±ß   M1 
+		#if(Motor_REDUCE== 49)
+			pid_speed.actual_val  	=  +(short)(TIM4 -> CNT);   	//TIM4   PD12 PD13 E2 ×óÂÖ×Ó| PE11  pwm2 | BN1 BN2| pid_speed	×ó±ß   M2
+			pid_speed2.actual_val   =  -(short)(TIM3 -> CNT);   	//TIM3   PC6  PC7  E1 ÓÒÂÖ×Ó| PE9   pwm1 | AN1 AN2| pid_speed2  ÓÒ±ß   M1 
 		#endif // 0
 
+		// printf("pwm mode|| cnt of TIM4:  %d TIM3:  %d \r\n",TIM4 -> CNT, TIM3->CNT);
+ 
 		TIM4 -> CNT=0; 
 		TIM3 -> CNT=0; 
-		
 		pid_angle.actual_val = (float)RxData.angle; 
-		
 		pid_location2.actual_val  += pid_speed2.actual_val; 
 		pid_location.actual_val   += pid_speed.actual_val; 
 
@@ -96,7 +96,7 @@ void Top_PID_Control_CallBack_TIM6(TIM_HandleTypeDef *htim)
 		{  
 			if ((Abs(pid_location2.err) < Err_disance+Err_disance || Abs(pid_location.err) < Err_disance+Err_disance ) )
 			{
-				pid_speed.out = pid_speed2.out;
+				pid_speed.out = pid_speed2.out;//ÒÔÓÒÂÖÎª±ê×¼ Ö±ÏßÐÐÊ»ÓÒÂÖÍ£Ö¹¶¼Í£Ö¹
 			}
 			// if (((Abs(pid_location2.err) < 700 ) || (Abs(pid_location.err) <700 )) \
 			//      &&((Abs(pid_location2.err) >Err_disance   ) || (Abs(pid_location.err) >Err_disance))  \

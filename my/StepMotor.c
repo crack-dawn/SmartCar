@@ -164,6 +164,7 @@ void StepMotor_Init(void)
     Motor_3.stop =  Step3_Stop;
 
     StepPulseEN(ENABLE);//后使能 之后全程使能
+    StepPulseEN(ENABLE);//后使能 之后全程使能
     STEP1234_ALLSTART;
     // HAL_TIM_Base_Start_IT(&StepMotorTIMHandle);
 }
@@ -336,3 +337,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
     }
 #endif
 }
+
+
+
+

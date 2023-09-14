@@ -11,12 +11,10 @@ void Servo_Init()
      HAL_TIM_PWM_Start(&htim9, TIM_CHANNEL_ALL);//2
      HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
      HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_2);
-
      HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_ALL);//4
 
-
      ServoClaw(OpenPan);
-     ServoTurn(90);
+     ServoTurn(0);
 }
 
 /**

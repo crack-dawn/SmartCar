@@ -87,7 +87,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-	HAL_Delay(250); // avoid too quick init process that the MCU can't run normally
+	HAL_Delay(50); // avoid too quick init process that the MCU can't run normally
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -103,7 +103,6 @@ int main(void)
   MX_USART3_UART_Init();
   MX_TIM6_Init();
   MX_TIM7_Init();
-  MX_I2C2_Init();
   MX_TIM5_Init();
   MX_UART5_Init();
   MX_TIM9_Init();
@@ -112,81 +111,68 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
-  /*-- 外设初始化开�??========================================== --*/
+  /*-- 外设初始化开�???========================================== --*/
     LED1_OFF;
     LED0_OFF;
 
     StepMotor_Init( ); /*步进电机*/
 
-
     Servo_Init();  /**舵机*/ 
-    // TIM9->CCR1 = 1200; //舵机位置测试
-    // while (1)
-    // {
-    //   // TIM9->CCR2 = 410;
-    //   // LED1_ON;
-    //   // HAL_Delay(2200);
-      
-    //   TIM9->CCR2 = 2360;
-    //   LED1_OFF;
-    //   HAL_Delay(2200);
-    // }
-    
 
     Correspond_Init();/*串口通信*/
-    
-    // SendCmdB; //切换摄像头模�?? 通信测试
-    // while(1)
-    // {
-    //   SendCmdA;
-    //   HAL_Delay(1000);
-    //   SendCmdB;
-    //   HAL_Delay(1000);
-    //   SendCmdC;
-    //   HAL_Delay(1000);
-    // }
 
     Car_Drive_Init();/*编码电机*/      task = Stop;     do_cnt = 0;
-  /*---========================================== 外设初始化结�?? --*/
+
+    StepArm_Task_InitPosition();/*初始化机械臂位置*/
+  /*---========================================== 外设初始化结�??? --*/
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  task = Stop;
+  do_cnt = do_00;
+  
 /*------------------------------------*/
  
-
+///oc输出比较模式
 /*--------------*/
   ClearRxData;//清除信息
-  StepMotorTask = 1;
+  StepMotorTask = 0;
 
-  RxData.Task1[0] = 2;//第一轮颜色码编号 认为编�??
+  RxData.Task1[0] = 1;//第一轮颜色码编号 认为编�??
   RxData.Task1[1] = 1;
-  RxData.Task1[2] = 3;
+  RxData.Task1[2] = 1;
 
   SendCmdB; //识别色块模式
-  HAL_Delay(200); //启动前延�?? 1800ms
+
+
+
+  HAL_Delay(200); //启动前延�??? 1800ms
   printf("start\r\n");
   while (1)
   {
-    HAL_Delay(750);
+    // printf("%7s \r\n", RxData.code);
     if(StepMotorTask) /* debug for Arm */
-    {
-      StepArm_TaskTest(Base);  //验证机械�??
+    {///oc输出比较模式
       // StepArm_Task_ScanCode();
+      // StepArm_TaskTest(Base);  //验证机械
       Load(1);
       Load(2);
       Load(3);
         StepMotorTask=0;
     }
- 
-    // Other_Actions();//扫码，机械臂�?? 动作跳转，执行入口！  阻塞�??
-    /* 显示正常跑动�?? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�??*/
+//  printf("Encoder1:%7.0f Encoder2:%7.0f \r\n",pid_location.actual_val, pid_location2.actual_val);
+//  HAL_UART_Transmit(&huart1,"11\r\n",3,15);
+//  HAL_UART_Transmit(&huart2,"22\r\n",3,15);
+//  HAL_UART_Transmit(&huart3,"33\r\n",3,15);
+//  HAL_UART_Transmit(&huart4,"44\r\n",3,15);
+    Other_Actions();//扫码，机械臂�??? 动作跳转，执行入口！  阻塞�???
+    /* 显示正常跑动�??? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�???*/
       LED1_OFF; //LED闪烁 表示主循环正常循环中 
-    HAL_Delay(15);
+    HAL_Delay(150);
      LED1_ON;
-    HAL_Delay(15);
+    HAL_Delay(150);
    
     /* USER CODE END WHILE */
 
