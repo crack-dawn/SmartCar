@@ -314,9 +314,8 @@ void UART4_LCD_UpdataDisplay( )
 	if (HAL_DMA_GetState(huart4.hdmatx) == HAL_DMA_STATE_READY)
 	{
  
-		printf("%s\r\n", senddata);
-		printf("ccc: %s\r\n", RxData.code);
-		// HAL_UART_Transmit(&huart4, senddata, strlen(senddata),20);
+		// printf("%s\r\n", senddata);
+		// printf("ccc: %s\r\n", RxData.code);
 		HAL_UART_Transmit_DMA(&huart4, senddata, strlen(senddata));
 	}
 	

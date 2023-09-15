@@ -19,7 +19,6 @@ void Limit_Arm_InitPosition_EXIT(uint16_t GPIO_Pin)
     if (GPIO_Pin == Limit_1_Pin && HAL_GPIO_ReadPin(Limit_1_GPIO_Port, Limit_1_Pin)== RESET)
     {
         Motor_2.stop(); Motor_2.Pulse = 0; //大臂接  PE12
-        
     }
     else if (GPIO_Pin == Limit_2_Pin && HAL_GPIO_ReadPin(Limit_2_GPIO_Port, Limit_2_Pin)== RESET)
     {
@@ -48,7 +47,7 @@ void Limit_Arm_InitPosition_INPUT()
 void StepArm_Task_InitPosition()
 {
     StepPulseEN(ENABLE);//后使能 之后全程使能
-    StepMotor_Set_TarPulses(5000, -5000, 000);
+    StepMotor_Set_TarPulses(5000, -3000, 0);
     StepMotor_Drive(1, 1000);
     while ( OVER != Flag_finish){
      Limit_Arm_InitPosition_INPUT();

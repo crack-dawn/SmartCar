@@ -50,29 +50,46 @@
 2  靠近底层的大臂 臂弯  
 3  最顶层的小臂   手腕
 */
+/*============= 步进电机参数列表宏定义 ================*/
 typedef void (*function)(void);
 
 #define ID_1         1  // 最下面的 转向  轴心
 #define ID_2         2  // 靠近底层的大臂 臂弯  
 #define ID_3         3  // 最顶层的小臂   手腕
 
+#define Flag_doing 1
+#define Flag_finish 0
+
 #define Dir_CW  1
 #define Dir_CCW 0
 
-#define Flag_doing 1
-#define Flag_finish 0
+#define CLK_Freq (unsigned int)(1000000) //1M Hz
+
+
+#define  SPEED_INCREASE 11
+#define  SPEED_STABLE   22
+#define  SPEED_DECREASE 33
 
 typedef struct  
 {
     char ID;
     char Flag;       //动作完成状态标志位
 
-    char Dir;        //方向量
-    int Pulse;      //绝对位置 向量
-    int tarPulse;       //绝对数值作为目标脉冲数， +-会决定转动方向
-    int pwmPulse;       // 记录定时器通道发出的脉冲数
-    unsigned int period; //跳变周期 也就是速度的反映，越大越慢
+    char Dir;        //方向量 +-会决定转动方向
+    int Pulse;       //绝对位置 向量
 
+    int tarPulse;       //绝对数值作为目标脉冲数， 
+    int pwmPulse;       //记录定时器通道发出的脉冲数
+
+    unsigned int period;    //跳变周期 也就是速度的反映，越大越慢 这里是 200~4000 cnt of clk
+    unsigned int frequency; //当前周期对应 脉冲频率           这里是 5000~500 Hz
+
+    unsigned int speedValue; //速度值 这里取 周期的S曲线
+    unsigned int Count;             //加速次数累计
+    unsigned int CountTemp;         //加速次数累计 暂存值
+    unsigned int AccelPulse;  //加速脉冲值
+    unsigned int DecrePulse;  //减速脉冲值
+    char         adjustStatus;   //调速状态
 
     function start; //开启通道
     function stop;  //关闭通道
@@ -118,8 +135,8 @@ extern float Angle1,Angle2,Angle3;
 #define STEP1_DIR_CW        do{Motor_1.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_1, GPIO_PIN_RESET);  }while(0) // 顺时针
 #define STEP1_DIR_CCW       do{Motor_1.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_1, GPIO_PIN_SET);   }while(0)// 逆时针
 
-#define STEP2_DIR_CW        do{Motor_2.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_2, GPIO_PIN_SET);    }while(0)  // 顺时针
-#define STEP2_DIR_CCW       do{Motor_2.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_2, GPIO_PIN_RESET); }while(0) // 逆时针
+#define STEP2_DIR_CW        do{Motor_2.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_2, GPIO_PIN_RESET);    }while(0)  // 顺时针
+#define STEP2_DIR_CCW       do{Motor_2.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_2, GPIO_PIN_SET); }while(0) // 逆时针
 
 #define STEP3_DIR_CW        do{Motor_3.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_3, GPIO_PIN_SET);  }while(0) // 顺时针
 #define STEP3_DIR_CCW       do{Motor_3.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_3, GPIO_PIN_RESET);   }while(0)// 逆时针

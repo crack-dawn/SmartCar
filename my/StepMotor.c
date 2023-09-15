@@ -211,12 +211,13 @@ void StepMotor_Set_Dirs(int dir1, int dir2, int dir3)       // 设定方向
 void StepMotor_Set_Speed(Step_Motor*  g_Motor, unsigned int period)
 {
     g_Motor->period = period;
+    g_Motor->frequency = CLK_Freq/period;
 }
 void StepMotor_Set_Speeds(unsigned int period1,unsigned int period2,unsigned int period3)
 {
-        Motor_1.period = period1;
-        Motor_2.period = period2;
-        Motor_3.period = period3;
+        Motor_1.period = period1;     Motor_1.frequency = CLK_Freq/period1;
+        Motor_2.period = period2;     Motor_2.frequency = CLK_Freq/period2;
+        Motor_3.period = period3;     Motor_3.frequency = CLK_Freq/period3;
 }
 
 /*------------------------*/
@@ -249,7 +250,46 @@ char StepMotor_Isover()
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 {
 #if( COMPARE_MODE ==  SIMPLE_MMODE )
-    
+    // if (htim->Instance == StepMotorTIMHandle.Instance)
+    // {
+    //     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
+    //     {
+    //         if (HAL_GPIO_ReadPin(StepPulsePinGPIO, StepPulsePin_1) == GPIO_PIN_RESET)
+    //         {
+
+    //             __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_1, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle) + (Motor_1.speedValue>>2));
+    //         }
+    //         else
+    //         {
+    //             StepMotor_UpdataPulse(&Motor_1);
+    //             __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_1, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle) + (Motor_1.speedValue>>2));
+    //         }
+    //     }
+    //     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2)
+    //     {
+    //         if (HAL_GPIO_ReadPin(StepPulsePinGPIO, StepPulsePin_2) == GPIO_PIN_RESET)
+    //         {
+    //             __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_2, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle) + (Motor_2.speedValue>>2));
+    //         }
+    //         else
+    //         {
+    //             StepMotor_UpdataPulse(&Motor_2);
+    //             __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_2, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle) + (Motor_2.speedValue>>2));
+    //         }
+    //     }
+    //     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_3)
+    //     {
+    //         if (HAL_GPIO_ReadPin(StepPulsePinGPIO, StepPulsePin_3) == GPIO_PIN_RESET)
+    //         {
+    //             __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_3, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle) + (Motor_3.speedValue>>2));
+    //         }
+    //         else
+    //         {
+    //             StepMotor_UpdataPulse(&Motor_3);
+    //             __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_3, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle) + (Motor_3.speedValue>>2));
+    //         }
+    //     }
+    // }
     if (htim->Instance == StepMotorTIMHandle.Instance)
     {
         if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
@@ -341,3 +381,82 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 
 
 
+
+
+/*=======================================================================================================================================*/
+/*=======================================================================================================================================*/
+/*=======================================================================================================================================*/
+/*=======================================================================================================================================*/
+//200段 周期加速过程 下列是递减的周期序列
+// unsigned int CurveS[200]={2998,2998,2997,2997,2997,2997,2996,2996,2996,2995,2995,2995,2994,\
+// 	2994,2993,2993,2992,2992,2991,2990,2989,2989,2988,2987,2986,2985,2984,2982,2981,2980,2978,\
+// 	2977,2975,2973,2971,2969,2967,2964,2962,2959,2956,2953,2950,2946,2942,2938,2934,2929,2924,\
+// 	2918,2913,2907,2900,2893,2885,2877,2869,2860,2850,2840,2829,2817,2805,2792,2778,2763,2748,\
+// 	2731,2714,2695,2675,2655,2633,2610,2586,2561,2534,2506,2477,2447,2415,2382,2347,2312,2275,\
+// 	2236,2197,2156,2114,2071,2027,1983,1937,1890,1843,1795,1747,1698,1649,1600,1552,1503,1454,\
+// 	1406,1358,1311,1264,1218,1174,1130,1087,1045,1004,965,926,889,854,819,786,754,724,695,667,\
+// 	640,615,591,568,546,526,506,487,470,453,438,423,409,396,384,372,361,351,341,332,324,316,\
+// 	308,301,294,288,283,277,272,267,263,259,255,251,248,245,242,239,237,234,232,230,228,226,\
+// 	224,223,221,220,219,217,216,215,214,213,212,212,211,210,209,209,208,208,207,207,206,206,\
+// 	206,205,205,205,204,204,204,204,203,203,203};
+
+// /*速度调整*/
+// void SpeedChoose(Step_Motor* g_Motor)
+// {
+// 	g_Motor->speedValue = CurveS_Para[g_Motor->Count];    //计算本次速度
+		
+// 	if(g_Motor->adjustStatus == SPEED_INCREASE)            //加速
+// 	{
+// 		g_Motor->CountTemp++;
+// 	}
+// 	else if(g_Motor->adjustStatus == SPEED_DECREASE)       //减速
+// 	{
+// 		g_Motor->CountTemp--;	
+// 	}
+// 	g_Motor->Count = g_Motor->CountTemp*5/g_Motor->CountPropor;    //加速次数
+// }
+
+
+// /*函数周期性调用*/
+// void StepMotorSpeedAdjust(Step_Motor* g_Motor)
+// {
+// 	switch(g_Motor->adjustStatus)
+// 	{
+// 		/*加速*/						
+// 	case SPEED_INCREASE:
+// 		if(g_Motor->Count <= g_Motor->AccelPulse || g_Motor->tarPulse - )
+// 		{
+// 			g_Motor->speedValue = CurveS_Para[g_Motor->Count];    //计算本次速度周期
+//             ++g_Motor->Count;
+// 		}
+// 		else
+// 		{
+// 			g_Motor->adjustStatus = SPEED_STABLE;
+// 		}
+// 		break;
+		
+// 		/*匀速*/	
+// 	case SPEED_STABLE:
+// 		if(g_Motor->PWMcount >= (g_Motor->PWMneed-g_Motor->SpeedDecrPWM))
+// 		{		
+// 			g_Motor->adjustStatus = SPEED_DECREASE;	
+// 		}
+// 		break;
+		
+// 		/*减速*/	
+// 	case SPEED_DECREASE:
+// 		if(g_Motor->Count >= 0)
+// 		{
+// 			SpeedChoose(g_Motor->Count); 
+// 		}
+		
+// 		if(g_Motor->PWMover == 1)
+// 		{		
+// 			HAL_TIM_PWM_Stop_IT(&htim1, TIM_CHANNEL_1);
+// 		}
+// 		break;
+		
+// 	default :
+// 		break;
+// 	}
+// }

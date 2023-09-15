@@ -15,66 +15,53 @@ short 	 clawDo_cnt=0;
 
 void Other_Actions()
 {
-  // if (do_cnt == do_Arm )
-  // {
-  //     HAL_Delay(2000);
-  //     ReturnToCarRun;
-  // }
-  // else if (task == ScanCode_1 && do_cnt == do_ScanCode)
-  // {
-  //   HAL_Delay(500);
-  //     do_cnt = finish_Scancode;
-  // }
- 
-  if (task == ScanCode_1 && do_cnt == do_ScanCode)
-  {//第一圈扫码
-        ScanCode();
-        LED1_ON;
-        StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码
-
-        if (RxData.codeFlag == codeOK)
-        {
-          do_cnt = finish_Scancode;
-        }
-  }
-  else if (task == RunToRawMaterial_1_Pick && do_cnt == do_Arm)
-  {//第一圈装物料
-    SendCmdB;  //HAL_Delay(200);//识别物块模式
-
-    StepArm_Task_Pan(RxData.Task1) ; //原料区
-    ReturnToCarRun;
-  }
-
-  else if (task == RunToRoughArea_1 && do_cnt == do_Arm)
-  {//第一圈粗加工
-    SendCmdC; //HAL_Delay(200);   //识别圆环模式
-
-    StepArm_Task_Jiagon(RxData.Task1); //粗加工区
-    ReturnToCarRun;
-  }
-
-  else if(task == RunToFineArea_1 && do_cnt == do_Arm)
+  if (do_cnt == do_Arm )
   {
-    //第一圈细加工
-    SendCmdC; //HAL_Delay(200);  //识别圆环模式
-
-    StepArm_Task_Over(RxData.Task1);  //细加工区
-    ReturnToCarRun;
+      HAL_Delay(2000);
+      ReturnToCarRun;
   }
+  else if (task == ScanCode_1 && do_cnt == do_ScanCode)
+  {
+    	HAL_Delay(500);
+        do_cnt = finish_Scancode;
+  }
+ 
+//   if (task == ScanCode_1 && do_cnt == do_ScanCode)
+//   {//第一圈扫码
+//         ScanCode();
+//         LED1_ON;
+//         StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码
+
+//         if (RxData.codeFlag == codeOK)
+//         {
+//           do_cnt = finish_Scancode;
+//         }
+//   }
+//   else if (task == RunToRawMaterial_1_Pick && do_cnt == do_Arm)
+//   {//第一圈装物料
+//     SendCmdB;  //HAL_Delay(200);//识别物块模式
+
+//     StepArm_Task_Pan(RxData.Task1) ; //原料区
+//     ReturnToCarRun;
+//   }
+
+//   else if (task == RunToRoughArea_1 && do_cnt == do_Arm)
+//   {//第一圈粗加工
+//     SendCmdC; //HAL_Delay(200);   //识别圆环模式
+
+//     StepArm_Task_Jiagon(RxData.Task1); //粗加工区
+//     ReturnToCarRun;
+//   }
+
+//   else if(task == RunToFineArea_1 && do_cnt == do_Arm)
+//   {
+//     //第一圈细加工
+//     SendCmdC; //HAL_Delay(200);  //识别圆环模式
+
+//     StepArm_Task_Over(RxData.Task1);  //细加工区
+//     ReturnToCarRun;
+//   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 int   rpm=0;  	 
@@ -157,7 +144,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 					{
 						 do_cnt = do_ScanCode;
 					}
-					else if(do_cnt == finish_Scancode && status == PIDparam3_finish )
+					else if(do_cnt == finish_Scancode )
 					{
 						task=RunToRawMaterial_1_Pick;
 						do_cnt = 0; //扫码任务结束

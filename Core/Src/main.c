@@ -111,7 +111,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
-  /*-- 外设初始化开�????========================================== --*/
+  /*-- 外设初始化开�?????========================================== --*/
     LED1_OFF;
     LED0_OFF;
 
@@ -120,11 +120,15 @@ int main(void)
     Servo_Init();  /**舵机*/ 
 
     Correspond_Init();/*串口通信*/
-
+    while (1)
+    {
+      /* code */
+    }
+    
     Car_Drive_Init();/*编码电机*/      task = Stop;     do_cnt = 0;
 
-    // StepArm_Task_InitPosition();/*初始化机械臂位置*/
-  /*---========================================== 外设初始化结�???? --*/
+    //StepArm_Task_InitPosition();/*初始化机械臂位置*/
+  /*---========================================== 外设初始化结�????? --*/
 
   /* USER CODE END 2 */
 
@@ -144,9 +148,9 @@ int main(void)
   RxData.Task1[1] = 1;
   RxData.Task1[2] = 1;
 
-  SendCmdB; //识别色块模式
+  // SendCmdB; //识别色块模式
 
-  HAL_Delay(200); //启动前延�???? 1800ms
+  HAL_Delay(200); //启动前延�????? 1800ms
 
   while (1)
   {
@@ -166,8 +170,8 @@ int main(void)
 //  HAL_UART_Transmit(&huart3,"33\r\n",3,15);
 //  HAL_UART_Transmit(&huart4,"44\r\n",3,15);
 
-    // Other_Actions();//扫码，机械臂�???? 动作跳转，执行入口！  阻塞�????
-    // /* 显示正常跑动�???? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�????*/
+    Other_Actions();//扫码，机械臂�????? 动作跳转，执行入口！  阻塞�?????
+    // /* 显示正常跑动�????? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�?????*/
     //   LED1_OFF; //LED闪烁 表示主循环正常循环中 
     // HAL_Delay(150);
     //  LED1_ON;
