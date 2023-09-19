@@ -377,10 +377,9 @@ void EXTI15_10_IRQHandler(void)
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
 
   /* USER CODE END EXTI15_10_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(Limit_light_1_Pin);
-  HAL_GPIO_EXTI_IRQHandler(Limit_1_Pin);
-  HAL_GPIO_EXTI_IRQHandler(Limit_2_Pin);
-  HAL_GPIO_EXTI_IRQHandler(Limit_4_Pin);
+  HAL_GPIO_EXTI_IRQHandler(Limit_Turn_Pin);
+  HAL_GPIO_EXTI_IRQHandler(Limit_BigArm_Pin);
+  HAL_GPIO_EXTI_IRQHandler(Limit_SmallArm_Pin);
   /* USER CODE BEGIN EXTI15_10_IRQn 1 */
 
   /* USER CODE END EXTI15_10_IRQn 1 */

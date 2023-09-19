@@ -87,7 +87,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 		++cnt;
 		if (cnt == 25){
 			cnt = 0;
-			UART4_LCD_UpdataDisplay();
+			UART_LCD_UpdataDisplay(&huart5);
 		}
 		/*------- LCDË¢ÆÁ ------------*/
 
@@ -112,7 +112,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 					else if (do_cnt == do_01 && (status == PIDparam3_finish)){
 						CAR_RUN(Zero_GO,runSpeed*0.6,-290*0.6,    	runSpeed,-290,				0);
 						++do_cnt;
-					}			
+					}
 					else if (do_cnt == do_02 && (status == PIDparam3_finish)){
 						++do_cnt;
 						CAR_RUN(Zero_GO,runSpeed,-290,				runSpeed*0.6,-290*0.6,	0);
@@ -345,21 +345,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 			
 			default:
 				break;
-
-
-
-			// case Speed:{
-			// 	if ( status == PIDparam3_finish){//RxData.turn
-			// 		CAR_RUN(Abs_GO,rpm,num,				rpm,num,				0);
-			// 	}
-			// }break;
-
-			// case Debug:{
-			// 		CAR_RUN(speed_debug,runSpeed,0,runSpeed,0,				0);
-			// }break;
 		}
-	
-		  
 	}	
 }
 

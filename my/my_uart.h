@@ -48,7 +48,7 @@ typedef struct uart_data__rx
  
 #define turnDo          ('%')  //巡线转弯标志
 #define turnNotDo	    ('2')  //巡线不转弯
- 
+
 #define codeOK          (100)  //扫码发回正常
 
 extern UartDataMCU_RX RxData;
@@ -95,7 +95,7 @@ extern unsigned char uart3_RxBuff[uart3_RxBuffLen];
 #define uart4_RxBuffLen 64
 extern unsigned char uart4_Rx[1] ;
 extern unsigned char uart4_RxBuff[uart4_RxBuffLen];
-void UART4_LCD_UpdataDisplay( );
+void UART_LCD_UpdataDisplay(UART_HandleTypeDef* huart);
 
 
 

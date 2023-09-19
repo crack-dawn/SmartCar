@@ -6,6 +6,9 @@
 #define  Abs(x)   ((x) < 0 ? -(x) : (x))  //求绝对值 
 unsigned char arr[3]={1,2,3};
 
+int RoTask_Speed[16]={0,100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500};
+
+ 
 void StepArm_TaskTest(int Task_num)
 {
      if (Task_num == Base) 
@@ -14,48 +17,6 @@ void StepArm_TaskTest(int Task_num)
      }
 }
 
-void Limit_Arm_InitPosition_EXIT(uint16_t GPIO_Pin)
-{
-    if (GPIO_Pin == Limit_1_Pin && HAL_GPIO_ReadPin(Limit_1_GPIO_Port, Limit_1_Pin)== RESET)
-    {
-        Motor_2.stop(); Motor_2.Pulse = 0; //大臂接  PE12
-    }
-    else if (GPIO_Pin == Limit_2_Pin && HAL_GPIO_ReadPin(Limit_2_GPIO_Port, Limit_2_Pin)== RESET)
-    {
-        Motor_3.stop(); Motor_3.Pulse = 0; //小臂接  PE13
-    }
-    else if (GPIO_Pin == Limit_light_1_Pin && HAL_GPIO_ReadPin(Limit_light_1_GPIO_Port, Limit_light_1_Pin)== RESET)
-    {
-        Motor_1.stop(); Motor_1.Pulse = 0; //底座接  PB11
-    }
-}
-void Limit_Arm_InitPosition_INPUT()
-{
-    if (HAL_GPIO_ReadPin(Limit_1_GPIO_Port, Limit_1_Pin)== RESET)
-    {
-        Motor_2.stop(); Motor_2.Pulse = 0;
-    }
-    else if (HAL_GPIO_ReadPin(Limit_2_GPIO_Port, Limit_2_Pin)== RESET)
-    {
-        Motor_3.stop(); Motor_3.Pulse = 0;
-    }
-    else if (HAL_GPIO_ReadPin(Limit_light_1_GPIO_Port, Limit_light_1_Pin)== RESET)
-    {
-        Motor_1.stop(); Motor_1.Pulse = 0;
-    }
-}
-void StepArm_Task_InitPosition()
-{
-    StepPulseEN(ENABLE);//后使能 之后全程使能
-    StepMotor_Set_TarPulses(5000, -3000, 0);
-    StepMotor_Drive(1, 1000);
-    while ( OVER != Flag_finish){
-     Limit_Arm_InitPosition_INPUT();
-     }
-    HAL_NVIC_DisableIRQ(Limit_1_EXTI_IRQn);
-    HAL_NVIC_DisableIRQ(Limit_2_EXTI_IRQn);
-    HAL_NVIC_DisableIRQ(Limit_light_1_EXTI_IRQn);
-}
 
 void StepArm_Task_ScanCode() //扫码时调整机械臂方便扫码
 {
@@ -88,9 +49,8 @@ void StepArm_Task_ScanCode() //扫码时调整机械臂方便扫码
                break;
 
      }
-
      StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-     StepMotor_Drive(1,300);
+     StepMotor_Drive(1,600);
      while (OVER==Flag_doing);
 
      
@@ -100,52 +60,99 @@ void StepArm_Task_ScanCode() //扫码时调整机械臂方便扫码
 
 void Load(int number)         //从初始位置的小臂90放物块
 {
-     ServoClaw(Close);
-     HAL_Delay(600);
-     
-     StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-     StepMotor_Drive(1,700);
-     while (OVER==Flag_doing);
-
      if(number==RED)
      {
-          //StepMotor_Set_TarPulse(-1450,950,200); 
-     //     StepMotor_Set_AbsPulse(-1450,950,200);//将物块从车上放下，
-         StepMotor_Set_AnglePulse(-16.5,9.5,OriginalAngle3+ 8);
-         StepMotor_Drive(1,850);
-         while (OVER==Flag_doing);
-         ServoClaw(OpenCar);
-         HAL_Delay(200);
-         StepMotor_Set_AnglePulse(-16.5,0,Angle3_Ready);
-         StepMotor_Drive(1,850);
-         while (OVER==Flag_doing);
+          StepMotor_Set_AnglePulse(-18,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+
+          ServoTurn(-80);    //转到-90°
+          HAL_Delay(600);
+
+          StepMotor_Set_AnglePulse(-18,52,OriginalAngle3+2.5);  //机械臂到放物块的位置
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
+
+          ServoClaw(OpenCar);    //放置
+          HAL_Delay(200);
+
+          StepMotor_Set_AnglePulse(-18.5,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+
+          ServoTurn(90);           //舵机转正
+          HAL_Delay(600);
+
+
+          StepMotor_Set_AnglePulse(0,0,Angle3_Ready);  //转到准备阶段
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
      }
 
      if(number==GREEN)
      {
-     //     StepMotor_Set_AbsPulse(0,900,200); 
-         StepMotor_Set_AnglePulse(0,7.5,OriginalAngle3+6);
-         StepMotor_Drive(1,850);
-         while (OVER==Flag_doing);
-         ServoClaw(OpenCar);
-         HAL_Delay(200);
-         StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-         StepMotor_Drive(1,850);
+          StepMotor_Set_AnglePulse(8,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+          
+          ServoTurn(-80);    //转到-90°
+          HAL_Delay(600);
+     
+          StepMotor_Set_AnglePulse(8,45,OriginalAngle3+3);  //机械臂到放物块的位置
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
 
-         while (OVER==Flag_doing);
+          ServoClaw(OpenCar);    //放置
+          HAL_Delay(200);
+
+          StepMotor_Set_AnglePulse(8,30,5);  //防止打到物块
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
+
+          StepMotor_Set_AnglePulse(8,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
+
+          ServoTurn(90);           //舵机转正
+          HAL_Delay(600);
+
+          StepMotor_Set_AnglePulse(0,0,Angle3_Ready);  //转到准备阶段
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+
+
      }
 
      if(number==BLUE)
      {
-     //     StepMotor_Set_AbsPulse(1450,900,200); 
-          StepMotor_Set_AnglePulse(16.5,9.5,OriginalAngle3+ 8);
-         StepMotor_Drive(1,850);
-         while (OVER==Flag_doing);
-         ServoClaw(OpenCar);
-         HAL_Delay(200);
-         StepMotor_Set_AnglePulse(16.5,0,Angle3_Ready);
-         StepMotor_Drive(1,850);
-         while (OVER==Flag_doing);
+           StepMotor_Set_AnglePulse(40,25,10);  //转到准备转舵机的位置//23
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+
+          ServoTurn(-60);    //转到-60°
+          HAL_Delay(600);
+
+          StepMotor_Set_AnglePulse(40,50,OriginalAngle3+2.5);  //机械臂到放物块的位置
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
+
+          ServoClaw(OpenCar);    //放置
+          HAL_Delay(200);
+
+          StepMotor_Set_AnglePulse(40,30,10);  //防止打到物块
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+
+          StepMotor_Set_AnglePulse(40,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+
+          ServoTurn(90);           //舵机转正
+          HAL_Delay(600);
+
+          StepMotor_Set_AnglePulse(0,0,Angle3_Ready);  //转到准备阶段
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
      }
 
      ServoClaw(OpenSide);
@@ -153,65 +160,99 @@ void Load(int number)         //从初始位置的小臂90放物块
 }
 void Pick_Floor(int numbr_P)             //从车上抓取物块至初始位置的小臂90°
 {
-
-     StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-     StepMotor_Drive(1,250);
-     while (OVER==Flag_doing);
-
-     ServoClaw(OpenCar);
-     HAL_Delay(200);
-
      if(numbr_P==RED)
      {
-         StepMotor_Set_AnglePulse(-16.5,0,OriginalAngle3+3.5);
-         StepMotor_Drive(1,450);
-         while (OVER==Flag_doing);
-         StepMotor_Set_AnglePulse(-16.5,9.5,OriginalAngle3+3.5);
-         StepMotor_Drive(1,450);
-         while (OVER==Flag_doing);
+          StepMotor_Set_AnglePulse(-18,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+          
+          ServoClaw(OpenCar);  //舵机爪子进入卸货角度
+          HAL_Delay(200);
+          
+          ServoTurn(-80);    //转到-90°
+          HAL_Delay(600);
 
-         ServoClaw(Close);
-         HAL_Delay(200);
+          StepMotor_Set_AnglePulse(-18,40,15);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+                    
+          StepMotor_Set_AnglePulse(-18,55,22);  //机械臂到放物块的位置
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
+          
+          StepMotor_Set_AnglePulse(-18,52,OriginalAngle3+4);  //机械臂到放物块的位置
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
 
-         StepMotor_Set_AnglePulse(-16.5,0,Angle3_Ready);
-         StepMotor_Drive(1,450);
-         while (OVER==Flag_doing);
+          ServoClaw(Close);    //放置
+          HAL_Delay(200);
+
+          StepMotor_Set_AnglePulse(-18.5,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[5]);
+          while (OVER == Flag_doing);
      }
 
      if(numbr_P==GREEN)
      {
-         StepMotor_Set_AnglePulse(0,0,OriginalAngle3+3.5);
-         StepMotor_Drive(1,450);
-         while (OVER==Flag_doing);
-         StepMotor_Set_AnglePulse(0,9.5,OriginalAngle3+3.5);
-         StepMotor_Drive(1,450);
-         while (OVER==Flag_doing);
+          StepMotor_Set_AnglePulse(8,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+          
+          ServoClaw(OpenCar);  //舵机爪子进入卸货角度
+          HAL_Delay(200);
+          
+          ServoTurn(-80);    //转到-90°
+          HAL_Delay(600);
 
-         ServoClaw(Close);
-         HAL_Delay(200);
+          StepMotor_Set_AnglePulse(8,40,14);  //防止
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
 
-         StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-         StepMotor_Drive(1,450);
-         while (OVER==Flag_doing);
+          StepMotor_Set_AnglePulse(8,50,28);  //防止
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
+          
+          StepMotor_Set_AnglePulse(8,45,OriginalAngle3+3);  //物块位置
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
+
+          ServoClaw(Close);    //放置
+          HAL_Delay(200);
+
+          StepMotor_Set_AnglePulse(8,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[5]);
+          while (OVER == Flag_doing);
      }
 
      if(numbr_P==BLUE)
      {
-          StepMotor_Set_AnglePulse(16.5,0,OriginalAngle3+3.5);
-         StepMotor_Drive(1,450);
-         while (OVER==Flag_doing);
-         StepMotor_Set_AnglePulse(16.5,9.5,OriginalAngle3+ 3.5);
-         StepMotor_Drive(1,450);
-         while (OVER==Flag_doing);
+          StepMotor_Set_AnglePulse(40,25,10);  //转到准备转舵机的位置//23
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
 
-         ServoClaw(Close);
-         HAL_Delay(200);
+          ServoClaw(OpenCar);
+          HAL_Delay(200);
+          ServoTurn(-60);    //转到-60°
+          HAL_Delay(600);
 
-         StepMotor_Set_AnglePulse(16.5,0,Angle3_Ready);
-         StepMotor_Drive(1,450);
-         while (OVER==Flag_doing);
+          
+
+          StepMotor_Set_AnglePulse(43,40,OriginalAngle3-2);  //机械臂到放物块的位置
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
+
+          StepMotor_Set_AnglePulse(40,50,OriginalAngle3+2.5);  //机械臂到放物块的位置
+          StepMotor_Drive(1,RoTask_Speed[8]);
+          while (OVER == Flag_doing);
+
+          ServoClaw(Close);    //抓取
+          HAL_Delay(200);
+
+          StepMotor_Set_AnglePulse(40,25,10);  //转到准备转舵机的位置
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
+   
      }
-
 }
 
 /**---------------------------*/
@@ -219,102 +260,137 @@ void Pick_Floor(int numbr_P)             //从车上抓取物块至初始位置�
 
 void StepArm_Task_Pan(unsigned char* arr1)      //从圆盘上抓取物块至放完物块
 {
+
+     // int Pan_Home=0;
      for(int i=0;i<3;i++)
      {
           StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-          StepMotor_Drive(1,600);
-          while (OVER == Flag_doing);//小臂抬起到90度
+          StepMotor_Drive(1,RoTask_Speed[7]);
+          while (OVER == Flag_doing);//
 
           ServoClaw(OpenPan);
           HAL_Delay(100);
           
-
-          // StepMotor_Set_AnglePulse(90,0,74.5);
           StepMotor_Set_AnglePulse(90,0,Angle3_Ready);
-          StepMotor_Drive(1,400);
-          while (OVER == Flag_doing);//转轴转向90度
+          StepMotor_Drive(1,RoTask_Speed[5]);
+          while (OVER == Flag_doing);//到固定抓取位置
 
+
+         Back:
           //清除数据
           ClearRxData;                         
           RxData.B_dis[arr1[i]]+=255;
           RxData.B_ang[arr1[i]]=179;
-          
-          // RxData.B_statusUpdataFlag[i] = 1;
-          
           while(1)// 物料颜色判断
-          {
-               DebugB;
-               if(  (RxData.B_ang[arr1[i]]>40 &&RxData.B_ang[arr1[i]]<140)  ||  (RxData.B_ang[arr1[i]]>220&RxData.B_ang[arr1[i]]<320)  )
+          {    
+               HAL_Delay(5);
+               if(  (RxData.B_ang[arr1[i]]>5 &&RxData.B_ang[arr1[i]]<175)  ||  (RxData.B_ang[arr1[i]]>240&RxData.B_ang[arr1[i]]<300)  )
                {
+                    DebugB;
                     break;
                } 
           } 
-
-         while(1)
-         {    
-               if(Abs(RxData.B_ang[arr1[i]]-90) > 10)
+          HAL_Delay(300);
+          while (1)
+          {
+               
+               if(RxData.B_Vector[arr1[i]]<=1&&RxData.B_Vector[arr1[i]]>=-1)
                {
-                    while (1)
-                    {   
-                         
-                         HAL_Delay(2);
-                         StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu+RxData.B_ang[arr1[i]]-90,Motor_2.Pulse*Bu,Angle3_Ready);
-                         StepMotor_Drive(StepALL_START, 1500);
-                         
-                         while (OVER == Flag_doing ) 
-                         {
-                              if  ( Abs(RxData.B_ang[arr1[i]]-90) <= 4  )
-                              {
-                                        StepMotor_Drive(StepALL_STOP, 0);
-                                        break; 
-                              }
-                         }
-
-                         if  ( Abs(RxData.B_ang[arr1[i]]-90) <= 7  )
-                         {
-                                   break ;
-                         }
-                    }
-                    // RxData.B_ang[arr1[i]]=90;     
+                    printf("jingzhi:%d %d\r\n",RxData.B_Accume[arr1[i]],RxData.B_Vector[arr1[i]]);
+                    break;
+               }     
+               else
+               {
+                    printf("normal:%d %d\r\n",RxData.B_Accume[arr1[i]],RxData.B_Vector[arr1[i]]);
                }
+               
+               HAL_Delay(10);
+          }              
 
-               if(Abs(RxData.B_dis[arr1[i]]) > 50)
+          //水平的调节
+          while (1)
+          {   
+               
+               HAL_Delay(2);
+               StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu+RxData.B_ang[arr1[i]]-90,Motor_2.Pulse*Bu,Angle3_Ready);
+               StepMotor_Drive(StepALL_START, RoTask_Speed[15]);
+               
+               while (OVER == Flag_doing ) 
                {
-                    StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,50,Angle3_Ready);
-                    StepMotor_Drive(1,1500);
-                    RxData.B_dis[arr1[i]]+=700;
-                    while(OVER == Flag_doing)
+                    if  ( Abs(RxData.B_ang[arr1[i]]-90) <= 4  )
                     {
-                         if( Abs(RxData.B_dis[arr1[i]]) <= 50 )
-                         {
-                              Motor_2.pwmPulse=0; Motor_2.Flag=Flag_finish; Motor_2.tarPulse=0;
+                              StepMotor_Drive(StepALL_STOP, 0);
                               break; 
-                         }
-
-                         if(Motor_2.Pulse*Bu>30)
-                         {
-                              StepMotor_Set_AnglePulse(90,0,Angle3_Ready);
-                              StepMotor_Drive(1,250);
-                              while (OVER == Flag_doing);
-                              ClearRxData;
-                              break;   
-                         }
                     }
                }
 
-               if(Abs(RxData.B_dis[arr1[i]]) > 200)
+               if  ( Abs(RxData.B_ang[arr1[i]]-90) <= 7  )
                {
-                    while(1)// 物料颜色判断
-                    {
-                         DebugB;
-                         if(  (RxData.B_ang[arr1[i]]>40 &&RxData.B_ang[arr1[i]]<140)  ||  (RxData.B_ang[arr1[i]]>220&RxData.B_ang[arr1[i]]<320)  )
-                         {
-                              break;
-                         } 
-                    } 
+                         break ;
                }
-         }
+          }    
 
+          //判断是否进入水平位移的反馈调整
+          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,50,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[15]);
+          RxData.B_dis[arr1[i]]+=700;
+          while(OVER == Flag_doing)
+          {
+               if( Abs(RxData.B_dis[arr1[i]]) <= 50 )
+               {
+                    Motor_2.pwmPulse=0; Motor_2.Flag=Flag_finish; Motor_2.tarPulse=0;
+                    break; 
+               }
+
+               // if(Motor_2.Pulse*Bu>35)
+               // {
+               //      StepMotor_Set_AnglePulse(90,0,Angle3_Ready);
+               //      StepMotor_Drive(1,RoTask_Speed[5]);
+               //      while (OVER == Flag_doing);
+               //      Pan_Home=1;
+               //      ClearRxData;
+               //      break;   
+               // }
+          }
+
+               //归为到起始抓的位置，等待直到出现目标物块的颜色
+               // if(Pan_Home=1)
+               // {
+
+               //      // while(1)// 物料颜色判断
+               //      // {
+               //      //      DebugB;
+               //      //      if(  (RxData.B_ang[arr1[i]]>40 &&RxData.B_ang[arr1[i]]<140)  ||  (RxData.B_ang[arr1[i]]>220&RxData.B_ang[arr1[i]]<320)  )
+               //      //      {
+               //      //           break;
+               //      //      } 
+               //      // }
+               //      Pan_Home=0; 
+               // }
+     
+
+          Angle_vertical(40,Calculate_DisHorizon()+30);
+          
+          HAL_Delay(100);
+          while (1)
+          {
+               
+               if(RxData.B_Vector[arr1[i]]<=1&&RxData.B_Vector[arr1[i]]>=-1)
+               {
+                    printf("jingzhi:%d %d\r\n",RxData.B_Accume[arr1[i]],RxData.B_Vector[arr1[i]]);
+                    break;
+               }     
+               else
+               {
+                    printf("normal:%d %d\r\n",RxData.B_Accume[arr1[i]],RxData.B_Vector[arr1[i]]);
+                    goto Back;
+               }
+               
+               HAL_Delay(5);
+          }
+          
+          ServoClaw(Close);
+          HAL_Delay(300);
           Load(arr1[i]);  
      }
      ServoClaw(OpenCar);
@@ -328,47 +404,56 @@ void StepArm_Task_Jiagon(unsigned char* arr2)     //粗加工区 先放 后装�
           
           //卸货
           Pick_Floor(arr2[i]);          
-          ServoTurn(0);
-          HAL_Delay(600);
+          ServoTurn(-10);           //舵机转到-10°准备识别圆环
+          HAL_Delay(500);
           
           //小臂抬到90°
           StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-          StepMotor_Drive(1,300);
+          StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
 
           //先到达各个圆环的预定位置
-          if(arr2[i]==GREEN)
-          {
-               StepMotor_Set_AnglePulse(45,0,Angle3_Ready);
-               StepMotor_Drive(1,200);
-               while (OVER == Flag_doing);
-          }
-
-          else if (arr2[i]==RED)
-          {
-               StepMotor_Set_AnglePulse(90,0,Angle3_Ready);
-               StepMotor_Drive(1,200);
-               while (OVER == Flag_doing);
-          }
-
-          else if (arr2[i]==BLUE)
-          {
-               StepMotor_Set_AnglePulse(120,0,Angle3_Ready);
-               StepMotor_Drive(1,200);
-               while (OVER == Flag_doing);
-          }
+          StepMotor_Set_AnglePulse(45,0,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
 
           //清除数据
-          ClearRxData;                        
-          RxData.C_dis[arr2[i]]+=700;
-          RxData.C_ang[arr2[i]]=179;
+          ClearRxData;   
+          RxData.C_dis[arr2[i]]+=600;
+          RxData.C_ang[arr2[i]]=179;           
+          HAL_Delay(500);
+
+          if(Abs(RxData.C_dis[arr2[i]]) >=500)
+          {
+               StepMotor_Set_AnglePulse(120,0,Angle3_Ready);
+               StepMotor_Drive(1,RoTask_Speed[5]);
+               while (OVER == Flag_doing)
+               {
+                    if  ( Abs(RxData.C_ang[arr2[i]]-90) <= 4  )
+                    {
+                              StepMotor_Drive(StepALL_STOP, 0);
+                              break; 
+                    }
+               }            
+          }
+          
+          while(1)// 物料颜色判断
+          {
+               printf("%f\r\n",RxData.C_ang[arr2[i]]);
+               if(  (RxData.C_ang[arr2[i]]>10 &&RxData.C_ang[arr2[i]]<170)  ||  (RxData.C_ang[arr2[i]]>190&RxData.C_ang[arr2[i]]<350)  )
+               {
+                    break;
+               } 
+          } 
+
+
 
           while (1)
           {   
                
                HAL_Delay(2);
                StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu+RxData.C_ang[arr2[i]]-90,0,Angle3_Ready);
-               StepMotor_Drive(StepALL_START, 250);
+               StepMotor_Drive(1, RoTask_Speed[6]);
 			
                while (OVER == Flag_doing ) 
                {
@@ -385,12 +470,12 @@ void StepArm_Task_Jiagon(unsigned char* arr2)     //粗加工区 先放 后装�
                }
           }
 
-          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,OriginalAngle3);
-          StepMotor_Drive(1,250);
+          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
           
-          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,OriginalAngle3);
-          StepMotor_Drive(1,350);
+          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[7]);
           RxData.C_dis[arr2[i]]+=700;
           while(OVER == Flag_doing)
           {
@@ -404,40 +489,21 @@ void StepArm_Task_Jiagon(unsigned char* arr2)     //粗加工区 先放 后装�
 
           //舵机转向准备抓取
           ServoTurn(90);
-          HAL_Delay(1000);
+          HAL_Delay(600);
           
           //垂直下降
-          if(arr2[i]==BLUE)
-          {
-               StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+23.25,OriginalAngle3-16);
-               StepMotor_Drive(1,300);
-               while (OVER == Flag_doing);
-          }
-
-          else if (arr2[i]==RED)
-          {
-               StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+23.5,OriginalAngle3-15.5);
-               StepMotor_Drive(1,300);
-               while (OVER == Flag_doing);
-          }
-
-          else if (arr2[i]==GREEN)
-          {
-               StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+23.5,OriginalAngle3-16);
-               StepMotor_Drive(1,300);
-               while (OVER == Flag_doing);
-          }
+          Angle_vertical(-50,Calculate_DisHorizon());
 
           ServoClaw(OpenSide);
           HAL_Delay(300);
 
-          //垂直上升
+          //垂直上升（拟合的死代码）
           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu-15,OriginalAngle3+10);
-          StepMotor_Drive(1,250);
+          StepMotor_Drive(1,RoTask_Speed[5]);
           while (OVER == Flag_doing);
 
           StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-          StepMotor_Drive(1,250);
+          StepMotor_Drive(1,RoTask_Speed[5]);
           while (OVER == Flag_doing);
      }
 
@@ -446,45 +512,50 @@ void StepArm_Task_Jiagon(unsigned char* arr2)     //粗加工区 先放 后装�
           //准备阶段
           
           StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-          StepMotor_Drive(1,300);
+          StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
           
 
           //先到达各个圆环的预定位置
-          if(arr2[i]==GREEN)
-          {
-               StepMotor_Set_AnglePulse(45,0,Angle3_Ready);
-               StepMotor_Drive(1,200);
-               while (OVER == Flag_doing);
-          }
+          StepMotor_Set_AnglePulse(45,0,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[5]);
+          while (OVER == Flag_doing);
 
-          else if (arr2[i]==RED)
-          {
-               StepMotor_Set_AnglePulse(90,0,Angle3_Ready);
-               StepMotor_Drive(1,200);
-               while (OVER == Flag_doing);
-          }
-
-          else if (arr2[i]==BLUE)
+          //清除数据
+          ClearRxData;                        
+          
+          //如果刚开始的两个圆环没有目标圆环则跳转到最远的那个圆环的大概位置
+          HAL_Delay(500);
+          if(Abs(RxData.B_dis[arr2[i]]) > 500)
           {
                StepMotor_Set_AnglePulse(120,0,Angle3_Ready);
-               StepMotor_Drive(1,200);
-               while (OVER == Flag_doing);
+               StepMotor_Drive(1,RoTask_Speed[5]);
+               while (OVER == Flag_doing)
+               {
+                    if  ( Abs(RxData.B_ang[arr2[i]]-90) <= 4  )
+                    {
+                              StepMotor_Drive(StepALL_STOP, 0);
+                              break; 
+                    }
+               }
           }
 
-          //转向和距离的逼近
-          ClearRxData;                     //清除数据
-          RxData.B_dis[arr2[i]]+=700;
-          RxData.B_ang[arr2[i]]=179;
 
+          while(1)// 物料颜色判断等待
+          {
+               DebugB;
+               if(  (RxData.B_ang[arr2[i]]>10 &&RxData.B_ang[arr2[i]]<170)  ||  (RxData.B_ang[arr2[i]]>190&RxData.B_ang[arr2[i]]<350)  )
+               {
+                    break;
+               } 
+          }
 
-
+          //角度的逼近
            while (1)
           {   
-               
-               HAL_Delay(2);
+               HAL_Delay(1);
                StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu+RxData.B_ang[arr2[i]]-90,0,Angle3_Ready);
-               StepMotor_Drive(StepALL_START, 300);
+               StepMotor_Drive(StepALL_START, RoTask_Speed[7]);
 			
                while (OVER == Flag_doing ) 
                {
@@ -501,13 +572,13 @@ void StepArm_Task_Jiagon(unsigned char* arr2)     //粗加工区 先放 后装�
                }
           }
 
-
-          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,OriginalAngle3+10);
-          StepMotor_Drive(1,300);
+          //距离的逼近
+          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[5]);
           while (OVER == Flag_doing);
           
-          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,OriginalAngle3);
-          StepMotor_Drive(1,350);
+          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[8]);
           RxData.B_dis[arr2[i]]+=700;
           while(OVER == Flag_doing)
           {
@@ -520,11 +591,11 @@ void StepArm_Task_Jiagon(unsigned char* arr2)     //粗加工区 先放 后装�
 
 
           //垂直下降
-          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+23,OriginalAngle3-14.5);
-          StepMotor_Drive(1,300);
-          while (OVER == Flag_doing);
+          Angle_vertical(-50,Calculate_DisHorizon());
 
           //抓取
+          ServoClaw(Close);
+          HAL_Delay(300);
           Load(arr2[i]);
      }
      
@@ -534,41 +605,48 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
 {
      for(int i=0;i<3;i++)
      {    
+
           //卸货
           Pick_Floor(arr3[i]);          
-          ServoTurn(0);
+          ServoTurn(-10);
           HAL_Delay(600);
 
           StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-          StepMotor_Drive(1,300);
+          StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
 
           //先到达各个圆环的预定位置
-          if(arr3[i]==GREEN)
-          {
-               StepMotor_Set_AnglePulse(45,0,Angle3_Ready);
-               StepMotor_Drive(1,200);
-               while (OVER == Flag_doing);
-          }
+          StepMotor_Set_AnglePulse(45,0,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[6]);
+          while (OVER == Flag_doing);
 
-          else if (arr3[i]==RED)
-          {
-               StepMotor_Set_AnglePulse(90,0,Angle3_Ready);
-               StepMotor_Drive(1,200);
-               while (OVER == Flag_doing);
-          }
+          //清除数据
+          ClearRxData;                        
 
-          else if (arr3[i]==BLUE)
+          HAL_Delay(500);
+          if(Abs(RxData.C_dis[arr3[i]]) > 500)
           {
                StepMotor_Set_AnglePulse(120,0,Angle3_Ready);
-               StepMotor_Drive(1,200);
-               while (OVER == Flag_doing);
+               StepMotor_Drive(1,RoTask_Speed[6]);
+               while (OVER == Flag_doing)
+               {
+                    if  ( Abs(RxData.C_ang[arr3[i]]-90) <= 4  )
+                    {
+                              StepMotor_Drive(StepALL_STOP, 0);
+                              break; 
+                    }
+               }
           }
 
+          while(1)// 物料颜色判断
+          {
+               DebugB;
+               if(  (RxData.C_ang[arr3[i]]>10 &&RxData.C_ang[arr3[i]]<170)  ||  (RxData.C_ang[arr3[i]]>190&RxData.C_ang[arr3[i]]<350)  )
+               {
+                    break;
+               } 
+          }
 
-          ClearRxData;                        //清除数据
-          RxData.C_dis[arr3[i]]+=700;
-          RxData.C_ang[arr3[i]]=179;
 
           //转向到指定位置
           while (1)
@@ -576,7 +654,7 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
                
                HAL_Delay(2);
                StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu+RxData.C_ang[arr3[i]]-90,0,Angle3_Ready);
-               StepMotor_Drive(StepALL_START, 250);
+               StepMotor_Drive(StepALL_START, RoTask_Speed[8]);
 			
                while (OVER == Flag_doing ) 
                {
@@ -593,13 +671,13 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
                }
           }
 
-
-          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,OriginalAngle3);
-          StepMotor_Drive(1,250);
+          //距离的逼近
+          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,0,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[5]);
           while (OVER == Flag_doing);
           
-          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,OriginalAngle3);
-          StepMotor_Drive(1,250);
+          StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,30,Angle3_Ready);
+          StepMotor_Drive(1,RoTask_Speed[8]);
           RxData.C_dis[arr3[i]]+=700;
           while(OVER == Flag_doing)
           {
@@ -610,33 +688,12 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
             }
           }
 
-
-
-          //舵机转向准备抓取
+          //舵机转向准备放置
           ServoTurn(90);
           HAL_Delay(600);
           
           //垂直下落
-          if(arr3[i]==BLUE)
-          {
-               StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+23.25,OriginalAngle3-16);
-               StepMotor_Drive(1,300);
-               while (OVER == Flag_doing);
-          }
-
-          else if (arr3[i]==RED)
-          {
-               StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+23.5,OriginalAngle3-16.5);
-               StepMotor_Drive(1,300);
-               while (OVER == Flag_doing);
-          }
-
-          else if (arr3[i]==GREEN)
-          {
-               StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu+23,OriginalAngle3-16);
-               StepMotor_Drive(1,300);
-               while (OVER == Flag_doing);
-          }
+          Angle_vertical(-50,Calculate_DisHorizon());
           
 
           ServoClaw(OpenSide);
@@ -644,17 +701,15 @@ void StepArm_Task_Over(unsigned char* arr3)   //细加工区 放置物块 然后
 
           //垂直上升
           StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Motor_2.Pulse*Bu-15,OriginalAngle3+10);
-          StepMotor_Drive(1,300);
+          StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
 
           StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-          StepMotor_Drive(1,250);
+          StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
      }
 
 }
-
-
 
 
      //---------------------转向逼近----------------

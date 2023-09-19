@@ -22,19 +22,19 @@ Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 J:\temporary_cache_files\STM32F407ZGT6\MDK-ARM\STM32F407ZGT6.uvprojx
-Project File Date:  09/15/2023
+Project File Date:  09/19/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin'
 Build target 'STM32F407ZGT6'
 assembling startup_stm32f407xx.s...
 compiling armlib_lock_glue.c...
-compiling stm32f4xx_hal_i2c_ex.c...
-compiling stm32f4xx_hal_msp.c...
 compiling dma.c...
-compiling gpio.c...
-compiling stm32f4xx_it.c...
+compiling stm32f4xx_hal_msp.c...
 compiling i2c.c...
+compiling stm32f4xx_hal_i2c_ex.c...
+compiling stm32f4xx_it.c...
+compiling gpio.c...
 compiling usart.c...
 compiling main.c...
 ..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
@@ -43,19 +43,19 @@ compiling main.c...
   #else if(Motor_REDUCE == 49) 
 ..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
   void Car_Drive_Init();
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
   unsigned char PID_JudgeStatus(); 
 ..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
   void CAR_TURN_Left();
 ..\my\logic.h(73): warning:  #1-D: last line of file ends without a newline
   #endif // _LOGIC_H_
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
   #endif // _KEY_H_
-..\my\StepMotor.h(186): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
+..\my\StepMotor.h(202): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
   float Calculate_DisHorizon();                             //计算水平距离
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
@@ -73,25 +73,27 @@ compiling main.c...
   void StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码
 ..\my\RobTask.h(40): warning:  #1-D: last line of file ends without a newline
   #endif
-../Core/Src/main.c(122): warning:  #223-D: function "Correspond_Init" declared implicitly
+../Core/Src/main.c(121): warning:  #223-D: function "Correspond_Init" declared implicitly
       Correspond_Init();/*串口通信*/
-../Core/Src/main.c: 19 warnings, 0 errors
+../Core/Src/main.c(133): warning:  #111-D: statement is unreachable
+    do_cnt = do_00;
+../Core/Src/main.c: 20 warnings, 0 errors
 compiling tim.c...
 compiling stm32f4xx_hal_rcc.c...
 compiling stm32f4xx_hal_i2c.c...
 compiling stm32f4xx_hal_flash_ramfunc.c...
+compiling stm32f4xx_hal_gpio.c...
 compiling stm32f4xx_hal_flash.c...
 compiling stm32f4xx_hal_flash_ex.c...
-compiling stm32f4xx_hal_gpio.c...
 compiling stm32f4xx_hal_rcc_ex.c...
 compiling stm32f4xx_hal_dma.c...
 compiling stm32f4xx_hal_dma_ex.c...
-compiling stm32f4xx_hal_cortex.c...
+compiling stm32f4xx_hal_pwr.c...
 compiling stm32f4xx_hal.c...
 compiling stm32f4xx_hal_pwr_ex.c...
-compiling stm32f4xx_hal_pwr.c...
-compiling stm32f4xx_hal_exti.c...
+compiling stm32f4xx_hal_cortex.c...
 compiling system_stm32f4xx.c...
+compiling stm32f4xx_hal_exti.c...
 compiling act_motor.c...
 ..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
   #else if(Motor_REDUCE == 49) 
@@ -99,7 +101,7 @@ compiling act_motor.c...
   #else if(Motor_REDUCE == 49) 
 ..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
   void Car_Drive_Init();
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
   unsigned char PID_JudgeStatus(); 
 ..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
   void CAR_TURN_Left();
@@ -109,13 +111,13 @@ compiling act_motor.c...
   void UART4_LCD_UpdataDisplay( );
 ..\my\logic.h(73): warning:  #1-D: last line of file ends without a newline
   #endif // _LOGIC_H_
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
   #endif // _KEY_H_
-..\my\StepMotor.h(186): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
+..\my\StepMotor.h(202): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
   float Calculate_DisHorizon();                             //计算水平距离
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
@@ -124,10 +126,11 @@ compiling act_motor.c...
 ..\my\control.h(23): warning:  #1295-D: Deprecated declaration Other_Actions - give arg types
   void Other_Actions();
 ..\my\act_motor.c: 15 warnings, 0 errors
+compiling stm32f4xx_hal_tim_ex.c...
 compiling motor.c...
 ..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
   #else if(Motor_REDUCE == 49) 
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
   unsigned char PID_JudgeStatus(); 
 ..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
   #else if(Motor_REDUCE == 49) 
@@ -136,6 +139,7 @@ compiling motor.c...
 ..\my\motor.c(75): warning:  #14-D: extra text after expected end of preprocessing directive
   #else if(Motor == 3)
 ..\my\motor.c: 5 warnings, 0 errors
+compiling stm32f4xx_hal_uart.c...
 compiling ano.c...
 ..\my\my_uart.h(71): warning:  #1295-D: Deprecated declaration ScanCode - give arg types
   void ScanCode();
@@ -147,19 +151,19 @@ compiling ano.c...
   #else if(Motor_REDUCE == 49) 
 ..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
   void Car_Drive_Init();
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
   unsigned char PID_JudgeStatus(); 
 ..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
   void CAR_TURN_Left();
 ..\my\logic.h(73): warning:  #1-D: last line of file ends without a newline
   #endif // _LOGIC_H_
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
   #endif // _KEY_H_
-..\my\StepMotor.h(186): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
+..\my\StepMotor.h(202): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
   float Calculate_DisHorizon();                             //计算水平距离
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
@@ -168,50 +172,6 @@ compiling ano.c...
 ..\my\control.h(23): warning:  #1295-D: Deprecated declaration Other_Actions - give arg types
   void Other_Actions();
 ..\my\ano.c: 15 warnings, 0 errors
-compiling stm32f4xx_hal_tim_ex.c...
-compiling stm32f4xx_hal_uart.c...
-compiling my_uart.c...
-..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
-  #else if(Motor_REDUCE == 49) 
-..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
-  #else if(Motor_REDUCE == 49) 
-..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
-  void Car_Drive_Init();
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
-  unsigned char PID_JudgeStatus(); 
-..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
-  void CAR_TURN_Left();
-..\my\logic.h(73): warning:  #1-D: last line of file ends without a newline
-  #endif // _LOGIC_H_
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
-  #endif // _STEPMOTOR_H_
-..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
-  #endif // _KEY_H_
-..\my\StepMotor.h(186): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
-  float Calculate_DisHorizon();                             //计算水平距离
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
-  #endif // _STEPMOTOR_H_
-..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-..\my\Servo.h(25): warning:  #1-D: last line of file ends without a newline
-  #endif // _SERVO_H_
-..\my\control.h(23): warning:  #1295-D: Deprecated declaration Other_Actions - give arg types
-  void Other_Actions();
-..\my\my_uart.h(71): warning:  #1295-D: Deprecated declaration ScanCode - give arg types
-  void ScanCode();
-..\my\my_uart.h(98): warning:  #1295-D: Deprecated declaration UART4_LCD_UpdataDisplay - give arg types
-  void UART4_LCD_UpdataDisplay( );
-..\my\my_uart.c(266): warning:  #186-D: pointless comparison of unsigned integer with zero
-  		if (sta >=0 && sta < 7)
-..\my\my_uart.c(282): warning:  #186-D: pointless comparison of unsigned integer with zero
-  		if ( sta >=0 && sta < CODE_LENGTH )
-..\my\my_uart.c(320): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "const uint8_t *"
-  		HAL_UART_Transmit_DMA(&huart4, senddata, strlen(senddata));
-..\my\my_uart.c(332): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *"
-  		my_USART1_GetBuffer(uart1_Rx[0],uart1_RxBuff);
-..\my\my_uart.c(339): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *"
-  		my_USART2_GetBuffer(uart2_Rx[0],uart2_RxBuff);
-..\my\my_uart.c: 20 warnings, 0 errors
 compiling key.c...
 ..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
   #else if(Motor_REDUCE == 49) 
@@ -219,7 +179,7 @@ compiling key.c...
   #else if(Motor_REDUCE == 49) 
 ..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
   void Car_Drive_Init();
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
   unsigned char PID_JudgeStatus(); 
 ..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
   void CAR_TURN_Left();
@@ -227,9 +187,9 @@ compiling key.c...
   #endif // _LOGIC_H_
 ..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
   #endif // _KEY_H_
-..\my\StepMotor.h(186): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
+..\my\StepMotor.h(202): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
   float Calculate_DisHorizon();                             //计算水平距离
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
@@ -259,19 +219,19 @@ compiling control.c...
   #else if(Motor_REDUCE == 49) 
 ..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
   void Car_Drive_Init();
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
   unsigned char PID_JudgeStatus(); 
 ..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
   void CAR_TURN_Left();
 ..\my\logic.h(73): warning:  #1-D: last line of file ends without a newline
   #endif // _LOGIC_H_
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
   #endif // _KEY_H_
-..\my\StepMotor.h(186): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
+..\my\StepMotor.h(202): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
   float Calculate_DisHorizon();                             //计算水平距离
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
@@ -286,32 +246,26 @@ compiling control.c...
 ..\my\RobTask.h(40): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\my\control.c: 18 warnings, 0 errors
-compiling stm32f4xx_hal_tim.c...
-compiling printf_.c...
-compiling PID.c...
+compiling my_uart.c...
 ..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
   #else if(Motor_REDUCE == 49) 
 ..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
   #else if(Motor_REDUCE == 49) 
 ..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
   void Car_Drive_Init();
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
   unsigned char PID_JudgeStatus(); 
-..\my\my_uart.h(71): warning:  #1295-D: Deprecated declaration ScanCode - give arg types
-  void ScanCode();
-..\my\my_uart.h(98): warning:  #1295-D: Deprecated declaration UART4_LCD_UpdataDisplay - give arg types
-  void UART4_LCD_UpdataDisplay( );
 ..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
   void CAR_TURN_Left();
 ..\my\logic.h(73): warning:  #1-D: last line of file ends without a newline
   #endif // _LOGIC_H_
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
   #endif // _KEY_H_
-..\my\StepMotor.h(186): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
+..\my\StepMotor.h(202): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
   float Calculate_DisHorizon();                             //计算水平距离
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
@@ -319,29 +273,23 @@ compiling PID.c...
   #endif // _SERVO_H_
 ..\my\control.h(23): warning:  #1295-D: Deprecated declaration Other_Actions - give arg types
   void Other_Actions();
-..\my\PID.c(54): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		Lout = 0.1*Lout;
-..\my\PID.c(126): warning:  #223-D: function "Limit" declared implicitly
-  		return Limit(angle*3,2.5);
-..\my\PID.c(131): warning:  #223-D: function "Limit" declared implicitly
-  		return Limit(angle*3, 3.5);
-..\my\PID.c(136): warning:  #223-D: function "Limit" declared implicitly
-  		return Limit(angle*2.4, 4);
-..\my\PID.c(136): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		return Limit(angle*2.4, 4);
-..\my\PID.c(140): warning:  #223-D: function "Limit" declared implicitly
-  		return Limit(angle*2, 5.5);
-..\my\PID.c(145): warning:  #223-D: function "Limit" declared implicitly
-  		return Limit(angle*2,6.1);
-..\my\PID.c(222): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  				if (Abs(pid_L->err) < _1mm_to_Encoder_)
-..\my\PID.c(292): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-    if (Abs(pid->err) < Err_angle)//��ֹ P��ʹ�ٶȹ���
-..\my\PID.c(295): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  						+ 0.002 * (pid->err)										   /* ���ֻ��� */
-..\my\PID.c(335): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  						+ 2.2 * (pid->err)										   /* ���ֻ��� */
-..\my\PID.c: 26 warnings, 0 errors
+..\my\my_uart.h(71): warning:  #1295-D: Deprecated declaration ScanCode - give arg types
+  void ScanCode();
+..\my\my_uart.h(98): warning:  #1295-D: Deprecated declaration UART4_LCD_UpdataDisplay - give arg types
+  void UART4_LCD_UpdataDisplay( );
+..\my\my_uart.c(249): warning:  #186-D: pointless comparison of unsigned integer with zero
+  		if (sta >=0 && sta < 7)
+..\my\my_uart.c(265): warning:  #186-D: pointless comparison of unsigned integer with zero
+  		if ( sta >=0 && sta < CODE_LENGTH )
+..\my\my_uart.c(302): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "const uint8_t *"
+  		HAL_UART_Transmit_DMA(&huart4, senddata, strlen(senddata));
+..\my\my_uart.c(314): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+  		my_USART1_GetBuffer(uart1_Rx[0],uart1_RxBuff);
+..\my\my_uart.c(321): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+  		my_USART2_GetBuffer(uart2_Rx[0],uart2_RxBuff);
+..\my\my_uart.c: 20 warnings, 0 errors
+compiling stm32f4xx_hal_tim.c...
+compiling printf_.c...
 compiling Servo.c...
 ..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
@@ -350,6 +298,60 @@ compiling Servo.c...
 ..\my\Servo.c(103): warning:  #1-D: last line of file ends without a newline
    
 ..\my\Servo.c: 3 warnings, 0 errors
+compiling PID.c...
+..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
+  #else if(Motor_REDUCE == 49) 
+..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
+  #else if(Motor_REDUCE == 49) 
+..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
+  void Car_Drive_Init();
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+  unsigned char PID_JudgeStatus(); 
+..\my\my_uart.h(71): warning:  #1295-D: Deprecated declaration ScanCode - give arg types
+  void ScanCode();
+..\my\my_uart.h(98): warning:  #1295-D: Deprecated declaration UART4_LCD_UpdataDisplay - give arg types
+  void UART4_LCD_UpdataDisplay( );
+..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
+  void CAR_TURN_Left();
+..\my\logic.h(73): warning:  #1-D: last line of file ends without a newline
+  #endif // _LOGIC_H_
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
+  #endif // _STEPMOTOR_H_
+..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif // _KEY_H_
+..\my\StepMotor.h(202): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
+  float Calculate_DisHorizon();                             //计算水平距离
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
+  #endif // _STEPMOTOR_H_
+..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+..\my\Servo.h(25): warning:  #1-D: last line of file ends without a newline
+  #endif // _SERVO_H_
+..\my\control.h(23): warning:  #1295-D: Deprecated declaration Other_Actions - give arg types
+  void Other_Actions();
+..\my\PID.c(61): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		Lout = 0.1*Lout;
+..\my\PID.c(133): warning:  #223-D: function "Limit" declared implicitly
+  		return Limit(angle*3,2.5);
+..\my\PID.c(138): warning:  #223-D: function "Limit" declared implicitly
+  		return Limit(angle*3, 3.5);
+..\my\PID.c(143): warning:  #223-D: function "Limit" declared implicitly
+  		return Limit(angle*2.4, 4);
+..\my\PID.c(143): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		return Limit(angle*2.4, 4);
+..\my\PID.c(147): warning:  #223-D: function "Limit" declared implicitly
+  		return Limit(angle*2, 5.5);
+..\my\PID.c(152): warning:  #223-D: function "Limit" declared implicitly
+  		return Limit(angle*2,6.1);
+..\my\PID.c(229): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				if (Abs(pid_L->err) < _1mm_to_Encoder_)
+..\my\PID.c(299): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+    if (Abs(pid->err) < Err_angle)//??? P?????????
+..\my\PID.c(302): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  						+ 0.002 * (pid->err)										   /* ??????? */
+..\my\PID.c(342): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  						+ 2.2 * (pid->err)										   /* ??????? */
+..\my\PID.c: 26 warnings, 0 errors
 compiling StepMotor.c...
 ..\my\motor.h(37): warning:  #14-D: extra text after expected end of preprocessing directive
   #else if(Motor_REDUCE == 49) 
@@ -357,13 +359,13 @@ compiling StepMotor.c...
   #else if(Motor_REDUCE == 49) 
 ..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
   void Car_Drive_Init();
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
   unsigned char PID_JudgeStatus(); 
 ..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
   void CAR_TURN_Left();
 ..\my\logic.h(73): warning:  #1-D: last line of file ends without a newline
   #endif // _LOGIC_H_
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
@@ -377,9 +379,9 @@ compiling StepMotor.c...
   void UART4_LCD_UpdataDisplay( );
 ..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
   #endif // _KEY_H_
-..\my\StepMotor.h(186): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
+..\my\StepMotor.h(202): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
   float Calculate_DisHorizon();                             //计算水平距离
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\StepMotor.c(23): warning:  #1035-D: single-precision operand implicitly converted to double-precision
       float two_Point = sqrt(L2_1 * L2_1 + L1 * L1 - (2 * cos((180 - a)*Factor) * L2_1 * L1));
@@ -395,19 +397,19 @@ compiling RobTask.c...
   #else if(Motor_REDUCE == 49) 
 ..\my\motor.h(83): warning:  #1295-D: Deprecated declaration Car_Drive_Init - give arg types
   void Car_Drive_Init();
-..\my\PID.h(62): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
+..\my\PID.h(63): warning:  #1295-D: Deprecated declaration PID_JudgeStatus - give arg types
   unsigned char PID_JudgeStatus(); 
 ..\my\act_motor.h(50): warning:  #1295-D: Deprecated declaration CAR_TURN_Left - give arg types
   void CAR_TURN_Left();
 ..\my\logic.h(73): warning:  #1-D: last line of file ends without a newline
   #endif // _LOGIC_H_
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\key.h(20): warning:  #1-D: last line of file ends without a newline
   #endif // _KEY_H_
-..\my\StepMotor.h(186): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
+..\my\StepMotor.h(202): warning:  #1295-D: Deprecated declaration Calculate_DisHorizon - give arg types
   float Calculate_DisHorizon();                             //计算水平距离
-..\my\StepMotor.h(261): warning:  #1-D: last line of file ends without a newline
+..\my\StepMotor.h(277): warning:  #1-D: last line of file ends without a newline
   #endif // _STEPMOTOR_H_
 ..\my\Servo.h(22): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
@@ -425,15 +427,15 @@ compiling RobTask.c...
   void StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码
 ..\my\RobTask.h(40): warning:  #1-D: last line of file ends without a newline
   #endif
-..\my\RobTask.c(319): warning:  #111-D: statement is unreachable
+..\my\RobTask.c(272): warning:  #111-D: statement is unreachable
             Load(arr1[i]);  
-..\my\RobTask.c(1112): warning:  #1-D: last line of file ends without a newline
+..\my\RobTask.c(1065): warning:  #1-D: last line of file ends without a newline
   // }
 ..\my\RobTask.c: 20 warnings, 0 errors
 linking...
-Program Size: Code=33452 RO-data=944 RW-data=116 ZI-data=4668  
+Program Size: Code=32084 RO-data=944 RW-data=116 ZI-data=4764  
 FromELF: creating hex file...
-"STM32F407ZGT6\STM32F407ZGT6.axf" - 0 Error(s), 176 Warning(s).
+"STM32F407ZGT6\STM32F407ZGT6.axf" - 0 Error(s), 177 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -457,7 +459,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:33
+Build Time Elapsed:  00:00:37
 </pre>
 </body>
 </html>

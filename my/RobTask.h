@@ -26,8 +26,9 @@ void Load(int number) ;
 
 void StepArm_TaskTest(int Task_num);        //测试函数
  
+void Pick_Floor(int numbr_P);             //从车上抓取物块
 
-void StepArm_Task_InitPosition(); //初始化位置
+void StepArm_Task_InitPosition();     //初始化位置
 
 void StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码
 

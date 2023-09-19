@@ -13,8 +13,8 @@ void Servo_Init()
      HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_2);
      HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_ALL);//4
 
-     ServoClaw(OpenPan);
-     ServoTurn(0);
+    //  ServoClaw(OpenSide);
+    //  ServoTurn(90);
 }
 
 /**
@@ -73,26 +73,26 @@ void ServoClaw(int open_cmd)
 void ServoTurn(int angle)
 {
 // 转向舵机
-// 0430     正向  90读位置
-// 1395     正向 0度位置
-// 1500     放置物块到圆环时物块应偏转的位置
-// 2360     反向  -90度位置
-// 10.7222
+// 0585     正向  90读位置
+//          正向 0度位置
+// 1800     放置物块到圆环时物块应偏转的位置
+// 2500     反向  -90度位置
+// 10.63
 
     if (angle > -91  && angle < 91)
     {
-        TIM9->CCR2 = 2360 - (angle + 90 )*10.722;
+        TIM9->CCR2 = 2500 - (angle + 90 )*10.63;
 
         switch (angle)
         {
-            case  90:
-                TIM9->CCR2 =  430; break;
+            case  90: // 0500
+                TIM9->CCR2 =  585; break;
 
             case 0: //比零度更靠后一些，兼容之前的写法，  放置物块到圆环时物块应偏转的角度
-                TIM9->CCR2 = 1500; break;
+                TIM9->CCR2 = 1770; break;
             
             case  -90:
-                TIM9->CCR2 = 2360; break;
+                TIM9->CCR2 = 2500; break;
 
             default:
                 break;

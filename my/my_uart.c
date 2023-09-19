@@ -87,8 +87,6 @@ void  my_USART1_GetBuffer(char Rx, char *Data_Get)//uart1 receive data
 	{
 		Data_Get[sta]=Rx;
 		sta=1; 
-		//#S,2000,1,$
-		//01234567890
 	}
 	else if(sta >=1 &&  sta <= ServoConLen-2)           
 	{
@@ -110,7 +108,6 @@ void  my_USART1_GetBuffer(char Rx, char *Data_Get)//uart1 receive data
 		sta = 0;
 		if ( (Data_Get[0]== '#' &&  Data_Get[ServoConLen-1] == '$' ) )
 		{
-			// HAL_UART_Transmit_DMA(&huart1, uart2_RxBuff,  uart2_RxBuffLen); /*debug*/
 			if (  Data_Get[1] == 'S')//巡线
 			{
 				sscanf(Data_Get, "#S,%d,%d,$",  &ServoCCR,  &ServoNum);	
@@ -176,21 +173,7 @@ void  my_USART2_GetBuffer(char Rx, char *Data_Get)//uart2 receive data
 						RxData.B_Accume[number] = 0;//累计数清零
 
 						RxData.B_cnt[number] = 0 ;//帧数还愿 重新计算向量
-
-						
 					}
-
-					// if (RxData.B_cnt[number] == 0)//第一帧 记录为历史
-					// {
-					// 	RxData.B_dis_H[number] = RxData.B_dis[number];
-					// }
-					// sscanf(Data_Get, "#B,%f,%f,%c,$", &RxData.B_dis[number] , &RxData.B_ang[number],   &RxData.B_col[number]);	
-					// ++ RxData.B_cnt[number];//串口接收到一次 帧数+1
-					// if (RxData.B_cnt[number] == RxData.B_cntMax+RxData.B_cntMax ) //记满 B_cntMax 次，计算位移 //树莓派一帧数据连发三次
-					// {
-					// 	RxData.B_Vector[number] =  RxData.B_dis[number] - RxData.B_dis_H[number];
-					// 	RxData.B_cnt[number] = 0 ;//帧数还愿 重新计算向量
-					// }
 				}
 				
 				
@@ -307,18 +290,16 @@ void  my_USART3_GetBuffer(char Rx,unsigned char *Data_Get)//uart3 scan code
 }
  
 
-void UART4_LCD_UpdataDisplay( )
+void UART_LCD_UpdataDisplay(UART_HandleTypeDef* huart)
 {
 	static char senddata[64]={0};
 	sprintf(senddata, "#Z,%s,%d,%d,$",RxData.code, task, do_cnt);
-	if (HAL_DMA_GetState(huart4.hdmatx) == HAL_DMA_STATE_READY)
+
+	// printf("ok\r\n", senddata);
+	if (HAL_DMA_GetState(huart->hdmatx) == HAL_DMA_STATE_READY)
 	{
- 
-		// printf("%s\r\n", senddata);
-		// printf("ccc: %s\r\n", RxData.code);
-		HAL_UART_Transmit_DMA(&huart4, senddata, strlen(senddata));
+		HAL_UART_Transmit_DMA(huart, senddata, strlen(senddata));
 	}
-	
 }
 
 

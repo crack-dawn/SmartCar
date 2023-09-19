@@ -135,11 +135,11 @@ extern float Angle1,Angle2,Angle3;
 #define STEP1_DIR_CW        do{Motor_1.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_1, GPIO_PIN_RESET);  }while(0) // 顺时针
 #define STEP1_DIR_CCW       do{Motor_1.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_1, GPIO_PIN_SET);   }while(0)// 逆时针
 
-#define STEP2_DIR_CW        do{Motor_2.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_2, GPIO_PIN_RESET);    }while(0)  // 顺时针
-#define STEP2_DIR_CCW       do{Motor_2.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_2, GPIO_PIN_SET); }while(0) // 逆时针
+#define STEP2_DIR_CW        do{Motor_2.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_2, GPIO_PIN_SET);   }while(0) // 顺时针
+#define STEP2_DIR_CCW       do{Motor_2.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_2, GPIO_PIN_RESET);  }while(0)// 逆时针
 
-#define STEP3_DIR_CW        do{Motor_3.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_3, GPIO_PIN_SET);  }while(0) // 顺时针
-#define STEP3_DIR_CCW       do{Motor_3.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_3, GPIO_PIN_RESET);   }while(0)// 逆时针
+#define STEP3_DIR_CW        do{Motor_3.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_3, GPIO_PIN_SET);   }while(0)// 顺时针
+#define STEP3_DIR_CCW       do{Motor_3.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_3, GPIO_PIN_RESET);  }while(0)// 逆时针
 
 #define STEP4_DIR_CW        do{Motor_4.Dir=Dir_CW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_4, GPIO_PIN_RESET);  }while(0) // 顺时针
 #define STEP4_DIR_CCW       do{Motor_4.Dir=Dir_CCW; HAL_GPIO_WritePin(StepDirGPIO, StepDirPin_4, GPIO_PIN_SET);   }while(0)// 逆时针
@@ -179,10 +179,10 @@ static void Step4_Dir_Cw(void) {STEP4_DIR_CW; }       static void Step4_Dir_CCw(
 #define STEP3_STOP         do{  HAL_TIM_OC_Stop_IT(&StepMotorTIMHandle, StepPulseCHannel_3);  Motor_3.pwmPulse = 0; Motor_3.tarPulse = 0; Motor_3.Flag = Flag_finish;    /*HAL_GPIO_WritePin(StepPulsePinGPIO, StepPulsePin_3, GPIO_PIN_RESET);*/}while(0)   //失能通道3
 #define STEP4_STOP         do{  HAL_TIM_OC_Stop_IT(&StepMotorTIMHandle, StepPulseCHannel_4);  Motor_4.pwmPulse = 0; Motor_4.tarPulse = 0; Motor_4.Flag = Flag_finish;    /*HAL_GPIO_WritePin(StepPulsePinGPIO, StepPulsePin_4, GPIO_PIN_RESET);*/}while(0)   //失能通道3
 
-#define STEP1_START        do{  Motor_1.Flag = Flag_doing;  HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_1); __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_1, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle)+1200); }while(0)   //使能通道1              
-#define STEP2_START        do{  Motor_2.Flag = Flag_doing;  HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_2); __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_2, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle)+1200); }while(0)   //使能通道2     
-#define STEP3_START        do{  Motor_3.Flag = Flag_doing;  HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_3); __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_3, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle)+1200); }while(0)   //使能通道3  
-#define STEP4_START        do{  Motor_4.Flag = Flag_doing;  HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_4); __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_4, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle)+1200); }while(0)   //使能通道3  
+#define STEP1_START        do{  Motor_1.Flag = Flag_doing; Motor_1.pwmPulse = 0;  HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_1); __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_1, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle)+1200); }while(0)   //使能通道1              
+#define STEP2_START        do{  Motor_2.Flag = Flag_doing; Motor_2.pwmPulse = 0;  HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_2); __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_2, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle)+1200); }while(0)   //使能通道2     
+#define STEP3_START        do{  Motor_3.Flag = Flag_doing; Motor_3.pwmPulse = 0;  HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_3); __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_3, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle)+1200); }while(0)   //使能通道3  
+#define STEP4_START        do{  Motor_4.Flag = Flag_doing; Motor_4.pwmPulse = 0;  HAL_TIM_OC_Start_IT(&StepMotorTIMHandle, StepPulseCHannel_4); __HAL_TIM_SET_COMPARE(&StepMotorTIMHandle, StepPulseCHannel_4, __HAL_TIM_GET_COUNTER(&StepMotorTIMHandle)+1200); }while(0)   //使能通道3  
 
 static void Step1_Stop(void) { STEP1_STOP; };       static void Step1_Start(void) { STEP1_START; };
 static void Step2_Stop(void) { STEP2_STOP; };       static void Step2_Start(void) { STEP2_START; };
@@ -231,7 +231,7 @@ void StepMotor_Set_TarPulses(int tar1, int tar2,int tar3); //  底层 设置参�
 /*其他函数*/
 void StepMotor_Set_AbsPulse(int tar1, int tar2,int tar3); //  绝对脉冲数， 以初始位置为参考
 
-
+// void StepMotor_Set_AbsPulse(int tar1, int tar2, int tar3);
 
 #define StepALL_STOP        0
 #define StepALL_START       1
@@ -240,7 +240,7 @@ void StepMotor_Set_AbsPulse(int tar1, int tar2,int tar3); //  绝对脉冲数，
 #define Step3_STOP          33
 
 void StepMotor_Drive(int Con, int speedPeriod);  //驱动开关     控制全部电机的启动，或者单个的停止，参数如上
-
+void StepMotor_AdVanceDrive(int period1,int period2,int period3);   //调速
 
 /*初始化 与周期回调函数 */
 void StepMotor_Init(void);//初始化
@@ -271,7 +271,7 @@ void StepMotor_UpdataPulse(Step_Motor* g_Motor); // 周期性调用，更新电�
 // void Motor_SetAngle2(float dis);                // 状态2的机械抓平移角度计算
 // float Step_Calculate_UpdataS();
 
-void Top_StepMotor_UpdataStatus_CallBack_TIM5(TIM_HandleTypeDef *htim);//回调函数
+// void Top_StepMotor_UpdataStatus_CallBack_TIM5(TIM_HandleTypeDef *htim);//回调函数
 
 
 #endif // _STEPMOTOR_H_

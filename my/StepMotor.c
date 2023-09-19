@@ -19,14 +19,21 @@ void Angle_vertical(float set_H,float set_S)           //垂直下落
 {
     float HP = sqrt(set_H * set_H + set_S * set_S);
     float a = acos((L2 * L2 + L1 * L1 - HP * HP) / (2 * L1 * L2)) / (Factor);         //大臂和小臂的夹角
-    Angle2 = a - (asin(set_S / HP) / (Factor)-acos((L2 * L2 + HP * HP - L1 * L1) / (2 * L2 * HP)) / (Factor));
+    //水平上还是水平下，在两种计算方法不一样
+    if (set_H <= 0)
+       Angle2 = a - (asin(set_S / HP) / (Factor)-acos((L2 * L2 + HP * HP - L1 * L1) / (2 * L2 * HP)) / (Factor)); 
+    else if(set_H > 0)
+        Angle2 =a-( 180 - (asin(set_S / HP) / (Factor)) - (acos((L2 * L2 + HP * HP - L1 * L1) / (2 * L2 * HP)) / (Factor)));
+    
     float two_Point = sqrt(L2_1 * L2_1 + L1 * L1 - (2 * cos((180 - a)*Factor) * L2_1 * L1));
     float b = acos((L1 * L1 + two_Point * two_Point - L2_1 * L2_1) / (2 * L1 * two_Point)) / (Factor);       //四边形靠近大臂的夹角
     float c = acos((L3 * L3 + two_Point * two_Point - L1_1 * L1_1) / (2 * L3 * two_Point))/(Factor);              //四边形靠近小滑轮的夹角
     Angle3 = 90 + Angle2 - b - c;
 
     StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Angle2,Angle3);
-    StepMotor_Drive(StepALL_START, 300);
+    // StepMotor_Drive(StepALL_START, 600);
+    int Ratio=Motor_2.tarPulse/Motor_3.tarPulse;
+    StepMotor_AdVanceDrive(0,Ratio*600,600);   //调速
      while (OVER == Flag_doing); 
 }
 
@@ -117,7 +124,22 @@ void StepMotor_Drive(int Con, int speedPeriod)
     }
 }
 
-
+void StepMotor_AdVanceDrive(int period1,int period2,int period3)
+{
+         StepMotor_Set_Speeds(period1,period2,period3);
+         if (Motor_1.tarPulse != 0 )
+         {
+            Motor_1.start();
+         }
+         if (Motor_2.tarPulse != 0)
+         {
+           Motor_2.start();
+         }
+         if (Motor_3.tarPulse != 0)
+         {
+           Motor_3.start();
+         }
+}
 
 /*------------------------*/
 void StepMotor_Init(void)
@@ -125,7 +147,7 @@ void StepMotor_Init(void)
     
     // 失能motor
     STEP1234_ALLSTOP; 
-    StepPulseEN(DISABLE);//先失能
+    StepPulseEN(ENABLE);//后使能 之后全程使能
 
     Motor_1.pwmPulse = 0;
     Motor_1.Pulse = 0;
@@ -211,13 +233,17 @@ void StepMotor_Set_Dirs(int dir1, int dir2, int dir3)       // 设定方向
 void StepMotor_Set_Speed(Step_Motor*  g_Motor, unsigned int period)
 {
     g_Motor->period = period;
-    g_Motor->frequency = CLK_Freq/period;
+    // g_Motor->frequency = CLK_Freq/period;
 }
 void StepMotor_Set_Speeds(unsigned int period1,unsigned int period2,unsigned int period3)
 {
-        Motor_1.period = period1;     Motor_1.frequency = CLK_Freq/period1;
-        Motor_2.period = period2;     Motor_2.frequency = CLK_Freq/period2;
-        Motor_3.period = period3;     Motor_3.frequency = CLK_Freq/period3;
+        Motor_1.period = period1;     
+        Motor_2.period = period2;     
+        Motor_3.period = period3;     
+
+        // Motor_1.frequency = CLK_Freq/period1;
+        // Motor_2.frequency = CLK_Freq/period2;
+        // Motor_3.frequency = CLK_Freq/period3;
 }
 
 /*------------------------*/
@@ -460,3 +486,68 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 // 		break;
 // 	}
 // }
+
+
+
+
+
+
+
+
+
+/*******************************************************/
+/******************    初始化位置    ********************/
+/******************                 ********************/
+/*******************************************************/
+void Limit_Arm_InitPosition_EXIT(uint16_t GPIO_Pin)
+{
+   if (GPIO_Pin == Limit_Turn_Pin && HAL_GPIO_ReadPin(Limit_Turn_GPIO_Port, Limit_Turn_Pin)== RESET)
+    {
+        Motor_1.stop(); Motor_1.Pulse = 0; //底座接转轴  PB11
+    }
+    if (GPIO_Pin == Limit_BigArm_Pin && HAL_GPIO_ReadPin(Limit_BigArm_GPIO_Port, Limit_BigArm_Pin)== RESET)
+    {
+        Motor_2.stop(); Motor_2.Pulse = 0; //大臂接  PE12
+    }
+     if (GPIO_Pin == Limit_SmallArm_Pin && HAL_GPIO_ReadPin(Limit_SmallArm_GPIO_Port, Limit_SmallArm_Pin)== RESET)
+    {
+        Motor_3.stop(); Motor_3.Pulse = 0; //小臂接  PB15
+        ServoTurn(90); //舵机归位
+        ServoClaw(OpenSide);
+    }
+}
+
+void Limit_Arm_InitPosition_INPUT()
+{
+    if (HAL_GPIO_ReadPin(Limit_Turn_GPIO_Port, Limit_Turn_Pin)== RESET)
+    {
+        Motor_1.stop(); Motor_1.Pulse = 0;//底座转轴
+    }
+     if (HAL_GPIO_ReadPin(Limit_BigArm_GPIO_Port, Limit_BigArm_Pin)== RESET)
+    {
+        Motor_2.stop(); Motor_2.Pulse = 0;//大臂
+    }
+     if( HAL_GPIO_ReadPin(Limit_SmallArm_GPIO_Port, Limit_SmallArm_Pin)== RESET)
+    {
+        Motor_3.stop(); Motor_3.Pulse = 0;//小臂
+        ServoTurn(90); //舵机归位
+        ServoClaw(OpenSide);
+    }
+}
+
+void StepArm_Task_InitPosition()
+{
+     StepPulseEN(ENABLE);//后使能 之后全程使能
+
+     StepMotor_Set_TarPulses(3000,-3000 ,-3000); //然后校准 大臂和转轴，小臂放下
+     StepMotor_Drive(1, 1200);
+     while ( OVER != Flag_finish) {     Limit_Arm_InitPosition_INPUT();   }
+     
+     Motor_1.Pulse = 0;
+     Motor_2.Pulse = 0;
+     Motor_3.Pulse = -2577;
+
+     HAL_NVIC_DisableIRQ(Limit_Turn_EXTI_IRQn);
+     HAL_NVIC_DisableIRQ(Limit_SmallArm_EXTI_IRQn);
+     HAL_NVIC_DisableIRQ(Limit_BigArm_EXTI_IRQn);
+}
