@@ -108,6 +108,7 @@ int main(void)
   MX_TIM9_Init();
   MX_TIM8_Init();
   MX_TIM12_Init();
+  MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
 
 
@@ -117,9 +118,9 @@ int main(void)
 
     
 
-    Servo_Init();  /**舵机*/ 
-    Correspond_Init();/*串口通信*/
-    ScanCode();
+    Servo_Init();  
+    Correspond_Init(); 
+ 
     // while(1)
     // {
       // UART_LCD_UpdataDisplay(&huart5);
@@ -130,65 +131,55 @@ int main(void)
       // HAL_UART_Transmit(&huart5,"55\r\n",3,20);
     //   HAL_Delay(300);
     // }
-    StepMotor_Init( ); /*步进电机*/
-    Car_Drive_Init();/*编码电机*/      task = Stop;     do_cnt = 0;
+    StepMotor_Init( );  
+    Car_Drive_Init();       task = Stop;     do_cnt = 0;
 
-    StepArm_Task_InitPosition();/*初始化机械臂位置*/
-    // ScanCode();
-  /*---========================================== 外设初始化结�????? --*/
-// while(1){
-//   UART4_LCD_UpdataDisplay();
-//   HAL_Delay(500);
-// }
+ 
+
+    StepArm_Task_InitPosition(); 
+    
+ 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  HAL_Delay(2500);
   task = BackOut_1;
   do_cnt = do_00;
   
 /*------------------------------------*/
  
-///oc输出比较模式
+ 
 /*--------------*/
   ClearRxData;
   StepMotorTask = 0;
 
-  RxData.Task1[0] = 1;//第一轮颜色码编号 认为编�??
-  RxData.Task1[1] = 1;
-  RxData.Task1[2] = 1;
 
   SendCmdA;  
-
-  HAL_Delay(200); //启动前延�????? 1800ms
+  
 
   while (1)
   {
-
+    // CAR_RUN(Zero_GO,2,10,2,10,1);
+    // StepArm_TaskTest(Base);  
     if(StepMotorTask) /* debug for Arm */
-    {///oc输出比较模式
-      // StepArm_Task_ScanCode();
-      // StepArm_TaskTest(Base);  //验证机械
-      // Load(1);
-      // Load(2);
-      // Load(3);
+    { 
+      
       StepMotorTask=0;
     }
-//  printf("Encoder1:%7.0f Encoder2:%7.0f \r\n",pid_location.actual_val, pid_location2.actual_val);
-
-
-    Other_Actions();//扫码，机械臂�????? 动作跳转，执行入口！  阻塞�?????
-    // /* 显示正常跑动�????? 巡线状�?�闪烁指示灯||  机械臂状态，指示灯停止闪�?????*/
-    LED1_OFF; 
-    HAL_Delay(150);
-     LED1_ON;
-    HAL_Delay(150);
+ 
+    Other_Actions(); 
+   
+    // LED1_OFF; 
+    // HAL_Delay(150);
+    //  LED1_ON;
+    // HAL_Delay(150);
    
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
-
   /* USER CODE END 3 */
 }
 

@@ -7,6 +7,7 @@
 #include "StepMotor.h"
 #include "Servo.h"
 
+
 #define DebugA printf("A dis|%5f turn|%5f\r\n",RxData.distance, RxData.turn )      //巡线
 #define DebugB printf("B R|%5f G|%5f B|%5f\r\n",RxData.B_ang[1], RxData.B_ang[2],RxData.B_ang[3]) //色块
 #define DebugC printf("C R|%5f G|%5f B|%5f\r\n",RxData.C_ang[1], RxData.C_ang[2],RxData.C_ang[3]) //色环

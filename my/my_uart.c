@@ -47,7 +47,7 @@ UartDataMCU_RX RxData={0};
   {
     // 等待发送完成
   }
-	HAL_UART_Transmit_DMA( &huart3, ScanCmd  , 9);
+   HAL_UART_Transmit_DMA( &huart3, ScanCmd  , 9);
 }
 
 void Raspberry_ChangeMode(char cmd)//uart2 sendata
@@ -283,7 +283,18 @@ void  my_USART3_GetBuffer(char Rx,unsigned char *Data_Get)//uart3 scan code
 			RxData.Task2[0] = RxData.code[4]-'0';
 			RxData.Task2[1] = RxData.code[5]-'0';
 			RxData.Task2[2] = RxData.code[6]-'0';
+
+
+			RxData.Task1[0] = RxData.code[0]-'0';
+			RxData.Task1[1] = RxData.code[1]-'0';
+			RxData.Task1[2] = RxData.code[2]-'0';
 			
+			RxData.Task2[0] = RxData.code[4]-'0';
+			RxData.Task2[1] = RxData.code[5]-'0';
+			RxData.Task2[2] = RxData.code[6]-'0';
+			
+			RxData.codeFlag = codeOK;
+			RxData.codeFlag = codeOK;
 			RxData.codeFlag = codeOK;
 		}
 	}
@@ -293,7 +304,7 @@ void  my_USART3_GetBuffer(char Rx,unsigned char *Data_Get)//uart3 scan code
 void UART_LCD_UpdataDisplay(UART_HandleTypeDef* huart)
 {
 	static char senddata[64]={0};
-	sprintf(senddata, "#Z,%s,%d,%d,$",RxData.code, task, do_cnt);
+	sprintf(senddata, "#Z,%s,%5.2f,%d,%d$",RxData.code, RxData.angle, task,do_cnt);
 
 	// printf("ok\r\n", senddata);
 	if (HAL_DMA_GetState(huart->hdmatx) == HAL_DMA_STATE_READY)
@@ -352,15 +363,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 //			 my_USART2_GetBuffer(uart2_RxBuff[i], RxData.uart2DataBuffer );
 //		}
 //		
-//		
-
 //		HAL_UARTEx_ReceiveToIdle_DMA(&huart2, uart2_RxBuff, 64);/*restart next receive DMA action*/
 //		__HAL_DMA_DISABLE_IT(&hdma_usart2_rx,DMA_IT_HT);//close DMA half finished  interrupt
 //	}
 //}
-
-
-
 
 void RxDataClear(char mode_data)
 {
@@ -369,6 +375,21 @@ void RxDataClear(char mode_data)
 		RxData.distance = 0;
 		RxData.angle = 0;
 	}
+
+	if (mode_data == 'D')
+	{
+		for (int i = 1; i < 4; i++)
+		{
+			RxData.B_ang[i] = 179;
+			RxData.B_dis[i] = 999;
+			
+			RxData.C_ang[i] = 179;
+			RxData.C_ang[i] = 999;
+		}
+			RxData.distance = 0;
+			RxData.angle = 0;
+	}
+
 	else if (mode_data == 'B' || mode_data == 'C'){
 		for (int i = 1; i < 4; i++)
 		{
@@ -379,19 +400,7 @@ void RxDataClear(char mode_data)
 			RxData.C_dis[i] = 999;
 		}
 	}
-	else if (mode_data == 'D')
-	{
-		for (int i = 1; i < 4; i++)
-		{
-			RxData.B_ang[i] = 179;
-			RxData.B_dis[i] = 999;
-			
-			RxData.C_ang[i] = 179;
-			RxData.C_ang[i] = 999;
-		}
-		RxData.distance = 0;
-		RxData.angle = 0;
-	}
+	
 }
 
 

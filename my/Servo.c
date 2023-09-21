@@ -50,22 +50,22 @@ void ServoClaw(int open_cmd)
     //越小越闭合
     if (open_cmd == OpenSide)
     { // 抓取侧边物料开口    750~900
-         TIM9->CCR1 = 800;
+         TIM9->CCR1 = 1200;
     }
     else if (open_cmd == OpenCar)
     {// 车上放置后 松开     600~700
-         TIM9->CCR1 = 650;
+         TIM9->CCR1 = 1000;
     }
 // 0700 下面抓放
 // 0900 下面抓取
 // 1200 平口开合
     else if(open_cmd == Close)
     { //越小越闭合   400~450
-         TIM9->CCR1 = 440;
+         TIM9->CCR1 = 760;
     }
     else if (open_cmd == OpenPan)
     { //圆盘 850~1000
-        TIM9->CCR1 =  900;
+        TIM9->CCR1 =  1300;
     }
 }
  

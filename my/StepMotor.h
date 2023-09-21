@@ -202,6 +202,7 @@ static void Step4_Stop(void) { STEP4_STOP; };       static void Step4_Start(void
 float Calculate_DisHorizon();                             //计算水平距离
 void Angle_vertical(float set_H,float set_S);             //垂直下落
 void StepMotor_Set_AnglePulse(float Angle1_,float Angle2_,float Angle3_); //绝对角度   以初始位置为参考
+void StepArm_Task_ReInitPosition(int X, int Y, int Z);
 
 
 
@@ -212,6 +213,7 @@ void StepMotor_Set_AnglePulse(float Angle1_,float Angle2_,float Angle3_); //绝�
 /*===================================================*/
 #define OVER              (StepMotor_Isover())
 char StepMotor_Isover(void);// 判断是否电机在当前任务执行完毕
+void StepMotor_AdVanceDrive(int period1,int period2,int period3);   //调速
 
 
 /*设置电机方向 Forward顺时针*/
@@ -230,7 +232,7 @@ void StepMotor_Set_TarPulses(int tar1, int tar2,int tar3); //  底层 设置参�
 
 /*其他函数*/
 void StepMotor_Set_AbsPulse(int tar1, int tar2,int tar3); //  绝对脉冲数， 以初始位置为参考
-
+void Limit_Arm_InitPosition_INPUT();
 // void StepMotor_Set_AbsPulse(int tar1, int tar2, int tar3);
 
 #define StepALL_STOP        0
@@ -240,7 +242,7 @@ void StepMotor_Set_AbsPulse(int tar1, int tar2,int tar3); //  绝对脉冲数，
 #define Step3_STOP          33
 
 void StepMotor_Drive(int Con, int speedPeriod);  //驱动开关     控制全部电机的启动，或者单个的停止，参数如上
-void StepMotor_AdVanceDrive(int period1,int period2,int period3);   //调速
+
 
 /*初始化 与周期回调函数 */
 void StepMotor_Init(void);//初始化
@@ -271,7 +273,7 @@ void StepMotor_UpdataPulse(Step_Motor* g_Motor); // 周期性调用，更新电�
 // void Motor_SetAngle2(float dis);                // 状态2的机械抓平移角度计算
 // float Step_Calculate_UpdataS();
 
-// void Top_StepMotor_UpdataStatus_CallBack_TIM5(TIM_HandleTypeDef *htim);//回调函数
+void Top_StepMotor_UpdataStatus_CallBack_TIM5(TIM_HandleTypeDef *htim);//回调函数
 
 
 #endif // _STEPMOTOR_H_

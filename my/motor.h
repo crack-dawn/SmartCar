@@ -91,7 +91,7 @@ void Car_Drive_Init();
 void Set_Pwm(int pwmA, int pwmB );
 
 
-// float Limit(float data,float max);
+float Limit(float data,float max);
 // void Moto_Stop(void);
 
 #endif // _MOTOR_H_

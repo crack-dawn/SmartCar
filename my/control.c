@@ -3,6 +3,8 @@
 #include "StepMotor.h"
 #include "RobTask.h"
 
+unsigned int cnt_MiaoFlag=0;
+ 
 int task = 0;  /*小车的任务动作*/
 int do_cnt = 0;
 unsigned char B_updataFlag = 0;
@@ -15,52 +17,58 @@ short 	 clawDo_cnt=0;
 
 void Other_Actions()
 {
-  if (do_cnt == do_Arm )
-  {
-      HAL_Delay(2000);
-      ReturnToCarRun;
-  }
-  else if (task == ScanCode_1 && do_cnt == do_ScanCode)
-  {
-    	HAL_Delay(500);
-        do_cnt = finish_Scancode;
-  }
- 
-//   if (task == ScanCode_1 && do_cnt == do_ScanCode)
-//   {//第一圈扫码
-//         ScanCode();
-//         LED1_ON;
-//         StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码
-
-//         if (RxData.codeFlag == codeOK)
-//         {
-//           do_cnt = finish_Scancode;
-//         }
-//   }
-//   else if (task == RunToRawMaterial_1_Pick && do_cnt == do_Arm)
-//   {//第一圈装物料
-//     SendCmdB;  //HAL_Delay(200);//识别物块模式
-
-//     StepArm_Task_Pan(RxData.Task1) ; //原料区
-//     ReturnToCarRun;
-//   }
-
-//   else if (task == RunToRoughArea_1 && do_cnt == do_Arm)
-//   {//第一圈粗加工
-//     SendCmdC; //HAL_Delay(200);   //识别圆环模式
-
-//     StepArm_Task_Jiagon(RxData.Task1); //粗加工区
-//     ReturnToCarRun;
-//   }
-
-//   else if(task == RunToFineArea_1 && do_cnt == do_Arm)
+//   if (do_cnt == do_Arm )
 //   {
-//     //第一圈细加工
-//     SendCmdC; //HAL_Delay(200);  //识别圆环模式
-
-//     StepArm_Task_Over(RxData.Task1);  //细加工区
-//     ReturnToCarRun;
+//       HAL_Delay(1500);
+//       ReturnToCarRun;
 //   }
+//   else if (task == ScanCode_1 && do_cnt == do_ScanCode)
+//   {
+//     	HAL_Delay(1500);
+//         do_cnt = finish_Scancode;
+//   }
+//    if (1)
+//   {
+// 	//第一圈扫码
+// 		ScanCode();
+//         StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码
+ 
+//   }
+  if (task == ScanCode_1 && do_cnt == do_ScanCode)
+  {
+	//第一圈扫码
+		ScanCode();
+        StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码
+
+        if (RxData.codeFlag == codeOK)
+        {
+          do_cnt = finish_Scancode;
+        }
+  }
+  else if (task == RunToRawMaterial_1_Pick && do_cnt == do_Arm)
+  {//第一圈装物料
+    SendCmdB;  //HAL_Delay(200);//识别物块模式
+
+    StepArm_Task_Pan(RxData.Task1) ; //原料区
+    ReturnToCarRun;
+  }
+
+  else if (task == RunToRoughArea_1 && do_cnt == do_Arm)
+  {//第一圈粗加工
+    SendCmdC; //HAL_Delay(200);   //识别圆环模式
+
+    StepArm_Task_Jiagon(RxData.Task1); //粗加工区
+    ReturnToCarRun;
+  }
+
+  else if(task == RunToFineArea_1 && do_cnt == do_Arm)
+  {
+    //第一圈细加工
+    SendCmdC; //HAL_Delay(200);  //识别圆环模式
+
+    StepArm_Task_Over(RxData.Task1);  //细加工区
+    ReturnToCarRun;
+  }
 }
 
 
@@ -94,7 +102,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 		/*------- 任务调配 -----------*/
 		status =PID_JudgeStatus();
 		switch (task)
-		{// 8.2->9.8
+		{// 8.2->15.0
 			case Stop:{
 				if (do_cnt== do_00){
 					CAR_RUN(Wait,runSpeed,0,				runSpeed,0,		0);
@@ -106,28 +114,31 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						
 					if (do_cnt == do_00 && (status == PIDparam3_finish)){
 						SendCmdA;
-						CAR_RUN(Zero_GO,LowSpeed,-65,					LowSpeed,-65,					0);
+						CAR_RUN(Zero_GO,LowSpeed,-55,					LowSpeed,-55,					0);
 						++do_cnt;
 					}
 					else if (do_cnt == do_01 && (status == PIDparam3_finish)){
-						CAR_RUN(Zero_GO,runSpeed*0.6,-290*0.6,    	runSpeed,-290,				0);
+						CAR_RUN(Zero_GO,runSpeed*0.5,-300*0.5,    	runSpeed,-300,				  0);
 						++do_cnt;
 					}
 					else if (do_cnt == do_02 && (status == PIDparam3_finish)){
 						++do_cnt;
-						CAR_RUN(Zero_GO,runSpeed,-290,				runSpeed*0.6,-290*0.6,	0);
-					}
+						// CAR_RUN(Zero_GO,runSpeed,-45,                   runSpeed, -45,	    0);
+					} 
 					else if (do_cnt == do_03 && (status == PIDparam3_finish)){
 						++do_cnt;
-						CAR_RUN(Zero_GO, 30, 45, 30,45,	0);
-					}						
-					else if (do_cnt == do_04 && (status == PIDparam3_finish || RxData.turn == turnDo)  ){//RxData.turn
+						CAR_RUN(Zero_GO,runSpeed,-300,                   runSpeed*0.5,-300*0.5,	    0);
+					} 
+					else if (do_cnt == do_04 && (status == PIDparam3_finish)){
 						++do_cnt;
-						CAR_RUN(Zero_GO,runSpeed/2, 9.8,				runSpeed,475,					 0);
+						CAR_RUN(Zero_GO, 30, 45, 30, 45,	0);
+					}						
+					else if (do_cnt == do_05 && (status == PIDparam3_finish || RxData.turn == turnDo)  ){//RxData.turn
+						++do_cnt;
+						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
 					}
-					else if (do_cnt == do_05 && (status == PIDparam3_finish))
+					else if (do_cnt == do_06 && (status == PIDparam3_finish))
 					{
-						ScanCode();
 						task=ScanCode_1;
 						do_cnt = 0; //出库任务结束
 					}
@@ -136,15 +147,15 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 	/******************************************************************************************/
 			case ScanCode_1:{//走到扫码点停下, 扫码之后结束
 					if (do_cnt == do_00 && status == PIDparam3_finish ){
-						ScanCode();
-						CAR_RUN(Correct_GO  , CorrectSpeed,520, CorrectSpeed,520,	 0);
+						RxDataClear('A');
+						CAR_RUN(Correct_GO  , CorrectSpeed,500, CorrectSpeed,500,	 0);
 						++do_cnt;
 					}//reach  接了下来扫码
 					else if(do_cnt == do_01 && status == PIDparam3_finish)
 					{
 						 do_cnt = do_ScanCode;
 					}
-					else if(do_cnt == finish_Scancode )
+					else if(do_cnt == finish_Scancode && status == PIDparam3_finish )
 					{
 						task=RunToRawMaterial_1_Pick;
 						do_cnt = 0; //扫码任务结束
@@ -153,7 +164,8 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 
 			case RunToRawMaterial_1_Pick:{//走到 原料区， 拿起物料 ，然后转弯走入下一个直道
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
-						CAR_RUN(Correct_GO  , runSpeed,540, runSpeed,540,	 0);//现在 -250
+						RxDataClear('A');
+						CAR_RUN(Correct_GO  , runSpeed,570, runSpeed,570,	 0);//现在 -250
 						do_cnt=do_01;
 					}//接下来 捡起物料
 					else if (do_cnt == do_01  &&  status == PIDparam3_finish)
@@ -161,15 +173,16 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						do_cnt=do_Arm;
 					}
 					else if (do_cnt == finish_Arm && status == PIDparam3_finish){ 
-						CAR_RUN(Correct_GO  , runSpeed,360, runSpeed,360,	 0);//--------------------
+						CAR_RUN(Correct_GO  , runSpeed,375, runSpeed,375,	 0);//--------------------
 						do_cnt = do_02;
 					}	
 					else if ( (do_cnt == do_02)   && ( status == PIDparam3_finish || RxData.turn == turnDo)   ){//RxData.turn 直行完了 或者有转弯标志 直接转弯
-						CAR_RUN(Zero_GO,runSpeed/2, 9.8,				runSpeed,475,					 0);
+						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
 						do_cnt=do_03;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{ 
+						RxDataClear('A');
 						task=RunToRoughArea_1;
 						do_cnt = 0; //原料区，捡起物料任务结束
 					}	
@@ -178,6 +191,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 	/******************************************************************************************/
 			case RunToRoughArea_1:{//跑到粗加工域 放置，抓取，转弯进入下一个直道
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
+						RxDataClear('A');
 						CAR_RUN(Correct_GO  , runSpeed,780, runSpeed,780,	 0);
 						do_cnt=do_01;
 					}
@@ -186,15 +200,16 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						do_cnt=do_Arm;
 					}
 					else if (do_cnt == finish_Arm && status == PIDparam3_finish){ 
-						CAR_RUN(Correct_GO  , runSpeed,395, runSpeed,395,	 0);//--------------------
+						CAR_RUN(Correct_GO  , runSpeed,410, runSpeed,410,	 0);//--------------------
 						do_cnt=do_02;
 					}	
 					else if (do_cnt == do_02  && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn 直行完了 或者有转弯标志 直接转弯
-						CAR_RUN(Zero_GO,runSpeed/2, 9.8,				runSpeed,475,					 0);
+						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
 						do_cnt = do_03;
 					}
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{
+						RxDataClear('A');
 						task = RunToFineArea_1;
 						do_cnt = 0; //粗加工 结束
 					}
@@ -202,6 +217,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 
 			case RunToFineArea_1:{//跑到精加工域 放置，转弯进入下一个直道
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
+						RxDataClear('A');
 						CAR_RUN(Correct_GO  , runSpeed,660, runSpeed,660,	 0);
 						do_cnt=do_01;
 					}//reach
@@ -209,15 +225,16 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						do_cnt = do_Arm;
 					}
 					else if (do_cnt == finish_Arm && status == PIDparam3_finish){ 
-						CAR_RUN(Correct_GO  , runSpeed,730, runSpeed,730,	 0);
+						CAR_RUN(Correct_GO  , runSpeed,750, runSpeed,750,	 0);
 						do_cnt = do_02;
 					}	
 					else if ( do_cnt == do_02 && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn 直行完了 或者有转弯标志 直接转弯
-						CAR_RUN(Zero_GO,runSpeed/2, 9.8,				runSpeed,475,					 0);
+						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
 						++do_cnt;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{
+						RxDataClear('A');
 						task = RunToCircle2_Start;
 						do_cnt = 0; //捡起物料任务结束
 					}
@@ -225,20 +242,22 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 
 			case RunToCircle2_Start:{ //回到第二圈起始点
 				if (do_cnt == do_00 && status == PIDparam3_finish){ 
+					RxDataClear('A');
 					CAR_RUN(Correct_GO  , runSpeed,310, runSpeed,310,	 0);
 					do_cnt = do_01;
 				}//reach turn 
 				else if (do_cnt == do_01 &&   status == PIDparam3_finish   ){//RxData.turn 直行完了 或者有转弯标志 直接转弯
-					CAR_RUN(Correct_GO  , runSpeed,900, runSpeed,900,	 0);
+					CAR_RUN(Correct_GO  , runSpeed,925, runSpeed,925,	 0);
 					++do_cnt;
 				}//reach start 
 				else if (do_cnt == do_02 && ( RxData.turn == turnDo ||  status == PIDparam3_finish) )
 				{
-					CAR_RUN(Zero_GO,runSpeed/2, 9.8,				runSpeed,475,					 0);
+					CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
 					++do_cnt;
 				}
 				else if(do_cnt == do_03 && status == PIDparam3_finish)
 				{
+					RxDataClear('A');
 					task = RunToRawMaterial_2_Pick;
 					do_cnt = 0;  
 				}
@@ -246,6 +265,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 			
 			case RunToRawMaterial_2_Pick:{//第二圈，原料区，抓取装载物料，装车，转弯进入下一个直道
 					if (do_cnt == do_00 && status == PIDparam3_finish ){
+						RxDataClear('A');
 						CAR_RUN(Correct_GO  , CorrectSpeed,1170, CorrectSpeed,1170,	 0);
 						do_cnt = do_01;
 					}//reach 扫码点附近
@@ -258,11 +278,12 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						do_cnt=do_02;
 					}	
 					else if ( (do_cnt == do_02)   && ( status == PIDparam3_finish || RxData.turn == turnDo)   ){//RxData.turn 直行完了 或者有转弯标志 直接转弯
-						CAR_RUN(Zero_GO,runSpeed/2, 9.8,				runSpeed,475,					 0);
+						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
 						++do_cnt;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{ 
+						RxDataClear('A');
 						task=RunToRoughArea_2;
 						do_cnt = 0; //原料区，捡起物料任务结束
 					}	
@@ -270,6 +291,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 
 			case RunToRoughArea_2:{//第二圈 跑到粗加工域 放置，抓取，转弯进入下一个直道
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
+						RxDataClear('A');
 						CAR_RUN(Correct_GO  , runSpeed,700, runSpeed,700,	 0);
 						do_cnt=do_01;
 					}
@@ -282,7 +304,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						do_cnt=do_02;
 					}	
 					else if (do_cnt == do_02  && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn 直行完了 或者有转弯标志 直接转弯
-						CAR_RUN(Zero_GO,runSpeed/2, 9.8,				runSpeed,475,					 0);
+						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
 						do_cnt=do_03;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
@@ -294,6 +316,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 
 			case RunToFineArea_2:{//跑到精加工域 放置，转弯进入下一个直道
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
+						RxDataClear('A');
 						CAR_RUN(Correct_GO  , runSpeed,565, runSpeed,565,	 0);
 						do_cnt=do_01;
 					}//reach
@@ -305,11 +328,12 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						do_cnt = do_02;
 					}	
 					else if ( do_cnt == do_02 && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn 直行完了 或者有转弯标志 直接转弯
-						CAR_RUN(Zero_GO,runSpeed/2, 9.8,				runSpeed,475,					 0);
+						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
 						++do_cnt;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{
+						RxDataClear('A');
 						task = RunToRest;
 						do_cnt = 0; //捡起物料任务结束
 					}
@@ -352,8 +376,15 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+	static int cnt_TIM10=0;
+
 	Top_PID_Control_CallBack_TIM6( htim);//20ms
 	Top_Action_Select_CallBack_TIM7( htim); //20ms
+
+	if(htim->Instance == TIM10)
+	{
+
+	}
 }
 
 

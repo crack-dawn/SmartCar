@@ -13,7 +13,7 @@ void StepArm_TaskTest(int Task_num)
 {
      if (Task_num == Base) 
      {
-          StepArm_Task_Pan(arr);
+          Load(1);
      }
 }
 
@@ -22,13 +22,13 @@ void StepArm_Task_ScanCode() //扫码时调整机械臂方便扫码
 {
      
      StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-     StepMotor_Drive(1,800);
+     StepMotor_Drive(1,600);
      while (OVER==Flag_doing);
      
      while (1)
      {
           StepMotor_Set_AnglePulse(20,0,Angle3_Ready);
-          StepMotor_Drive(1,850);
+          StepMotor_Drive(1,900);
           while (OVER==Flag_doing)
           {
                if(RxData.codeFlag == codeOK)
@@ -39,7 +39,7 @@ void StepArm_Task_ScanCode() //扫码时调整机械臂方便扫码
 
 
           StepMotor_Set_AnglePulse(-20,0,Angle3_Ready);
-          StepMotor_Drive(1,850);
+          StepMotor_Drive(1,900);
           while (OVER==Flag_doing);
           {
                if(RxData.codeFlag == codeOK)
@@ -60,23 +60,28 @@ void StepArm_Task_ScanCode() //扫码时调整机械臂方便扫码
 
 void Load(int number)         //从初始位置的小臂90放物块
 {
+     StepMotor_Set_AnglePulse(-10,0,Angle3_Ready-5);  //转到准备转舵机的位置
+     StepMotor_Drive(1,RoTask_Speed[6]);
+     while (OVER == Flag_doing);
+     StepArm_Task_ReInitPosition(3000,-3000,3000);
+
      if(number==RED)
      {
-          StepMotor_Set_AnglePulse(-18,25,10);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(-20,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
 
           ServoTurn(-80);    //转到-90°
           HAL_Delay(600);
 
-          StepMotor_Set_AnglePulse(-18,52,OriginalAngle3+2.5);  //机械臂到放物块的位置
+          StepMotor_Set_AnglePulse(-20,52,OriginalAngle3+2.5);  //机械臂到放物块的位置
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
           ServoClaw(OpenCar);    //放置
           HAL_Delay(200);
-
-          StepMotor_Set_AnglePulse(-18.5,25,10);  //转到准备转舵机的位置
+          HAL_Delay(1000);
+          StepMotor_Set_AnglePulse(-20,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
 
@@ -91,25 +96,25 @@ void Load(int number)         //从初始位置的小臂90放物块
 
      if(number==GREEN)
      {
-          StepMotor_Set_AnglePulse(8,25,10);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(5,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
           
           ServoTurn(-80);    //转到-90°
           HAL_Delay(600);
      
-          StepMotor_Set_AnglePulse(8,45,OriginalAngle3+3);  //机械臂到放物块的位置
+          StepMotor_Set_AnglePulse(5,45,OriginalAngle3+3);  //机械臂到放物块的位置
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
           ServoClaw(OpenCar);    //放置
           HAL_Delay(200);
 
-          StepMotor_Set_AnglePulse(8,30,5);  //防止打到物块
+          StepMotor_Set_AnglePulse(5,30,5);  //防止打到物块
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
-          StepMotor_Set_AnglePulse(8,25,10);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(5,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
@@ -125,25 +130,25 @@ void Load(int number)         //从初始位置的小臂90放物块
 
      if(number==BLUE)
      {
-           StepMotor_Set_AnglePulse(40,25,10);  //转到准备转舵机的位置//23
+           StepMotor_Set_AnglePulse(38,25,10);  //转到准备转舵机的位置//23
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
 
           ServoTurn(-60);    //转到-60°
           HAL_Delay(600);
 
-          StepMotor_Set_AnglePulse(40,50,OriginalAngle3+2.5);  //机械臂到放物块的位置
+          StepMotor_Set_AnglePulse(38,50,OriginalAngle3+2.5);  //机械臂到放物块的位置
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
           ServoClaw(OpenCar);    //放置
           HAL_Delay(200);
 
-          StepMotor_Set_AnglePulse(40,30,10);  //防止打到物块
+          StepMotor_Set_AnglePulse(38,30,10);  //防止打到物块
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
 
-          StepMotor_Set_AnglePulse(40,25,10);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(38,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
 
@@ -160,9 +165,15 @@ void Load(int number)         //从初始位置的小臂90放物块
 }
 void Pick_Floor(int numbr_P)             //从车上抓取物块至初始位置的小臂90°
 {
+     StepMotor_Set_AnglePulse(-10,0,Angle3_Ready-5);  //转到准备转舵机的位置
+     StepMotor_Drive(1,RoTask_Speed[6]);
+     while (OVER == Flag_doing);
+
+     HAL_Delay(1000);
+     StepArm_Task_ReInitPosition(3000,-3000,3000);
      if(numbr_P==RED)
      {
-          StepMotor_Set_AnglePulse(-18,25,10);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(-20,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
           
@@ -172,29 +183,29 @@ void Pick_Floor(int numbr_P)             //从车上抓取物块至初始位置�
           ServoTurn(-80);    //转到-90°
           HAL_Delay(600);
 
-          StepMotor_Set_AnglePulse(-18,40,15);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(-20,40,15);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
                     
-          StepMotor_Set_AnglePulse(-18,55,22);  //机械臂到放物块的位置
+          StepMotor_Set_AnglePulse(-20,55,22);  //机械臂到放物块的位置
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
           
-          StepMotor_Set_AnglePulse(-18,52,OriginalAngle3+4);  //机械臂到放物块的位置
+          StepMotor_Set_AnglePulse(-20,52,OriginalAngle3+4);  //机械臂到放物块的位置
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
           ServoClaw(Close);    //放置
           HAL_Delay(200);
 
-          StepMotor_Set_AnglePulse(-18.5,25,10);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(-20,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[5]);
           while (OVER == Flag_doing);
      }
 
      if(numbr_P==GREEN)
      {
-          StepMotor_Set_AnglePulse(8,25,10);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(5,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
           
@@ -204,29 +215,29 @@ void Pick_Floor(int numbr_P)             //从车上抓取物块至初始位置�
           ServoTurn(-80);    //转到-90°
           HAL_Delay(600);
 
-          StepMotor_Set_AnglePulse(8,40,14);  //防止
+          StepMotor_Set_AnglePulse(5,40,14);  //防止
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
-          StepMotor_Set_AnglePulse(8,50,28);  //防止
+          StepMotor_Set_AnglePulse(5,50,28);  //防止
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
           
-          StepMotor_Set_AnglePulse(8,45,OriginalAngle3+3);  //物块位置
+          StepMotor_Set_AnglePulse(5,45,OriginalAngle3+3);  //物块位置
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
           ServoClaw(Close);    //放置
           HAL_Delay(200);
 
-          StepMotor_Set_AnglePulse(8,25,10);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(5,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[5]);
           while (OVER == Flag_doing);
      }
 
      if(numbr_P==BLUE)
      {
-          StepMotor_Set_AnglePulse(40,25,10);  //转到准备转舵机的位置//23
+          StepMotor_Set_AnglePulse(38,25,10);  //转到准备转舵机的位置//23
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
 
@@ -237,18 +248,18 @@ void Pick_Floor(int numbr_P)             //从车上抓取物块至初始位置�
 
           
 
-          StepMotor_Set_AnglePulse(43,40,OriginalAngle3-2);  //机械臂到放物块的位置
+          StepMotor_Set_AnglePulse(38,40,OriginalAngle3-2);  //机械臂到放物块的位置
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
-          StepMotor_Set_AnglePulse(40,50,OriginalAngle3+2.5);  //机械臂到放物块的位置
+          StepMotor_Set_AnglePulse(38,50,OriginalAngle3+2.5);  //机械臂到放物块的位置
           StepMotor_Drive(1,RoTask_Speed[8]);
           while (OVER == Flag_doing);
 
           ServoClaw(Close);    //抓取
           HAL_Delay(200);
 
-          StepMotor_Set_AnglePulse(40,25,10);  //转到准备转舵机的位置
+          StepMotor_Set_AnglePulse(38,25,10);  //转到准备转舵机的位置
           StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);
    
@@ -265,13 +276,13 @@ void StepArm_Task_Pan(unsigned char* arr1)      //从圆盘上抓取物块至放
      for(int i=0;i<3;i++)
      {
           StepMotor_Set_AnglePulse(0,0,Angle3_Ready);
-          StepMotor_Drive(1,RoTask_Speed[7]);
+          StepMotor_Drive(1,RoTask_Speed[6]);
           while (OVER == Flag_doing);//
 
           ServoClaw(OpenPan);
           HAL_Delay(100);
           
-          StepMotor_Set_AnglePulse(90,0,Angle3_Ready);
+          StepMotor_Set_AnglePulse(110,0,Angle3_Ready);
           StepMotor_Drive(1,RoTask_Speed[5]);
           while (OVER == Flag_doing);//到固定抓取位置
 
@@ -281,14 +292,15 @@ void StepArm_Task_Pan(unsigned char* arr1)      //从圆盘上抓取物块至放
           ClearRxData;                         
           RxData.B_dis[arr1[i]]+=255;
           RxData.B_ang[arr1[i]]=179;
+
           while(1)// 物料颜色判断
           {    
                HAL_Delay(5);
                if(  (RxData.B_ang[arr1[i]]>5 &&RxData.B_ang[arr1[i]]<175)  ||  (RxData.B_ang[arr1[i]]>240&RxData.B_ang[arr1[i]]<300)  )
                {
-                    DebugB;
                     break;
                } 
+               
           } 
           HAL_Delay(300);
           while (1)
@@ -369,7 +381,7 @@ void StepArm_Task_Pan(unsigned char* arr1)      //从圆盘上抓取物块至放
                // }
      
 
-          Angle_vertical(40,Calculate_DisHorizon()+30);
+          Angle_vertical(40,Calculate_DisHorizon()+50);
           
           HAL_Delay(100);
           while (1)

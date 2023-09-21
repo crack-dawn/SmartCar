@@ -1,6 +1,6 @@
 #include "PID.h"
 #include "control.h"
-
+#include "RobTask.h"
 //pid ?????????
 #define  Abs(x)   ((x) < 0 ? -(x) : (x))  //?????? 
 
@@ -91,65 +91,58 @@ void Top_PID_Control_CallBack_TIM6(TIM_HandleTypeDef *htim)
 			pid_speed2.actual_val   =  -(short)(TIM3 -> CNT);   	//TIM3   PC6  PC7  E1 ??????| PE9   pwm1 | AN1 AN2| pid_speed2  ???   M1 
 		#endif // 0
 
-		// printf("pwm mode|| cnt of TIM4:  %d TIM3:  %d \r\n",TIM4 -> CNT, TIM3->CNT);
- 
+
 		TIM4 -> CNT=0; 
 		TIM3 -> CNT=0; 
-		pid_angle.actual_val = (float)RxData.angle; 
+		
 		pid_location2.actual_val  += pid_speed2.actual_val; 
 		pid_location.actual_val   += pid_speed.actual_val; 
 
+		pid_angle.actual_val = RxData.angle; 
+		
+
 		if(pid_angle.param5 == PIDparam5_Angle_Control && pid_location.target_val ==pid_location2.target_val  )
 		{  
-			if ((Abs(pid_location2.err) < Err_disance+Err_disance || Abs(pid_location.err) < Err_disance+Err_disance ) )
+			if ((Abs(pid_location2.err) < Err_disance*5 )|| Abs(pid_location.err) < Err_disance*5 )
 			{
-				pid_speed.out = pid_speed2.out;//?????????? ????????????????
+				pid_speed.out = pid_speed2.out; 
 			}
-			// if (((Abs(pid_location2.err) < 700 ) || (Abs(pid_location.err) <700 )) \
-			//      &&((Abs(pid_location2.err) >Err_disance   ) || (Abs(pid_location.err) >Err_disance))  \
-			// 	 && pid_location2.param5 == 1 &&  pid_location.param5== 1)
-			// {//?????§Ø????? ???????¦Ë?? ????????
-			// 	 pid_location2.param5 = 0;
-			// 	 pid_location.param5= 0;
-			// 	pid_speed.pre_target_val = LowSpeed;
-			// 	pid_speed2.pre_target_val = LowSpeed;
-			// }
 		}
 		PID_Calculate_Updata(&pid_location,  &pid_speed, &pid_angle);
 		PID_Calculate_Updata(&pid_location2, &pid_speed2, &pid_angle);
 		
-		Set_Pwm(pid_speed2.out,pid_speed.out);	 // ??2?pwm1  ??1?pwm2
+		Set_Pwm(pid_speed2.out,pid_speed.out);	 //   pwm1    pwm2
 	}
 }
 
 
+
+
+
+
 float Angle_adjust(float angle)
 {
-		// ???? ????+ //????-  // ??????? ???????10????
+ 
 	float AbsAngle = Abs(angle)*100;
-	if ( AbsAngle > 45 && AbsAngle < 80 )
+	if ( AbsAngle > 35 && AbsAngle < 80 )
 	{
-		// return Limit(angle*3,2.5);
-		return Limit(angle*3,2.5);
+		return Limit(angle+angle+angle+angle,3.5);
 	}
 	else if ( AbsAngle > 80 && AbsAngle < 120 )
 	{
-		// return Limit(angle*3, 4.0);
-		return Limit(angle*3, 3.5);
+		return Limit(angle+angle+angle+angle, 4.8);
 	}
-	else if ( AbsAngle > 120 &&  AbsAngle < 212)
+	else if ( AbsAngle > 120 &&  AbsAngle < 180)
 	{
-		// return Limit(angle*3, 5.5);
-		return Limit(angle*2.4, 4);
+		return Limit(angle+angle+angle+angle, 6.5);
 	}
-	else if ( AbsAngle > 211 &&  AbsAngle < 300)
+	else if ( AbsAngle > 180 &&  AbsAngle < 240)
 	{
-		return Limit(angle*2, 5.5);
+		return Limit(angle+angle+angle+angle, 7.7);
 	}
 	else if (  AbsAngle >= 300)
 	{
-		// return Limit(angle*2,6.6);
-		return Limit(angle*2,6.1);
+		return Limit(angle+angle ,8.8);
 	}
 	else
 	{
@@ -168,12 +161,9 @@ float Angle_adjust(float angle)
 void PID_Calculate_Updata(_pid *pid_L, _pid *pid_V, _pid *pid_A)
 {
 	static float adjust=0;
-	//???????????Ú…?? ???¦Ë?? ?? ??????
-    /*¦Ë????????-----------------------*/	
-	location_pid_realize( pid_L ); //?????? ????????
-    /*¦Ë??????????*/
-
-	//??¦Ë?????????? ????????? ???????????????????????????????????????
+ 
+	location_pid_realize( pid_L );  
+ 
 	pid_V->target_val= Limit_Amplitude(  pid_L->out,  pid_L->err , MinSpeed, pid_V->pre_target_val );
 	
 
@@ -182,7 +172,7 @@ void PID_Calculate_Updata(_pid *pid_L, _pid *pid_V, _pid *pid_A)
 	if (pid_angle.param5 == PIDparam5_Angle_Control)
 	{	
 		adjust = Angle_adjust(pid_angle.actual_val);
-		// ???? ????+ //????-  // ??????? ???????10????
+	
 		if (pid_V->param1 == PIDparam1_M2_Left)
 		{
 			pid_V->target_val += adjust;
@@ -195,6 +185,8 @@ void PID_Calculate_Updata(_pid *pid_L, _pid *pid_V, _pid *pid_A)
 		{
 			pid_V->target_val -= adjust;			
 		}
+		DebugA;
+		printf("debug :%f\r\n", adjust);
 	}
 
 	/*????????????*/

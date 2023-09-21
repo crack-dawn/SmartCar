@@ -31,10 +31,17 @@ void Angle_vertical(float set_H,float set_S)           //垂直下落
     Angle3 = 90 + Angle2 - b - c;
 
     StepMotor_Set_AnglePulse(Motor_1.Pulse*Bu,Angle2,Angle3);
-    // StepMotor_Drive(StepALL_START, 600);
-    int Ratio=Motor_2.tarPulse/Motor_3.tarPulse;
-    StepMotor_AdVanceDrive(0,Ratio*600,600);   //调速
-     while (OVER == Flag_doing); 
+    int Ratio=Motor_3.tarPulse/Motor_2.tarPulse;
+    StepMotor_AdVanceDrive(0,Abs(1000000/400*Ratio),400);   //调速
+    while (OVER == Flag_doing)
+    {
+        if(Motor_1.Flag==Flag_finish&&Motor_3.Flag==Flag_finish)
+        {
+            StepMotor_AdVanceDrive(0,400,0);
+            while (OVER == Flag_doing);
+        }
+    }
+
 }
 
 float Calculate_DisHorizon()//计算水平距离
@@ -46,6 +53,29 @@ float Calculate_DisHorizon()//计算水平距离
     float b=180-a1-a2-Motor_2.Pulse*Bu;
     return (L1*sin(Motor_2.Pulse*Bu*Factor)+L2*sin(b*Factor));
 }
+
+void StepArm_Task_ReInitPosition(int X, int Y, int Z)
+{
+       int xPulse = X;
+      int yPulse = Y;
+      int zPulse = Z;
+
+ //调整条件
+     StepMotor_Set_TarPulses(X,Y,Z); //然后校准 大臂和转轴，小臂放下
+     StepMotor_Drive(1, 800);
+
+ //初始化复位条件
+     while ( OVER != Flag_finish) {     Limit_Arm_InitPosition_INPUT();   }
+
+
+ //初始化复位值
+     Motor_1.Pulse = 0;
+     Motor_2.Pulse = 0;
+     Motor_3.Pulse = -2577;
+ 
+}
+
+
 /*=======================================================*/
 /*===============       底层驱动如下     =================*/
 /*=======================================================*/
@@ -126,7 +156,7 @@ void StepMotor_Drive(int Con, int speedPeriod)
 
 void StepMotor_AdVanceDrive(int period1,int period2,int period3)
 {
-         StepMotor_Set_Speeds(period1,period2,period3);
+         StepMotor_Set_Speeds(period1,Abs(period2),period3);
          if (Motor_1.tarPulse != 0 )
          {
             Motor_1.start();
@@ -530,8 +560,8 @@ void Limit_Arm_InitPosition_INPUT()
      if( HAL_GPIO_ReadPin(Limit_SmallArm_GPIO_Port, Limit_SmallArm_Pin)== RESET)
     {
         Motor_3.stop(); Motor_3.Pulse = 0;//小臂
-        ServoTurn(90); //舵机归位
-        ServoClaw(OpenSide);
+        // ServoTurn(90); //舵机归位
+        // ServoClaw(OpenSide);
     }
 }
 
@@ -550,4 +580,7 @@ void StepArm_Task_InitPosition()
      HAL_NVIC_DisableIRQ(Limit_Turn_EXTI_IRQn);
      HAL_NVIC_DisableIRQ(Limit_SmallArm_EXTI_IRQn);
      HAL_NVIC_DisableIRQ(Limit_BigArm_EXTI_IRQn);
+
+     ServoTurn(90); //舵机归位
+     ServoClaw(OpenSide);
 }
