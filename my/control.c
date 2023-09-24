@@ -2,14 +2,16 @@
 #include "control.h"
 #include "StepMotor.h"
 #include "RobTask.h"
+#include "tim.h"
 
 unsigned int cnt_MiaoFlag=0;
- 
-int task = 0;  /*Ð¡³µµÄÈÎÎñ¶¯×÷*/
+
+int task = 0;   
 int do_cnt = 0;
 unsigned char B_updataFlag = 0;
 
-short 	 clawTask=0;      /*»úÐµ±ÛµÄÈÎÎñ¶¯×÷*/
+
+short 	 clawTask=0;       
 short 	 clawDo_cnt=0;
 
 #define Abs(x)   ((x) < 0 ? -(x) : (x))     
@@ -17,7 +19,7 @@ short 	 clawDo_cnt=0;
 
 void Other_Actions()
 {
-//   if (do_cnt == do_Arm )
+//   if (do_cnt == do_Arm )   //debug è·‘å›¾ç”¨  
 //   {
 //       HAL_Delay(1500);
 //       ReturnToCarRun;
@@ -27,18 +29,15 @@ void Other_Actions()
 //     	HAL_Delay(1500);
 //         do_cnt = finish_Scancode;
 //   }
-//    if (1)
-//   {
-// 	//µÚÒ»È¦É¨Âë
-// 		ScanCode();
-//         StepArm_Task_ScanCode(); //É¨ÂëÊ±µ÷Õû»úÐµ±Û·½±ãÉ¨Âë
- 
-//   }
+  
+
+  /***********  è·‘å›¾ç©¿æ’ æœºæ¢°è‡‚åŠ¨ä½œ             ****/
+	//ç¬¬ä¸€åœˆ
   if (task == ScanCode_1 && do_cnt == do_ScanCode)
   {
-	//µÚÒ»È¦É¨Âë
+	 
 		ScanCode();
-        StepArm_Task_ScanCode(); //É¨ÂëÊ±µ÷Õû»úÐµ±Û·½±ãÉ¨Âë
+        StepArm_Task_ScanCode(); 
 
         if (RxData.codeFlag == codeOK)
         {
@@ -46,27 +45,48 @@ void Other_Actions()
         }
   }
   else if (task == RunToRawMaterial_1_Pick && do_cnt == do_Arm)
-  {//µÚÒ»È¦×°ÎïÁÏ
-    SendCmdB;  //HAL_Delay(200);//Ê¶±ðÎï¿éÄ£Ê½
-
-    StepArm_Task_Pan(RxData.Task1) ; //Ô­ÁÏÇø
+  { 
+    SendCmdB;   
+    StepArm_Task_Pan(RxData.Task1) ;  
     ReturnToCarRun;
   }
 
   else if (task == RunToRoughArea_1 && do_cnt == do_Arm)
-  {//µÚÒ»È¦´Ö¼Ó¹¤
-    SendCmdC; //HAL_Delay(200);   //Ê¶±ðÔ²»·Ä£Ê½
-
-    StepArm_Task_Jiagon(RxData.Task1); //´Ö¼Ó¹¤Çø
+  { 
+    SendCmdC;  
+    StepArm_Task_Jiagon(RxData.Task1);  
     ReturnToCarRun;
   }
 
   else if(task == RunToFineArea_1 && do_cnt == do_Arm)
   {
-    //µÚÒ»È¦Ï¸¼Ó¹¤
-    SendCmdC; //HAL_Delay(200);  //Ê¶±ðÔ²»·Ä£Ê½
+     
+    SendCmdC; 
+    StepArm_Task_Over(RxData.Task1);  
+    ReturnToCarRun;
+  }
 
-    StepArm_Task_Over(RxData.Task1);  //Ï¸¼Ó¹¤Çø
+
+
+//ç¬¬äºŒåœˆ
+  else if (task == RunToRawMaterial_2_Pick && do_cnt == do_Arm)
+  { 
+    SendCmdB;  
+    StepArm_Task_Pan(RxData.Task2) ; 
+    ReturnToCarRun;
+  }
+
+  else if (task == RunToRoughArea_2 && do_cnt == do_Arm)
+  { 
+    SendCmdC;  
+    StepArm_Task_Jiagon(RxData.Task2);  
+    ReturnToCarRun;
+  }
+
+  else if(task == RunToFineArea_2 && do_cnt == do_Arm)
+  {
+    SendCmdC;  
+    StepArm_Task_OverPlace(RxData.Task2);  
     ReturnToCarRun;
   }
 }
@@ -76,9 +96,9 @@ int   rpm=0;
 float num=0; 	 
 
  
-//113cm * 135cm ÂÛ¼ä¾à280
-#define Length 1320
-#define Width  1120
+ 
+#define Length 1430
+#define Width  1130
 #define TURN_90 570
 #define TURN_180 1180
 #define TargetV 50
@@ -91,18 +111,18 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 	static  unsigned char cnt=0;
 	if(htim->Instance == TIM7)  //TIM7 40ms kernel
 	{	
-		/*------- LCDË¢ÆÁ ------------*/
+		/*------- LCD display ------------*/
 		++cnt;
 		if (cnt == 25){
 			cnt = 0;
 			UART_LCD_UpdataDisplay(&huart5);
 		}
-		/*------- LCDË¢ÆÁ ------------*/
+		/*-------   ------------*/
 
-		/*------- ÈÎÎñµ÷Åä -----------*/
+		/*-------   -----------*/
 		status =PID_JudgeStatus();
 		switch (task)
-		{// 8.2->15.0
+		{
 			case Stop:{
 				if (do_cnt== do_00){
 					CAR_RUN(Wait,runSpeed,0,				runSpeed,0,		0);
@@ -110,7 +130,7 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 				}
 			}break;
 
-			case BackOut_1:{//³ö¿â			
+			case BackOut_1:{//			
 						
 					if (do_cnt == do_00 && (status == PIDparam3_finish)){
 						SendCmdA;
@@ -118,39 +138,38 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						++do_cnt;
 					}
 					else if (do_cnt == do_01 && (status == PIDparam3_finish)){
-						CAR_RUN(Zero_GO,runSpeed*0.5,-300*0.5,    	runSpeed,-300,				  0);
+						CAR_RUN(Zero_GO,runSpeed ,0,            	    LowSpeed,-60,				  0);
 						++do_cnt;
 					}
 					else if (do_cnt == do_02 && (status == PIDparam3_finish)){
-						++do_cnt;
-						// CAR_RUN(Zero_GO,runSpeed,-45,                   runSpeed, -45,	    0);
+						++do_cnt;//480
+						CAR_RUN(Zero_GO,runSpeed,-465,                   runSpeed, -465,	   			  0);
 					} 
 					else if (do_cnt == do_03 && (status == PIDparam3_finish)){
 						++do_cnt;
-						CAR_RUN(Zero_GO,runSpeed,-300,                   runSpeed*0.5,-300*0.5,	    0);
+						CAR_RUN(Zero_GO, LowSpeed ,-60,					runSpeed,0,						0);
 					} 
 					else if (do_cnt == do_04 && (status == PIDparam3_finish)){
 						++do_cnt;
-						CAR_RUN(Zero_GO, 30, 45, 30, 45,	0);
+						CAR_RUN(Zero_GO, LowSpeed, 130, LowSpeed, 130,	0);
 					}						
 					else if (do_cnt == do_05 && (status == PIDparam3_finish || RxData.turn == turnDo)  ){//RxData.turn
 						++do_cnt;
-						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
+						CAR_RUN(Zero_GO,40.11, 12.0,				runSpeed,475.0,					 0);
 					}
-					else if (do_cnt == do_06 && (status == PIDparam3_finish))
+					else if (do_cnt == do_06 && status == PIDparam3_finish )
 					{
 						task=ScanCode_1;
-						do_cnt = 0; //³ö¿âÈÎÎñ½áÊø
+						do_cnt = 0; // 
 					}
 			}break;
-
+		 
 	/******************************************************************************************/
-			case ScanCode_1:{//×ßµ½É¨ÂëµãÍ£ÏÂ, É¨ÂëÖ®ºó½áÊø
+			case ScanCode_1:{// x= 1415
 					if (do_cnt == do_00 && status == PIDparam3_finish ){
-						RxDataClear('A');
 						CAR_RUN(Correct_GO  , CorrectSpeed,500, CorrectSpeed,500,	 0);
 						++do_cnt;
-					}//reach  ½ÓÁËÏÂÀ´É¨Âë
+					}
 					else if(do_cnt == do_01 && status == PIDparam3_finish)
 					{
 						 do_cnt = do_ScanCode;
@@ -158,40 +177,39 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 					else if(do_cnt == finish_Scancode && status == PIDparam3_finish )
 					{
 						task=RunToRawMaterial_1_Pick;
-						do_cnt = 0; //É¨ÂëÈÎÎñ½áÊø
+						do_cnt = 0; // 
 					}
 			}break;
 
-			case RunToRawMaterial_1_Pick:{//×ßµ½ Ô­ÁÏÇø£¬ ÄÃÆðÎïÁÏ £¬È»ºó×ªÍä×ßÈëÏÂÒ»¸öÖ±µÀ
+			case RunToRawMaterial_1_Pick:{// x=1415
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
-						RxDataClear('A');
-						CAR_RUN(Correct_GO  , runSpeed,570, runSpeed,570,	 0);//ÏÖÔÚ -250
+						CAR_RUN(Correct_GO  , runSpeed,590, runSpeed,590,	 0);// 
 						do_cnt=do_01;
-					}//½ÓÏÂÀ´ ¼ñÆðÎïÁÏ
+					}// 
 					else if (do_cnt == do_01  &&  status == PIDparam3_finish)
 					{
 						do_cnt=do_Arm;
 					}
 					else if (do_cnt == finish_Arm && status == PIDparam3_finish){ 
-						CAR_RUN(Correct_GO  , runSpeed,375, runSpeed,375,	 0);//--------------------
+						CAR_RUN(Correct_GO  , runSpeed,325, runSpeed,325,	 0);//--------------------
 						do_cnt = do_02;
 					}	
-					else if ( (do_cnt == do_02)   && ( status == PIDparam3_finish || RxData.turn == turnDo)   ){//RxData.turn Ö±ÐÐÍêÁË »òÕßÓÐ×ªÍä±êÖ¾ Ö±½Ó×ªÍä
-						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
+					else if ( (do_cnt == do_02)   && ( status == PIDparam3_finish || RxData.turn == turnDo)   ){//RxData.turn  
+						CAR_RUN(Zero_GO,40.11, 12.0,				runSpeed,475.0,					 0);
 						do_cnt=do_03;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{ 
-						RxDataClear('A');
+						
 						task=RunToRoughArea_1;
-						do_cnt = 0; //Ô­ÁÏÇø£¬¼ñÆðÎïÁÏÈÎÎñ½áÊø
+						do_cnt = 0; // 
 					}	
 			}break;
-
+ 
 	/******************************************************************************************/
-			case RunToRoughArea_1:{//ÅÜµ½´Ö¼Ó¹¤Óò ·ÅÖÃ£¬×¥È¡£¬×ªÍä½øÈëÏÂÒ»¸öÖ±µÀ
+			case RunToRoughArea_1:{ //y=1215
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
-						RxDataClear('A');
+						
 						CAR_RUN(Correct_GO  , runSpeed,780, runSpeed,780,	 0);
 						do_cnt=do_01;
 					}
@@ -200,24 +218,24 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						do_cnt=do_Arm;
 					}
 					else if (do_cnt == finish_Arm && status == PIDparam3_finish){ 
-						CAR_RUN(Correct_GO  , runSpeed,410, runSpeed,410,	 0);//--------------------
+						CAR_RUN(Correct_GO  , runSpeed,435, runSpeed,435,	 0);//--------------------
 						do_cnt=do_02;
 					}	
-					else if (do_cnt == do_02  && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn Ö±ÐÐÍêÁË »òÕßÓÐ×ªÍä±êÖ¾ Ö±½Ó×ªÍä
-						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
+					else if (do_cnt == do_02  && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn  
+						CAR_RUN(Zero_GO,40.11, 12.0,				runSpeed,475.0,					 0);
 						do_cnt = do_03;
 					}
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{
-						RxDataClear('A');
+						
 						task = RunToFineArea_1;
-						do_cnt = 0; //´Ö¼Ó¹¤ ½áÊø
+						do_cnt = 0; //   
 					}
 			}break;
 
-			case RunToFineArea_1:{//ÅÜµ½¾«¼Ó¹¤Óò ·ÅÖÃ£¬×ªÍä½øÈëÏÂÒ»¸öÖ±µÀ
+			case RunToFineArea_1:{// x= 1410
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
-						RxDataClear('A');
+						
 						CAR_RUN(Correct_GO  , runSpeed,660, runSpeed,660,	 0);
 						do_cnt=do_01;
 					}//reach
@@ -228,70 +246,70 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						CAR_RUN(Correct_GO  , runSpeed,750, runSpeed,750,	 0);
 						do_cnt = do_02;
 					}	
-					else if ( do_cnt == do_02 && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn Ö±ÐÐÍêÁË »òÕßÓÐ×ªÍä±êÖ¾ Ö±½Ó×ªÍä
-						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
+					else if ( do_cnt == do_02 && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn  
+						CAR_RUN(Zero_GO,40.11, 12.0,				runSpeed,475.0,					 0);
 						++do_cnt;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{
-						RxDataClear('A');
+						
 						task = RunToCircle2_Start;
-						do_cnt = 0; //¼ñÆðÎïÁÏÈÎÎñ½áÊø
+						do_cnt = 0; // 
 					}
 			}break;
 
-			case RunToCircle2_Start:{ //»Øµ½µÚ¶þÈ¦ÆðÊ¼µã
+			case RunToCircle2_Start:{ // y=1215
 				if (do_cnt == do_00 && status == PIDparam3_finish){ 
-					RxDataClear('A');
+					
 					CAR_RUN(Correct_GO  , runSpeed,310, runSpeed,310,	 0);
 					do_cnt = do_01;
 				}//reach turn 
-				else if (do_cnt == do_01 &&   status == PIDparam3_finish   ){//RxData.turn Ö±ÐÐÍêÁË »òÕßÓÐ×ªÍä±êÖ¾ Ö±½Ó×ªÍä
-					CAR_RUN(Correct_GO  , runSpeed,925, runSpeed,925,	 0);
+				else if (do_cnt == do_01 &&   status == PIDparam3_finish   ){//RxData.turn  
+					CAR_RUN(Correct_GO  , runSpeed,905, runSpeed,905,	 0);
 					++do_cnt;
 				}//reach start 
 				else if (do_cnt == do_02 && ( RxData.turn == turnDo ||  status == PIDparam3_finish) )
 				{
-					CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
+					CAR_RUN(Zero_GO,40.11, 12.0,				runSpeed,475.0,					 0);
 					++do_cnt;
 				}
 				else if(do_cnt == do_03 && status == PIDparam3_finish)
 				{
-					RxDataClear('A');
+					
 					task = RunToRawMaterial_2_Pick;
 					do_cnt = 0;  
 				}
 			}break;
 			
-			case RunToRawMaterial_2_Pick:{//µÚ¶þÈ¦£¬Ô­ÁÏÇø£¬×¥È¡×°ÔØÎïÁÏ£¬×°³µ£¬×ªÍä½øÈëÏÂÒ»¸öÖ±µÀ
+			case RunToRawMaterial_2_Pick:{// x=1410
 					if (do_cnt == do_00 && status == PIDparam3_finish ){
-						RxDataClear('A');
+						
 						CAR_RUN(Correct_GO  , CorrectSpeed,1170, CorrectSpeed,1170,	 0);
 						do_cnt = do_01;
-					}//reach É¨Âëµã¸½½ü
+					}//reach  
 					else if (do_cnt == do_01  &&  status == PIDparam3_finish)
 					{
 						do_cnt=do_Arm;
 					}
 					else if (do_cnt == finish_Arm && status == PIDparam3_finish){ 
-						CAR_RUN(Correct_GO  , runSpeed,260, runSpeed,260,	 0);//--------------------
+						CAR_RUN(Correct_GO  , runSpeed,240, runSpeed,240,	 0);//--------------------
 						do_cnt=do_02;
 					}	
-					else if ( (do_cnt == do_02)   && ( status == PIDparam3_finish || RxData.turn == turnDo)   ){//RxData.turn Ö±ÐÐÍêÁË »òÕßÓÐ×ªÍä±êÖ¾ Ö±½Ó×ªÍä
-						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
+					else if ( (do_cnt == do_02)   && ( status == PIDparam3_finish || RxData.turn == turnDo)   ){//RxData.turn      
+						CAR_RUN(Zero_GO,40.11, 12.0,				runSpeed,475.0,					 0);
 						++do_cnt;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{ 
-						RxDataClear('A');
+						
 						task=RunToRoughArea_2;
-						do_cnt = 0; //Ô­ÁÏÇø£¬¼ñÆðÎïÁÏÈÎÎñ½áÊø
+						do_cnt = 0; // 
 					}	
 			}break;
 
-			case RunToRoughArea_2:{//µÚ¶þÈ¦ ÅÜµ½´Ö¼Ó¹¤Óò ·ÅÖÃ£¬×¥È¡£¬×ªÍä½øÈëÏÂÒ»¸öÖ±µÀ
+			case RunToRoughArea_2:{//   y=1215
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
-						RxDataClear('A');
+						
 						CAR_RUN(Correct_GO  , runSpeed,700, runSpeed,700,	 0);
 						do_cnt=do_01;
 					}
@@ -300,46 +318,47 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						do_cnt=do_Arm;
 					}
 					else if (do_cnt == finish_Arm && status == PIDparam3_finish){ 
-						CAR_RUN(Correct_GO  , runSpeed,525, runSpeed,525,	 0);//--------------------
+						CAR_RUN(Correct_GO  , runSpeed,515, runSpeed,515,	 0);//--------------------
 						do_cnt=do_02;
 					}	
-					else if (do_cnt == do_02  && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn Ö±ÐÐÍêÁË »òÕßÓÐ×ªÍä±êÖ¾ Ö±½Ó×ªÍä
-						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
+					else if (do_cnt == do_02  && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn      
+						CAR_RUN(Zero_GO,40.11, 12.0,				runSpeed,475.0,					 0);
 						do_cnt=do_03;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{
 						task = RunToFineArea_2;
-						do_cnt = 0; //´Ö¼Ó¹¤ ½áÊø
+						do_cnt = 0; //   
 					}
 			}break;
 
-			case RunToFineArea_2:{//ÅÜµ½¾«¼Ó¹¤Óò ·ÅÖÃ£¬×ªÍä½øÈëÏÂÒ»¸öÖ±µÀ
+			case RunToFineArea_2:{//   x= 1410
+ 
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
-						RxDataClear('A');
-						CAR_RUN(Correct_GO  , runSpeed,565, runSpeed,565,	 0);
+						
+						CAR_RUN(Correct_GO  , runSpeed,660, runSpeed,660,	 0);
 						do_cnt=do_01;
 					}//reach
 					else if (do_cnt == do_01 && status == PIDparam3_finish){ 
 						do_cnt = do_Arm;
 					}
 					else if (do_cnt == finish_Arm && status == PIDparam3_finish){ 
-						CAR_RUN(Correct_GO  , runSpeed,875, runSpeed,875,	 0);
+						CAR_RUN(Correct_GO  , runSpeed,765, runSpeed,765,	 0);
 						do_cnt = do_02;
 					}	
-					else if ( do_cnt == do_02 && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn Ö±ÐÐÍêÁË »òÕßÓÐ×ªÍä±êÖ¾ Ö±½Ó×ªÍä
-						CAR_RUN(Zero_GO,runSpeed/2, 12.0,				runSpeed,478.6,					 0);
+					else if ( do_cnt == do_02 && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn      
+						CAR_RUN(Zero_GO,40.11, 12.0,				runSpeed,475.0,					 0);
 						++do_cnt;
 					}	
 					else if(do_cnt == do_03 && status == PIDparam3_finish)
 					{
-						RxDataClear('A');
+						
 						task = RunToRest;
-						do_cnt = 0; //¼ñÆðÎïÁÏÈÎÎñ½áÊø
+						do_cnt = 0; // 
 					}
 			}break;
 
-			case RunToRest:{//×ßµ½×îºóÍ£³µµã
+			case RunToRest:{// y =1215 + 
 					if (do_cnt == do_00 && status == PIDparam3_finish){ 
 						CAR_RUN(Correct_GO  , runSpeed,300, runSpeed,300,	 0);
 						++do_cnt;
@@ -348,22 +367,22 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 						CAR_RUN(Correct_GO  , runSpeed,890, runSpeed,890,	 0);
 						++do_cnt;
 					}
-					else if (do_cnt == do_02 && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn Ö±ÐÐÍêÁË »òÕßÓÐ×ªÍä±êÖ¾ Ö±½Ó×ªÍä
-						CAR_RUN(Zero_GO,LowSpeed,260,              LowSpeed*0.3,260*0.3,  0);
+					else if (do_cnt == do_02 && ( status == PIDparam3_finish  || RxData.turn == turnDo)  ){//RxData.turn 
+						CAR_RUN(Zero_GO,LowSpeed,275,              LowSpeed*0.3,275*0.3,  0);
 						++do_cnt;
 					}								
 					else if (do_cnt == do_03 && (status == PIDparam3_finish)){
-						CAR_RUN(Zero_GO,LowSpeed*0.3,260*0.3,	    LowSpeed,260,			0);
+						CAR_RUN(Zero_GO,LowSpeed*0.3,275*0.3,	    LowSpeed,275,			0);
 						++do_cnt;
 					}			
 					else if (do_cnt == do_04 && (status == PIDparam3_finish)){
-						CAR_RUN(Zero_GO,LowSpeed , 185,	    LowSpeed, 185,			0);
+						CAR_RUN(Zero_GO,LowSpeed , 165,	    LowSpeed, 165,			0);
 						++do_cnt;
 					}	
 					else if(do_cnt == do_05 && status == PIDparam3_finish)
 					{
 						task = Stop;
-						do_cnt = 0; //¼ñÆðÎïÁÏÈÎÎñ½áÊø
+						do_cnt = 0; //
 					}
 			}break;
 			
@@ -376,16 +395,67 @@ void Top_Action_Select_CallBack_TIM7(TIM_HandleTypeDef *htim)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	static int cnt_TIM10=0;
 
 	Top_PID_Control_CallBack_TIM6( htim);//20ms
 	Top_Action_Select_CallBack_TIM7( htim); //20ms
 
 	if(htim->Instance == TIM10)
 	{
-
+		TimeCntFlag = 0;
+    	++TimeCnt100ms ;
+		if (TimeCnt100ms > cntMax)
+		{
+			HAL_TIM_Base_Stop_IT(&htim10);
+			 __HAL_TIM_SET_COUNTER(&htim10,0);
+			 TimeCntFlag = 1;
+			 TimeCnt100ms = 0;
+		}
 	}
 }
 
+int TimeCntFlag ;
+int TimeCnt100ms ;
+int cntMax;
+/**
+ * @brief è®¾å®šè®¡æ•°ç§’æ•°ï¼Œåˆ°è¾¾æŒ‡å®šç§’æ•°ï¼› ReadTimeFlag()è¿”å›ž1
+ * 
+ * @param s ç§’æ•°
+ */
+void StartTimeCnt(int s)
+{
+    TIM10->CNT = 0;
+    TimeCntFlag = 0;
+    TimeCnt100ms = 0;
+	cntMax = s*10;
+    __HAL_TIM_SET_COUNTER(&htim10,0);
+    HAL_TIM_Base_Start_IT(&htim10);
+}
+
+char ReadTimeFlag()
+{
+    if (TimeCntFlag == 1)
+    {
+		HAL_TIM_Base_Stop_IT(&htim10);
+        TIM10->CNT = 0;
+        TimeCntFlag = 0;
+        TimeCnt100ms = 0;
+        __HAL_TIM_SET_COUNTER(&htim10,0);
+		
+        return 1;
+    }
+    else 
+    {
+        return 0;      
+    }
+}
+
+void ClearTimeFlag()
+{
+		HAL_TIM_Base_Stop_IT(&htim10);
+        TIM10->CNT = 0;
+        TimeCntFlag = 0;
+        TimeCnt100ms = 0;
+        __HAL_TIM_SET_COUNTER(&htim10,0);
+}
 
 

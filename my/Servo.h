@@ -17,6 +17,12 @@ typedef enum
 #define OpenSide    1
 #define OpenPan     3
 
+#define ServoType 2
+#if( ServoType == 1)
+    #define TurnPan 1100
+#else if( ServoType == 2)
+    #define TurnPan 1100
+#endif
 void ServoClaw(int open_cmd);
 void ServoTurn(int angle);
 void Servo_Init();

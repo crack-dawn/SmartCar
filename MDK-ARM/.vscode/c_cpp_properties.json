@@ -3,11 +3,22 @@
         {
             "name": "STM32F407ZGT6",
             "includePath": [
+                "j:\\temporary_cache_files\\STM32F407ZGT6\\Core\\Inc",
+                "j:\\temporary_cache_files\\STM32F407ZGT6\\Drivers\\STM32F4xx_HAL_Driver\\Inc",
+                "j:\\temporary_cache_files\\STM32F407ZGT6\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy",
+                "j:\\temporary_cache_files\\STM32F407ZGT6\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include",
+                "j:\\temporary_cache_files\\STM32F407ZGT6\\Drivers\\CMSIS\\Include",
+                "j:\\temporary_cache_files\\STM32F407ZGT6\\my",
                 "D:\\Daily Application\\MDK_keil5\\core_keil5\\ARM\\ARMCC\\include",
                 "D:\\Daily Application\\MDK_keil5\\core_keil5\\ARM\\ARMCC\\include\\rw",
-                "j:\\temporary_cache_files\\STM32F407ZGT6"
+                "j:\\temporary_cache_files\\STM32F407ZGT6\\MDK-ARM",
+                "j:\\temporary_cache_files\\STM32F407ZGT6\\Core\\Src",
+                "j:\\temporary_cache_files\\STM32F407ZGT6\\Drivers\\STM32F4xx_HAL_Driver\\Src"
             ],
             "defines": [
+                "USE_HAL_DRIVER",
+                "STM32F407xx",
+                "STM32_THREAD_SAFE_STRATEGY=2",
                 "__CC_ARM",
                 "__arm__",
                 "__align(x)=",

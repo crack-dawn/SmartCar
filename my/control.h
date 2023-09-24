@@ -32,13 +32,18 @@ extern int rpm;   //速度   5~15~35~45左右完全可以
 extern float num; //编码数  9000
 
 
+
+
+extern int TimeCntFlag ;
+extern int TimeCnt100ms ;
+extern int cntMax;
+
+void StartTimeCnt(int s);
+char ReadTimeFlag();
+void ClearTimeFlag();
+
+
 #endif
-
-
-
-
-
-
 
 
 // extern int Target_Velocity,Reality_Velocity;   /* 目标速度，实际速度 */

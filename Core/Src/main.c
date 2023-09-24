@@ -87,7 +87,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-	HAL_Delay(50); // avoid too quick init process that the MCU can't run normally
+	
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -110,75 +110,47 @@ int main(void)
   MX_TIM12_Init();
   MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
-
-
-  /*-- 外设初始化开�?????========================================== --*/
-    LED1_OFF;
-    LED0_OFF;
-
-    
-
+  HAL_TIM_Base_Stop_IT(&htim10);
+  /*============                ============= --*/
+ 
     Servo_Init();  
     Correspond_Init(); 
- 
-    // while(1)
-    // {
-      // UART_LCD_UpdataDisplay(&huart5);
-      // HAL_UART_Transmit(&huart1,"11\r\n",3,20);
-      // HAL_UART_Transmit(&huart2,"22\r\n",3,20);
-      // HAL_UART_Transmit(&huart3,"33\r\n",3,20);
-      // HAL_UART_Transmit(&huart4,"44\r\n",3,20);
-      // HAL_UART_Transmit(&huart5,"55\r\n",3,20);
-    //   HAL_Delay(300);
-    // }
+    Car_Drive_Init();      
+
     StepMotor_Init( );  
-    Car_Drive_Init();       task = Stop;     do_cnt = 0;
+    HAL_Delay(500);
+    StepArm_Task_InitPosition();  
 
- 
+    HAL_Delay(800); // avoid too quick init process that the MCU can't run normally
 
-    StepArm_Task_InitPosition(); 
-    
- 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  ScanCode();
 
-  HAL_Delay(2500);
-  task = BackOut_1;
-  do_cnt = do_00;
-  
-/*------------------------------------*/
+  SendCmdA;
+  // task = Stop;     do_cnt = 0;//
+
+  task = BackOut_1;     do_cnt = 0;// ???? ??
+  SendCmdA;
  
- 
-/*--------------*/
-  ClearRxData;
-  StepMotorTask = 0;
-
-
-  SendCmdA;  
-  
+  // StepMotorTask = 1;
 
   while (1)
   {
-    // CAR_RUN(Zero_GO,2,10,2,10,1);
-    // StepArm_TaskTest(Base);  
-    if(StepMotorTask) /* debug for Arm */
-    { 
-      
-      StepMotorTask=0;
-    }
+    //  printf("tar:|%d |%d|\r\n",TIM4 -> CNT,TIM3 -> CNT ) ;
  
     Other_Actions(); 
-   
-    // LED1_OFF; 
-    // HAL_Delay(150);
-    //  LED1_ON;
-    // HAL_Delay(150);
-   
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+      // if(StepMotorTask) /* debug for Arm */
+      // { 
+      //   StepArm_TaskTest(Base);
+      //   StepMotorTask=0;
+      // }
   }
   /* USER CODE END 3 */
 }

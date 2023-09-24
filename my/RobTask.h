@@ -26,7 +26,7 @@ void Load(int number) ;
 
 
 void StepArm_TaskTest(int Task_num);        //测试函数
- 
+void Load(int number);         //从初始位置的小臂90放物块
 void Pick_Floor(int numbr_P);             //从车上抓取物块
 
 void StepArm_Task_InitPosition();     //初始化位置
@@ -35,8 +35,9 @@ void StepArm_Task_ScanCode(); //扫码时调整机械臂方便扫码
 
 void StepArm_Task_Pan(unsigned char* arr1) ;   //原料区
 void StepArm_Task_Jiagon(unsigned char* arr2); //粗加工区
-
 void StepArm_Task_Over(unsigned char* arr3);//细加工区
 
+void StepArm_Task_OverClay(unsigned char* arr4);   //最后码垛
+void StepArm_Task_OverPlace(unsigned char* arr5);    //最后放在上层
 
 #endif

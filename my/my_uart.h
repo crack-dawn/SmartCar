@@ -14,7 +14,7 @@ typedef struct uart_data__rx
     /*扫码需要*/  //  扫码信息 123+321 之类的
     char  code[32];
     unsigned char codeFlag;
-    char  mode;
+    
     unsigned char Task1[3]; //第一圈任务编号顺序
     unsigned char Task2[3]; //第二圈任务编号顺序
 
@@ -22,6 +22,10 @@ typedef struct uart_data__rx
     float distance;  
     float angle;
     char  turn;   
+
+
+    char  mode;
+
 
     /*物块识别需要*/  //直接用序号 取用数据 1红 2绿 3蓝
     char uart2DataBuffer[64];
@@ -39,8 +43,10 @@ typedef struct uart_data__rx
 
 
     /*色环识别需要*/
-    float C_dis[4];
-    float C_ang[4];
+    float C_dis[4]; //圆柱坐标系
+    float C_ang[4]; 
+    float Cy[4];    //直角坐标系
+    float Cx[4];
     char  C_col[4];  
     
 }UartDataMCU_RX;

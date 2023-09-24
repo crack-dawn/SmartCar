@@ -1,6 +1,32 @@
 #include "my_uart.h"
 #include  "string.h"
 #include  "PID.h"
+#include  <math.h>
+// void posToAngle(float x, float y, float* angle, float* distance) {
+//     *distance = sqrt(x*x + y*y);
+// 	if (*distance < 90)
+// 	{
+// 		*angle = 90;  // 弧度转换为角度
+// 	}
+// 	else
+// 	{
+// 		*angle = atan2(y, x) * 180 / 3.1416;  // 弧度转换为角度
+// 	}
+// }
+
+void CalAngleDis( UartDataMCU_RX* Rx, char i) {
+    Rx->C_dis[i] = sqrt( Rx->Cx[i]*Rx->Cx[i] + Rx->Cy[i]*Rx->Cy[i]);
+	if (Rx->C_dis[i] < 30)
+	{
+		Rx->C_ang[i] = 90;  // 弧度转换为角度
+	}
+	else
+	{
+		Rx->C_ang[i] = atan2(Rx->Cy[i], Rx->Cx[i]) * 180 / 3.1416;  // 弧度转换为角度
+	}
+}
+
+ 
 
 /*********************************************************
     // PA9     ------> USART1_TX 紫色
@@ -198,20 +224,33 @@ void  my_USART2_GetBuffer(char Rx, char *Data_Get)//uart2 receive data
 
 			else if (Data_Get[1] == 'C')//色环
 			{
-				switch (Data_Get[uart2_RxBuffLen-3])
-				{
-					case '1':sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.C_dis[1] , &RxData.C_ang[1],   &RxData.C_col[1]);	
-						break;
 
-					case '2':sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.C_dis[2] , &RxData.C_ang[2],   &RxData.C_col[2]);	
-						break;
+				number = Data_Get[uart2_RxBuffLen-3] - '0';
+				sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.C_dis[number] , &RxData.C_ang[number],   &RxData.C_col[number]);// 直接接收角度距离
+				// sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.Cx[number] , &RxData.Cy[number],   &RxData.C_col[number]);// 或者是 直接接受xy坐标
 
-					case '3':sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.C_dis[3] , &RxData.C_ang[3],   &RxData.C_col[3]);	
-						break;
+				// CalAngleDis(&RxData, number);
 
-					default:
-						break;
-				}
+				// switch (Data_Get[uart2_RxBuffLen-3])
+				// {
+				// 	case '1':
+				// 			// sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.C_dis[1] , &RxData.C_ang[1],   &RxData.C_col[1]);	
+				// 			 sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.Cx[1] , &RxData.Cy[1],   &RxData.C_col[1]);	
+				// 		break;
+
+				// 	case '2':
+				// 			// sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.C_dis[2] , &RxData.C_ang[2],   &RxData.C_col[2]);	
+				// 			 sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.Cx[2] , &RxData.Cy[2],   &RxData.C_col[2]);	
+				// 		break;
+
+				// 	case '3':
+				// 			// sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.C_dis[3] , &RxData.C_ang[3],   &RxData.C_col[3]);	
+				// 			 sscanf(Data_Get, "#C,%f,%f,%c,$", &RxData.Cx[3] , &RxData.Cy[3],   &RxData.C_col[3]);	
+				// 		break;
+
+				// 	default:
+				// 		break;
+				// }
 			}
 			 
 		}
@@ -283,18 +322,7 @@ void  my_USART3_GetBuffer(char Rx,unsigned char *Data_Get)//uart3 scan code
 			RxData.Task2[0] = RxData.code[4]-'0';
 			RxData.Task2[1] = RxData.code[5]-'0';
 			RxData.Task2[2] = RxData.code[6]-'0';
-
-
-			RxData.Task1[0] = RxData.code[0]-'0';
-			RxData.Task1[1] = RxData.code[1]-'0';
-			RxData.Task1[2] = RxData.code[2]-'0';
 			
-			RxData.Task2[0] = RxData.code[4]-'0';
-			RxData.Task2[1] = RxData.code[5]-'0';
-			RxData.Task2[2] = RxData.code[6]-'0';
-			
-			RxData.codeFlag = codeOK;
-			RxData.codeFlag = codeOK;
 			RxData.codeFlag = codeOK;
 		}
 	}
@@ -305,8 +333,7 @@ void UART_LCD_UpdataDisplay(UART_HandleTypeDef* huart)
 {
 	static char senddata[64]={0};
 	sprintf(senddata, "#Z,%s,%5.2f,%d,%d$",RxData.code, RxData.angle, task,do_cnt);
-
-	// printf("ok\r\n", senddata);
+ 
 	if (HAL_DMA_GetState(huart->hdmatx) == HAL_DMA_STATE_READY)
 	{
 		HAL_UART_Transmit_DMA(huart, senddata, strlen(senddata));

@@ -263,12 +263,17 @@
         },
         "options": "null"
       },
-      "uploader": "OpenOCD",
+      "uploader": "STLink",
       "uploadConfig": {
         "bin": "",
-        "target": "stm32f4x",
-        "interface": "stlink-v2",
-        "baseAddr": "0x08000000"
+        "proType": "SWD",
+        "resetMode": "default",
+        "runAfterProgram": true,
+        "speed": 4000,
+        "address": "0x08000000",
+        "elFile": "None",
+        "optionBytes": ".eide/stm32f407zgt6.st.option.bytes.ini",
+        "otherCmds": ""
       },
       "uploadConfigMap": {
         "JLink": {
@@ -295,8 +300,8 @@
         },
         "OpenOCD": {
           "bin": "",
-          "target": "stm32f1x",
-          "interface": "stlink",
+          "target": "stm32f4x",
+          "interface": "stlink-v2",
           "baseAddr": "0x08000000"
         }
       },

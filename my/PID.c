@@ -103,7 +103,7 @@ void Top_PID_Control_CallBack_TIM6(TIM_HandleTypeDef *htim)
 
 		if(pid_angle.param5 == PIDparam5_Angle_Control && pid_location.target_val ==pid_location2.target_val  )
 		{  
-			if ((Abs(pid_location2.err) < Err_disance*5 )|| Abs(pid_location.err) < Err_disance*5 )
+			if ((Abs(pid_location2.err) < Err_disance+Err_disance ))//|| Abs(pid_location.err) < Err_disance+Err_disance )
 			{
 				pid_speed.out = pid_speed2.out; 
 			}
@@ -126,23 +126,23 @@ float Angle_adjust(float angle)
 	float AbsAngle = Abs(angle)*100;
 	if ( AbsAngle > 35 && AbsAngle < 80 )
 	{
-		return Limit(angle+angle+angle+angle,3.5);
+		return Limit(angle+angle+angle+angle+angle,4);
 	}
 	else if ( AbsAngle > 80 && AbsAngle < 120 )
 	{
-		return Limit(angle+angle+angle+angle, 4.8);
+		return Limit(angle+angle+angle+angle+angle, 6);
 	}
 	else if ( AbsAngle > 120 &&  AbsAngle < 180)
 	{
-		return Limit(angle+angle+angle+angle, 6.5);
+		return Limit(angle+angle+angle+angle, 7.5);
 	}
 	else if ( AbsAngle > 180 &&  AbsAngle < 240)
 	{
-		return Limit(angle+angle+angle+angle, 7.7);
+		return Limit(angle+angle+angle+angle, 8.5);
 	}
 	else if (  AbsAngle >= 300)
 	{
-		return Limit(angle+angle ,8.8);
+		return Limit(angle+angle+angle+angle ,11);
 	}
 	else
 	{
@@ -185,8 +185,8 @@ void PID_Calculate_Updata(_pid *pid_L, _pid *pid_V, _pid *pid_A)
 		{
 			pid_V->target_val -= adjust;			
 		}
-		DebugA;
-		printf("debug :%f\r\n", adjust);
+		// DebugA;
+ 
 	}
 
 	/*????????????*/
@@ -209,18 +209,18 @@ void PID_Param_Updata(_pid *pid_L, _pid *pid_V)
 	{
 		case PIDparam5_Angle_Control:
 		case PIDparam5_Local_Control:
-			if (Abs(pid_L->err) < Err_disance) /* ??????????,¦Ë?????Err?????????pid???? */
+			if (Abs(pid_L->err) < Err_disance)  
 			{
 				pid_L->param4 += 1;
 				if (pid_L->param4 > PIDparam4_ready_master) // buffer time after action over
 				{
 					pid_L->param4 = 0;
 					pid_L->pre_target_val = pid_L->target_val; // updata previous location, storage it for run to next position
-					pid_L->param3 = PIDparam3_finish;		   // ???¦Æ???????? ???¦Ë????   ?????¦Ë??????????????§Ø???
+					pid_L->param3 = PIDparam3_finish;		   //  
 				}
-				if (Abs(pid_L->err) < _1mm_to_Encoder_)
+				if (Abs(pid_L->err) < _1mm_to_Encoder_+5)
 				{
-					pid_V->out = 0; // ?????????? 	ok
+					pid_V->out = 0;  
 				}
 				return;
 			}break;
@@ -253,7 +253,7 @@ unsigned char PID_JudgeStatus()
 			return PIDparam3_finish;
 		}
 		else if (pid_speed.pre_target_val ==pid_speed2.pre_target_val)
-		{ //??¦Ë???????  ??????¦Ë??  ????????????????????????????????
+		{  
 			if(pid_location2.param3 == PIDparam3_finish)
 				return PIDparam3_finish;
 		}

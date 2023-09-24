@@ -51,7 +51,7 @@ extern _pid pid_angle;
 #define PIDparam4_ready_low     35 // 20ms * 35 = 700ms | the buffer time for the car to be stable after a action
 #define PIDparam4_ready_middle  20
 #define PIDparam4_ready_quick   12 
-#define PIDparam4_ready_master  12
+#define PIDparam4_ready_master  8
 
  
 /*---------------------------------*/

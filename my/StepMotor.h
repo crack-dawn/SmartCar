@@ -200,7 +200,7 @@ static void Step4_Stop(void) { STEP4_STOP; };       static void Step4_Start(void
 /*===================================================*/
 
 float Calculate_DisHorizon();                             //计算水平距离
-void Angle_vertical(float set_H,float set_S);             //垂直下落
+void Angle_vertical(float set_H,float set_S,int mod);             //垂直下落
 void StepMotor_Set_AnglePulse(float Angle1_,float Angle2_,float Angle3_); //绝对角度   以初始位置为参考
 void StepArm_Task_ReInitPosition(int X, int Y, int Z);
 

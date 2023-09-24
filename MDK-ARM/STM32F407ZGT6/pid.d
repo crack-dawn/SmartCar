@@ -52,3 +52,4 @@ stm32f407zgt6\pid.o: ..\my\key.h
 stm32f407zgt6\pid.o: ..\my\StepMotor.h
 stm32f407zgt6\pid.o: D:\Daily Application\MDK_keil5\core_keil5\ARM\ARMCC\Bin\..\include\math.h
 stm32f407zgt6\pid.o: ..\my\Servo.h
+stm32f407zgt6\pid.o: ..\my\RobTask.h
